@@ -1,5 +1,3 @@
-# Home Page
-
 Wikig is a blog-influenced wiki.
 
 It's an attempt to give my content a home, in a form that allows

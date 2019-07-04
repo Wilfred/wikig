@@ -2,5 +2,5 @@
   "exec": "node server.js",
   "watch": ["*"],
   "ignore": ["node_modules/*"],
-  "ext": "js, html, css, json"
+  "ext": "js, html, css, json, md"
 }

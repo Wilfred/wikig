@@ -27,7 +27,10 @@ function renderMarkdown(src) {
 }
 
 router.get("/", (ctx, next) => {
-  ctx.body = indexTemplate({ content: renderMarkdown(homePageSrc) });
+  ctx.body = indexTemplate({
+    title: "HomePage",
+    content: renderMarkdown(homePageSrc)
+  });
 });
 
 app.use(router.routes()).use(router.allowedMethods());
