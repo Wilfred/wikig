@@ -4,6 +4,7 @@
   "description": "A blog-influenced wiki",
   "main": "index.js",
   "scripts": {
+    "watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,6 +20,7 @@
     "sqlite3": "^4.0.9"
   },
   "devDependencies": {
-    "eslint": "^6.0.1"
+    "eslint": "^6.0.1",
+    "nodemon": "^1.19.1"
   }
 }
