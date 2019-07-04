@@ -17,5 +17,8 @@
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "sqlite3": "^4.0.9"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1"
   }
 }
