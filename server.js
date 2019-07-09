@@ -57,7 +57,9 @@ function splitMatches(text, regexp) {
   return result;
 }
 
-const wikiWordsRegexp = /( |^)[A-Z][a-z]\w*?[A-Z](\w+)?/g;
+// WikiWords must start with a capital, include at least two capitals,
+// and must include at least one lower case letter inbetween.
+const wikiWordsRegexp = /( |^)[A-Z]\w*[a-z]\w*[A-Z]\w*/gm;
 
 function splitWikiWordLinks(node) {
   var parts = splitMatches(node.literal, wikiWordsRegexp);
@@ -90,7 +92,6 @@ function renderMarkdown(src) {
     }
   }
 
-  // transform parsed if you like...
   return writer.render(parsed);
 }
 
