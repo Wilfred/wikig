@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "commonmark": "^0.29.0",
+    "commonmark-wikiwords": "^1.1.0",
     "handlebars": "^4.1.2",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
