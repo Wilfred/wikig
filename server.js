@@ -7,7 +7,7 @@ const Handlebars = require("handlebars");
 const app = new Koa();
 const router = new Router();
 
-var fs = require("fs"),
+const fs = require("fs"),
   path = require("path"),
   filePath = path.join(__dirname, "concept.md"),
   indexTemplatePath = path.join(__dirname, "templates/index.html");
@@ -18,10 +18,10 @@ const indexTemplate = Handlebars.compile(
 );
 
 function renderMarkdown(src) {
-  var reader = new commonmark.Parser();
-  var writer = new commonmark.HtmlRenderer();
+  const reader = new commonmark.Parser();
+  const writer = new commonmark.HtmlRenderer();
   // parsed is a 'Node' tree
-  var parsed = reader.parse(src);
+  const parsed = reader.parse(src);
 
   return writer.render(wikiWordsTransform(parsed));
 }
