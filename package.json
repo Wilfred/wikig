@@ -4,7 +4,7 @@
   "description": "A blog-influenced wiki",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint . -f codeframe --fix",
+    "lint": "eslint . bin/* -f codeframe --fix",
     "watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
