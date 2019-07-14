@@ -1,21 +1,13 @@
 const commonmark = require("commonmark");
 const wikiWordsTransform = require("commonmark-wikiwords");
 const express = require("express");
-const Handlebars = require("handlebars");
+const exphbs = require("express-handlebars");
 const db = require("./db");
 
 const port = 3000;
 const app = express();
-
-const fs = require("fs"),
-  path = require("path"),
-  filePath = path.join(__dirname, "concept.md"),
-  indexTemplatePath = path.join(__dirname, "templates/index.html");
-
-const homePageSrc = fs.readFileSync(filePath, { encoding: "utf8" });
-const indexTemplate = Handlebars.compile(
-  fs.readFileSync(indexTemplatePath, { encoding: "utf8" })
-);
+app.engine(".html", exphbs({ extname: ".html" }));
+app.set("view engine", ".html");
 
 function renderMarkdown(src) {
   const reader = new commonmark.Parser();
@@ -30,16 +22,11 @@ app.get("/", (req, res) => res.redirect("/page/HomePage"));
 app.get("/page/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
-    console.log(err);
-    console.log(page);
-
     if (page) {
-      res.send(
-        indexTemplate({
-          title: name,
-          content: renderMarkdown(page.content)
-        })
-      );
+      return res.render("page", {
+        title: name,
+        content: renderMarkdown(page.content)
+      });
     }
     res.send("no such page: " + name);
   });
