@@ -9,6 +9,7 @@ module.exports = {
     "no-alert": "warn",
     "no-console": "warn",
     "no-debugger": "warn",
+    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "no-var": "error",
     "prefer-const": "error",
     semi: ["error", "always"]

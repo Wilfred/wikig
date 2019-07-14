@@ -27,7 +27,7 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
-router.get("/", (ctx, next) => {
+router.get("/", (ctx, _next) => {
   ctx.body = indexTemplate({
     title: "HomePage",
     content: renderMarkdown(homePageSrc)
