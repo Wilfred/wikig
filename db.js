@@ -42,15 +42,13 @@ function close() {
   db.close();
 }
 
-function get_page(name, callback) {
-  db.serialize(function() {
-    db.get("SELECT name, content FROM pages WHERE name = ?", [name], callback);
-  });
+function getPage(name, callback) {
+  db.get("SELECT name, content FROM pages WHERE name = ?", [name], callback);
 }
 
 module.exports = {
   init: init,
   needsInit: needsInit,
   close: close,
-  get_page: get_page
+  getPage: getPage
 };

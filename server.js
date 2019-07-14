@@ -1,12 +1,11 @@
 const commonmark = require("commonmark");
 const wikiWordsTransform = require("commonmark-wikiwords");
-const Koa = require("koa");
-const Router = require("koa-router");
+const express = require("express");
 const Handlebars = require("handlebars");
 const db = require("./db");
 
-const app = new Koa();
-const router = new Router();
+const port = 3000;
+const app = express();
 
 const fs = require("fs"),
   path = require("path"),
@@ -27,16 +26,25 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
-router.get("/", (ctx, _next) => {
-  ctx.body = indexTemplate({
-    title: "HomePage",
-    content: renderMarkdown(homePageSrc)
+app.get("/", (req, res) => res.redirect("/page/HomePage"));
+app.get("/page/:name", (req, res) => {
+  const name = req.params.name;
+  db.getPage(name, (err, page) => {
+    console.log(err);
+    console.log(page);
+
+    if (page) {
+      res.send(
+        indexTemplate({
+          title: name,
+          content: renderMarkdown(page.content)
+        })
+      );
+    }
+    res.send("no such page: " + name);
   });
 });
 
-app.use(router.routes()).use(router.allowedMethods());
-
 db.init(() => {
-  app.listen(3000);
-  console.log("Server listening on 3000");
+  app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 });

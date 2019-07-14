@@ -17,9 +17,8 @@
   "dependencies": {
     "commonmark": "^0.29.0",
     "commonmark-wikiwords": "^1.1.0",
+    "express": "^4.17.1",
     "handlebars": "^4.1.2",
-    "koa": "^2.7.0",
-    "koa-router": "^7.4.0",
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.0.9"
   },
