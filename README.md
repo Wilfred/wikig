@@ -13,7 +13,7 @@ $ npm run watch
 
 ```
 $ docker build . -t wikig
-$ docker run -e NODE_ENV=production --name wk -p 3000:3000 -t wikig
+$ docker run -e NODE_ENV=production -e DEBUG=wikig:* --name wk -p 3000:3000 -t wikig
 ```
 
 The [image is on Docker
