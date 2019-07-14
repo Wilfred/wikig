@@ -24,6 +24,7 @@ app.get("/page/:name", (req, res) => {
   db.getPage(name, (err, page) => {
     if (page) {
       return res.render("page", {
+        subtitle: "| " + name,
         title: name,
         content: renderMarkdown(page.content)
       });
