@@ -33,6 +33,20 @@ app.get("/page/:name", (req, res) => {
   });
 });
 
+app.get("/edit/:name", (req, res) => {
+  const name = req.params.name;
+  db.getPage(name, (err, page) => {
+    if (page) {
+      return res.render("edit", {
+        subtitle: "| " + name,
+        title: name,
+        content: page.content
+      });
+    }
+    res.send("no such page: " + name);
+  });
+});
+
 db.init(() => {
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 });
