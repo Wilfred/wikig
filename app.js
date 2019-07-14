@@ -4,7 +4,6 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const db = require("./db");
 
-const port = 3000;
 const app = express();
 app.engine(".html", exphbs({ extname: ".html" }));
 app.set("view engine", ".html");
@@ -47,6 +46,4 @@ app.get("/edit/:name", (req, res) => {
   });
 });
 
-db.init(() => {
-  app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-});
+module.exports = app;

@@ -1,6 +1,6 @@
 {
-  "exec": "node server.js",
+  "exec": "DEBUG=wikig:* ./bin/www",
   "watch": ["*"],
   "ignore": ["node_modules/*"],
-  "ext": "js, html, css, json, md"
+  "ext": "www, js, html, css, json, md"
 }
