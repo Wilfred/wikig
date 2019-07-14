@@ -15,6 +15,7 @@
   "author": "Wilfred Hughes",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "commonmark": "^0.29.0",
     "commonmark-wikiwords": "^1.1.0",
     "express": "^4.17.1",

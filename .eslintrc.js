@@ -7,7 +7,7 @@ module.exports = {
   rules: {
     "linebreak-style": ["error", "unix"],
     "no-alert": "warn",
-    "no-console": "warn",
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "no-debugger": "warn",
     "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "no-var": "error",

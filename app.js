@@ -2,13 +2,17 @@ const commonmark = require("commonmark");
 const wikiWordsTransform = require("commonmark-wikiwords");
 const express = require("express");
 const exphbs = require("express-handlebars");
+const bodyParser = require("body-parser");
 const path = require("path");
 
 const db = require("./db");
 
 const app = express();
+
 app.engine(".html", exphbs({ extname: ".html" }));
 app.set("view engine", ".html");
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 function renderMarkdown(src) {
   const reader = new commonmark.Parser();
@@ -50,6 +54,17 @@ app.get("/edit/:name", (req, res) => {
       });
     }
     res.send("no such page: " + name);
+  });
+});
+
+app.post("/edit/:name", urlencodedParser, (req, res) => {
+  // Prefer the POST parameter to the URL, so we can rename pages.
+  const name = req.body.title;
+  db.updatePage(name, req.body.content, (err, _page) => {
+    if (err) {
+      console.error(err);
+    }
+    res.redirect("/page/" + name);
   });
 });
 

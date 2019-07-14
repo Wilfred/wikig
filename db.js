@@ -38,17 +38,21 @@ function init(cb) {
   });
 }
 
-function close() {
-  db.close();
-}
-
 function getPage(name, callback) {
   db.get("SELECT name, content FROM pages WHERE name = ?", [name], callback);
+}
+
+function updatePage(name, content, callback) {
+  db.get(
+    "INSERT OR REPLACE INTO pages (name, content) VALUES(?, ?)",
+    [name, content],
+    callback
+  );
 }
 
 module.exports = {
   init: init,
   needsInit: needsInit,
-  close: close,
-  getPage: getPage
+  getPage: getPage,
+  updatePage: updatePage
 };
