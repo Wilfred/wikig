@@ -1,3 +1,4 @@
+const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const commonmark = require("commonmark");
@@ -18,31 +19,32 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
-router.get("/page/:name", (req, res) => {
+router.get("/page/:name", (req, res, next) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
-    if (page) {
-      return res.render("page", {
-        subtitle: "| " + name,
-        title: name,
-        content: renderMarkdown(page.content)
-      });
+    if (!page) {
+      return next(createError(404));
     }
-    res.send("no such page: " + name);
+    return res.render("page", {
+      subtitle: "| " + name,
+      title: name,
+      content: renderMarkdown(page.content)
+    });
   });
 });
 
-router.get("/edit/:name", (req, res) => {
+router.get("/edit/:name", (req, res, next) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
-    if (page) {
-      return res.render("edit", {
-        subtitle: "| " + name,
-        title: name,
-        content: page.content
-      });
+    if (!page) {
+      return next(createError(404));
     }
-    res.send("no such page: " + name);
+
+    return res.render("edit", {
+      subtitle: "| " + name,
+      title: name,
+      content: page.content
+    });
   });
 });
 
