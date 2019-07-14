@@ -20,6 +20,7 @@
     "commonmark-wikiwords": "^1.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "http-errors": "^1.7.3",
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.0.9"
   },
