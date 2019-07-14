@@ -2,6 +2,8 @@ const commonmark = require("commonmark");
 const wikiWordsTransform = require("commonmark-wikiwords");
 const express = require("express");
 const exphbs = require("express-handlebars");
+const path = require("path");
+
 const db = require("./db");
 
 const app = express();
@@ -16,6 +18,11 @@ function renderMarkdown(src) {
 
   return writer.render(wikiWordsTransform(parsed));
 }
+
+app.use(
+  "/static/semantic/",
+  express.static(path.join(__dirname, "node_modules", "semantic-ui-css"))
+);
 
 app.get("/", (req, res) => res.redirect("/page/HomePage"));
 app.get("/page/:name", (req, res) => {
