@@ -3,6 +3,7 @@ const wikiWordsTransform = require("commonmark-wikiwords");
 const Koa = require("koa");
 const Router = require("koa-router");
 const Handlebars = require("handlebars");
+const db = require("./db");
 
 const app = new Koa();
 const router = new Router();
@@ -35,5 +36,7 @@ router.get("/", (ctx, next) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3000);
-console.log("Server listening on 3000");
+db.init(() => {
+  app.listen(3000);
+  console.log("Server listening on 3000");
+});
