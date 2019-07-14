@@ -48,7 +48,13 @@ router.get("/edit/:name", (req, res, next) => {
   });
 });
 
-router.post("/edit/:name", urlencodedParser, (req, res) => {
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+
+router.post("/edit/:name", urlencodedParser, (req, res, next) => {
+  if (req.body.password !== ADMIN_PASSWORD) {
+    return next(createError(403));
+  }
+
   // Prefer the POST parameter to the URL, so we can rename pages.
   const name = req.body.title;
   db.updatePage(name, req.body.content, (err, _page) => {
