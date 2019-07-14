@@ -1,6 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();
+
 // This will create the file if it doesn't exist.
-const db = new sqlite3.Database("wikig.db");
+const db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 
 const fs = require("fs"),
   path = require("path");
