@@ -12,7 +12,13 @@ const homePageContent = fs.readFileSync(path.join(__dirname, "concept.md"), {
 
 function init(cb) {
   db.serialize(function() {
-    db.run("CREATE TABLE pages (name VARCHAR(1024), content TEXT NOT NULL)");
+    db.run(`
+CREATE TABLE pages (
+  name VARCHAR(1024),
+  content TEXT NOT NULL,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
     db.run("CREATE UNIQUE INDEX idx_name ON pages(name)");
 
     const stmt = db.prepare("INSERT INTO pages (name, content) VALUES (?, ?)");
