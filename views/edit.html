@@ -1,7 +1,15 @@
-<h1>Editing {{title}}</h1>
-
-<form>
-    <input type="text" placeholder="page name" name="name" value="{{title}}">
-    <textarea>{{content}}</textarea>
-    <button type="submit">Save</button>
-</form>
+<div class="ui fluid card">
+    <div class="content">
+        <form class="ui form">
+            <div class="field">
+                <label>Title</label>
+                <input type="text" name="first-name" placeholder="page title" value="{{title}}">
+            </div>
+            <div class="field">
+                <label>Content</label>
+                <textarea rows="20">{{content}}</textarea>
+            </div>
+            <button class="ui button" type="submit">Save</button>
+        </form>
+    </div>
+</div>
