@@ -10,32 +10,13 @@ const homePageContent = fs.readFileSync(path.join(__dirname, "concept.md"), {
   encoding: "utf8"
 });
 
-function needsInit(cb) {
-  db.get(
-    "select count(name) as count from sqlite_master where type='table'",
-    function(err, tables) {
-      cb(tables.count === 0);
-    }
-  );
-}
-
 function init(cb) {
-  needsInit(needed => {
-    db.serialize(function() {
-      if (needed) {
-        db.run(
-          "CREATE TABLE pages (name VARCHAR(1024), content TEXT NOT NULL)"
-        );
-        db.run("CREATE UNIQUE INDEX idx_name ON pages(name)");
+  db.serialize(function() {
+    db.run("CREATE TABLE pages (name VARCHAR(1024), content TEXT NOT NULL)");
+    db.run("CREATE UNIQUE INDEX idx_name ON pages(name)");
 
-        const stmt = db.prepare(
-          "INSERT INTO pages (name, content) VALUES (?, ?)"
-        );
-        stmt.run("HomePage", homePageContent, cb);
-      } else {
-        cb();
-      }
-    });
+    const stmt = db.prepare("INSERT INTO pages (name, content) VALUES (?, ?)");
+    stmt.run("HomePage", homePageContent, cb);
   });
 }
 
@@ -53,7 +34,6 @@ function updatePage(name, content, callback) {
 
 module.exports = {
   init: init,
-  needsInit: needsInit,
   getPage: getPage,
   updatePage: updatePage
 };
