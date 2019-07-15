@@ -28,6 +28,7 @@ router.get("/page/:name", (req, res) => {
     return res.render("page", {
       subtitle: "| " + name,
       title: name,
+      updated: page.updated,
       content: renderMarkdown(page.content)
     });
   });
