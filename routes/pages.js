@@ -19,11 +19,11 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
-router.get("/page/:name", (req, res, next) => {
+router.get("/page/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
     if (!page) {
-      return next(createError(404));
+      return res.redirect("/edit/" + name);
     }
     return res.render("page", {
       subtitle: "| " + name,
@@ -33,17 +33,13 @@ router.get("/page/:name", (req, res, next) => {
   });
 });
 
-router.get("/edit/:name", (req, res, next) => {
+router.get("/edit/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
-    if (!page) {
-      return next(createError(404));
-    }
-
     return res.render("edit", {
       subtitle: "| " + name,
       title: name,
-      content: page.content
+      content: page ? page.content : ""
     });
   });
 });
