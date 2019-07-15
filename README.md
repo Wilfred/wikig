@@ -20,7 +20,7 @@ $ docker volume create wikig_storage
 
 $ docker run -v wikig_storage:/ext -e DB_PATH=/ext/wikig.db wilfred/wikig /usr/src/app/bin/init-db
 
-$ docker run -e ADMIN_PASSWORD=secrethere -e DB_PATH=/ext/wikig.db -e DEBUG=wikig:* --name wk -p 3000:3000 -t -d wilfred/wikig
+$ docker run -e ADMIN_PASSWORD=secrethere -v wikig_storage:/ext -e DB_PATH=/ext/wikig.db -e DEBUG=wikig:* --name wk -p 3000:3000 -t -d wilfred/wikig
 ```
 
 The [image is on Docker
