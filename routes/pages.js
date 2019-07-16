@@ -5,6 +5,7 @@ const commonmark = require("commonmark");
 const wikiWordsTransform = require("commonmark-wikiwords");
 
 const db = require("../db");
+const SITE_NAME = require("../config").SITE_NAME;
 
 const router = express.Router();
 
@@ -25,11 +26,11 @@ router.get("/page/:name", (req, res) => {
     if (!page) {
       return res.redirect("/edit/" + name);
     }
+    page.rendered = renderMarkdown(page.content);
     return res.render("page", {
-      subtitle: "| " + name,
-      title: name,
-      updated: page.updated,
-      content: renderMarkdown(page.content)
+      SITE_NAME: SITE_NAME,
+      title: name + " | " + SITE_NAME,
+      page: page
     });
   });
 });
@@ -37,10 +38,14 @@ router.get("/page/:name", (req, res) => {
 router.get("/edit/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
+    if (!page) {
+      page = { name: name, content: "" };
+    }
+
     return res.render("edit", {
-      subtitle: "| " + name,
-      title: name,
-      content: page ? page.content : ""
+      SITE_NAME: SITE_NAME,
+      title: name + " | " + SITE_NAME,
+      page: page
     });
   });
 });
