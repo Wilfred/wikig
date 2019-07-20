@@ -25,9 +25,11 @@ function getPage(name, callback) {
 }
 
 function updatePage(name, content, callback) {
+  // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
-    "INSERT OR REPLACE INTO pages (name, content) VALUES(?, ?)",
-    [name, content],
+    `INSERT OR REPLACE INTO pages (name, content, created)
+     VALUES(?, ?, (SELECT created FROM pages WHERE name = ?))`,
+    [name, content, name],
     callback
   );
 }
