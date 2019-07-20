@@ -63,7 +63,7 @@ router.post("/edit/:name", urlencodedParser, (req, res, next) => {
     if (err) {
       console.error(err);
     }
-    res.redirect("/page/" + name);
+    res.redirect("/" + name);
   });
 });
 
