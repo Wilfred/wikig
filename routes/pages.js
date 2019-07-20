@@ -20,7 +20,7 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
-router.get("/page/:name", (req, res) => {
+router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
     if (!page) {
