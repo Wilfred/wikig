@@ -1,3 +1,4 @@
+const moment = require("moment");
 const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -20,6 +21,14 @@ function renderMarkdown(src) {
   return writer.render(wikiWordsTransform(parsed));
 }
 
+function formatTime(created, updated) {
+  if (created == updated) {
+    return created;
+  }
+  const updatedM = moment(updated);
+  return `Created ${created}, updated ${updatedM.fromNow()}.`;
+}
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
@@ -30,7 +39,8 @@ router.get("/:name", (req, res) => {
     return res.render("page", {
       SITE_NAME: SITE_NAME,
       title: name + " | " + SITE_NAME,
-      page: page
+      page: page,
+      timestamp: formatTime(page.created, page.updated)
     });
   });
 });
