@@ -1,9 +1,9 @@
 const moment = require("moment");
-const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
+const basicAuth = require("express-basic-auth");
 
 const db = require("../db");
 const SITE_NAME = require("../config").SITE_NAME;
@@ -49,6 +49,16 @@ router.get("/:name", (req, res) => {
   });
 });
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+
+router.use(
+  "/edit/:name",
+  basicAuth({
+    users: { admin: ADMIN_PASSWORD },
+    challenge: true
+  })
+);
+
 router.get("/edit/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
@@ -64,13 +74,7 @@ router.get("/edit/:name", (req, res) => {
   });
 });
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
-
-router.post("/edit/:name", urlencodedParser, (req, res, next) => {
-  if (req.body.password !== ADMIN_PASSWORD) {
-    return next(createError(403));
-  }
-
+router.post("/edit/:name", urlencodedParser, (req, res) => {
   // Prefer the POST parameter to the URL, so we can rename pages.
   const name = req.body.title;
   db.updatePage(name, req.body.content, (err, _page) => {

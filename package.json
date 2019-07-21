@@ -7,7 +7,7 @@
     "lint": "eslint . bin/* -f codeframe --fix",
     "watch": "nodemon",
     "start": "node ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "wiki",
@@ -22,14 +22,16 @@
     "commonmark-wikiwords": "^2.0.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
     "express-handlebars": "^3.1.0",
-    "http-errors": "^1.7.3",
     "moment": "^2.24.0",
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.0.9"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
-    "nodemon": "^1.19.1"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
