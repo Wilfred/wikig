@@ -9,8 +9,8 @@ function init(cb) {
 CREATE TABLE pages (
   name VARCHAR(1024),
   content TEXT NOT NULL,
-  created DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+  created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 )`);
     db.run("CREATE UNIQUE INDEX idx_name ON pages(name)", cb);
   });
