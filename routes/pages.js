@@ -21,12 +21,17 @@ function renderMarkdown(src) {
   return writer.render(wikiwords.transform(parsed));
 }
 
+function formatDate(dateString) {
+  // sqlite uses GMT for datetime values.
+  return moment.utc(dateString).format("Do MMMM YYYY");
+}
+
 function formatTime(created, updated) {
   if (created == updated) {
-    return created;
+    return formatDate(created);
   }
-  const updatedM = moment(updated);
-  return `Created ${created}, updated ${updatedM.fromNow()}.`;
+  const updatedM = moment.utc(updated);
+  return `Created ${formatDate(created)}, last updated ${updatedM.fromNow()}.`;
 }
 
 function noSuchPage(name, res) {
