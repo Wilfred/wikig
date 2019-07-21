@@ -3,7 +3,7 @@ const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const commonmark = require("commonmark");
-const wikiWordsTransform = require("commonmark-wikiwords");
+const wikiwords = require("commonmark-wikiwords");
 
 const db = require("../db");
 const SITE_NAME = require("../config").SITE_NAME;
@@ -18,7 +18,7 @@ function renderMarkdown(src) {
   // parsed is a 'Node' tree
   const parsed = reader.parse(src);
 
-  return writer.render(wikiWordsTransform(parsed));
+  return writer.render(wikiwords.transform(parsed));
 }
 
 function formatTime(created, updated) {
