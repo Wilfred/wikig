@@ -7,7 +7,8 @@
     "lint": "eslint . bin/* -f codeframe --fix",
     "watch": "nodemon",
     "start": "node ./bin/www",
-    "test": "jest"
+    "test": "jest",
+    "test-circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit --collectCoverage=true"
   },
   "keywords": [
     "wiki",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "eslint": "^6.0.1",
     "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2"
   }
