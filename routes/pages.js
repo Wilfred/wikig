@@ -29,11 +29,15 @@ function formatTime(created, updated) {
   return `Created ${created}, updated ${updatedM.fromNow()}.`;
 }
 
+function noSuchPage(name, res) {
+  return res.status(404).render("404", { name });
+}
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
     if (!page) {
-      return res.redirect("/edit/" + name);
+      return noSuchPage(name, res);
     }
     page.rendered = renderMarkdown(page.content);
     return res.render("page", {
