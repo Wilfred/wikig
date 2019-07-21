@@ -14,6 +14,7 @@
     "markdown"
   ],
   "author": "Wilfred Hughes",
+  "repository": "https://github.com/Wilfred/wikig",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
