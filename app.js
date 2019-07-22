@@ -16,6 +16,8 @@ app.use(
   express.static(path.join(__dirname, "node_modules", "semantic-ui-css"))
 );
 
+app.use("/static/", express.static(path.join(__dirname, "static")));
+
 app.use("/", indexRouter);
 app.use("/", pageRouter);
 
