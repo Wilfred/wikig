@@ -38,6 +38,34 @@ function noSuchPage(name, res) {
   return res.status(404).render("404", { name });
 }
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+
+router.use(
+  "/new",
+  basicAuth({
+    users: { admin: ADMIN_PASSWORD },
+    challenge: true
+  })
+);
+
+router.get("/new", (req, res) => {
+  return res.render("edit", {
+    SITE_NAME: SITE_NAME,
+    title: "New page | " + SITE_NAME,
+    subtitle: ""
+  });
+});
+
+router.post("/new", urlencodedParser, (req, res) => {
+  const name = req.body.title;
+  db.createPage(name, req.body.content, (err, _page) => {
+    if (err) {
+      console.error(err);
+    }
+    res.redirect("/" + name);
+  });
+});
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPage(name, (err, page) => {
@@ -54,8 +82,6 @@ router.get("/:name", (req, res) => {
     });
   });
 });
-
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
 router.use(
   "/edit/:name",

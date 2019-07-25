@@ -34,8 +34,18 @@ function updatePage(name, content, callback) {
   );
 }
 
+function createPage(name, content, callback) {
+  // Based on https://stackoverflow.com/a/4330694/509706
+  db.get(
+    `INSERT INTO pages (name, content) VALUES(?, ?)`,
+    [name, content],
+    callback
+  );
+}
+
 module.exports = {
   init: init,
   getPage: getPage,
+  createPage: createPage,
   updatePage: updatePage
 };
