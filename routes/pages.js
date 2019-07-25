@@ -57,7 +57,7 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", urlencodedParser, (req, res) => {
-  const name = req.body.title;
+  const name = req.body.name;
   db.createPage(name, req.body.content, (err, _page) => {
     if (err) {
       console.error(err);
@@ -109,7 +109,7 @@ router.get("/edit/:name", (req, res) => {
 
 router.post("/edit/:name", urlencodedParser, (req, res) => {
   // Prefer the POST parameter to the URL, so we can rename pages.
-  const name = req.body.title;
+  const name = req.body.name;
   db.updatePage(name, req.body.content, (err, _page) => {
     if (err) {
       console.error(err);
