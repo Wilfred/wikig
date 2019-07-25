@@ -48,6 +48,7 @@ router.get("/:name", (req, res) => {
     return res.render("page", {
       SITE_NAME: SITE_NAME,
       title: name + " | " + SITE_NAME,
+      subtitle: ": " + name,
       page: page,
       timestamp: formatTime(page.created, page.updated)
     });
@@ -74,6 +75,7 @@ router.get("/edit/:name", (req, res) => {
     return res.render("edit", {
       SITE_NAME: SITE_NAME,
       title: name + " | " + SITE_NAME,
+      subtitle: ": " + name,
       page: page
     });
   });
