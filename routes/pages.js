@@ -49,10 +49,12 @@ router.use(
 );
 
 router.get("/new", (req, res) => {
+  const page = { name: req.query.name };
   return res.render("edit", {
     SITE_NAME: SITE_NAME,
     title: "New page | " + SITE_NAME,
-    subtitle: ""
+    subtitle: "",
+    page: page
   });
 });
 
