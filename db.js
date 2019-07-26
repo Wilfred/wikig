@@ -16,20 +16,30 @@ CREATE TABLE pages (
   });
 }
 
-function getPage(name, callback) {
+function getPageByName(name, callback) {
   db.get(
-    "SELECT name, content, created, updated FROM pages WHERE name = ?",
+    `SELECT rowid, name, content, created, updated
+     FROM pages WHERE name = ?`,
     [name],
     callback
   );
 }
 
-function updatePage(name, content, callback) {
+function getPage(rowid, callback) {
+  db.get(
+    `SELECT rowid, name, content, created, updated
+     FROM pages WHERE rowid = ?`,
+    [rowid],
+    callback
+  );
+}
+
+function updatePage(rowid, name, content, callback) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
-    `INSERT OR REPLACE INTO pages (name, content, created)
-     VALUES(?, ?, (SELECT created FROM pages WHERE name = ?))`,
-    [name, content, name],
+    `UPDATE pages SET name = ?, content = ?
+     WHERE rowid = ?`,
+    [name, content, rowid],
     callback
   );
 }
@@ -46,6 +56,7 @@ function createPage(name, content, callback) {
 module.exports = {
   init: init,
   getPage: getPage,
+  getPageByName: getPageByName,
   createPage: createPage,
   updatePage: updatePage
 };

@@ -1,5 +1,6 @@
 const moment = require("moment");
 const express = require("express");
+const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
@@ -70,7 +71,7 @@ router.post("/new", urlencodedParser, (req, res) => {
 
 router.get("/:name", (req, res) => {
   const name = req.params.name;
-  db.getPage(name, (err, page) => {
+  db.getPageByName(name, (err, page) => {
     if (!page) {
       return noSuchPage(name, res);
     }
@@ -93,26 +94,24 @@ router.use(
   })
 );
 
-router.get("/edit/:name", (req, res) => {
-  const name = req.params.name;
-  db.getPage(name, (err, page) => {
+router.get("/edit/:id", (req, res, next) => {
+  db.getPage(req.params.id, (err, page) => {
     if (!page) {
-      page = { name: name, content: "" };
+      return next(createError(404));
     }
 
     return res.render("edit", {
       SITE_NAME: SITE_NAME,
-      title: name + " | " + SITE_NAME,
-      subtitle: ": " + name,
+      title: page.name + " | " + SITE_NAME,
+      subtitle: ": " + page.name,
       page: page
     });
   });
 });
 
-router.post("/edit/:name", urlencodedParser, (req, res) => {
-  // Prefer the POST parameter to the URL, so we can rename pages.
+router.post("/edit/:id", urlencodedParser, (req, res) => {
   const name = req.body.name;
-  db.updatePage(name, req.body.content, (err, _page) => {
+  db.updatePage(req.params.id, name, req.body.content, (err, _page) => {
     if (err) {
       console.error(err);
     }
