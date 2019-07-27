@@ -69,6 +69,19 @@ router.post("/new", urlencodedParser, (req, res) => {
   });
 });
 
+router.get("/all", (req, res) => {
+  db.allPages((err, pages) => {
+    if (err) {
+      console.error(err);
+    }
+    return res.render("all", {
+      SITE_NAME: SITE_NAME,
+      title: "All | " + SITE_NAME,
+      pages: pages
+    });
+  });
+});
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPageByName(name, (err, page) => {

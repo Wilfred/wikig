@@ -1,0 +1,20 @@
+<div class="ui fluid card">
+    <div class="content">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+            {{#each pages}}
+            <tr>
+                <td><a href="{{this.name}}">{{this.name}}</a></td>
+                <td><a href="/edit/{{this.rowid}}">Edit</a></td>
+            </tr>
+            {{/each}}
+        </table>
+
+        
+    </div>
+
+</div>
+

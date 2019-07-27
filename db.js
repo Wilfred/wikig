@@ -16,6 +16,10 @@ CREATE TABLE pages (
   });
 }
 
+function allPages(callback) {
+  db.all(`SELECT rowid, name FROM pages`, callback);
+}
+
 function getPageByName(name, callback) {
   db.get(
     `SELECT rowid, name, content, created, updated
@@ -55,6 +59,7 @@ function createPage(name, content, callback) {
 
 module.exports = {
   init: init,
+  allPages: allPages,
   getPage: getPage,
   getPageByName: getPageByName,
   createPage: createPage,
