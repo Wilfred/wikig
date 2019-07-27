@@ -1,4 +1,4 @@
-# Wikig [![CircleCI](https://circleci.com/gh/Wilfred/wikig.svg?style=svg)](https://circleci.com/gh/Wilfred/wikig)[![codecov](https://codecov.io/gh/Wilfred/wikig/branch/master/graph/badge.svg)](https://codecov.io/gh/Wilfred/wikig)![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/wilfred/wikig.svg)
+# Wikig [![CircleCI](https://circleci.com/gh/Wilfred/wikig.svg?style=svg)](https://circleci.com/gh/Wilfred/wikig)[![codecov](https://codecov.io/gh/Wilfred/wikig/branch/master/graph/badge.svg)](https://codecov.io/gh/Wilfred/wikig)[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/wilfred/wikig.svg)](https://hub.docker.com/r/wilfred/wikig)
 
 A wiki with some blog influences.
 
@@ -24,4 +24,4 @@ $ docker run -e ADMIN_PASSWORD=secrethere -e SITE_NAME="My Site" -v wikig_storag
 ```
 
 The [image is on Docker
-Hub](https://cloud.docker.com/repository/docker/wilfred/wikig).
+Hub](https://hub.docker.com/r/wilfred/wikig).
