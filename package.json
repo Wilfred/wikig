@@ -7,8 +7,8 @@
     "lint": "eslint . bin/* -f codeframe --fix",
     "watch": "nodemon",
     "start": "node ./bin/www",
-    "test": "jest",
-    "test-circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit --collectCoverage=true"
+    "test": "IN_MEMORY_DB=true jest",
+    "test-circleci": "IN_MEMORY_DB=true jest --ci --runInBand --reporters=default --reporters=jest-junit --collectCoverage=true"
   },
   "keywords": [
     "wiki",

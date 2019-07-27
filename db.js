@@ -1,7 +1,12 @@
 const sqlite3 = require("sqlite3").verbose();
 
-// This will create the file if it doesn't exist.
-const db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
+let db;
+if (process.env.IN_MEMORY_DB) {
+  db = new sqlite3.Database(":memory:");
+} else {
+  // This will create the file if it doesn't exist.
+  db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
+}
 
 function init(cb) {
   db.serialize(function() {
@@ -48,12 +53,19 @@ function updatePage(rowid, name, content, callback) {
   );
 }
 
+// Create a page with this name and content, then return the newly
+// created page.
 function createPage(name, content, callback) {
   // Based on https://stackoverflow.com/a/4330694/509706
-  db.get(
+  db.run(
     `INSERT INTO pages (name, content) VALUES(?, ?)`,
     [name, content],
-    callback
+    err => {
+      if (err) {
+        return err;
+      }
+      return getPageByName(name, callback);
+    }
   );
 }
 
