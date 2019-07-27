@@ -7,7 +7,7 @@ beforeAll(done => {
 });
 
 describe("Authentication", () => {
-  test("Editing pages", done => {
+  test("/edit GET", done => {
     request(app)
       .get("/edit/Foo")
       .then(res => {
@@ -17,7 +17,7 @@ describe("Authentication", () => {
       });
   });
 
-  test("Creating pages", done => {
+  test("/new GET", done => {
     request(app)
       .get("/new")
       .then(res => {
@@ -56,7 +56,7 @@ describe("Editing", () => {
         .expect(200, done);
     });
   });
-  test("/edit GET", done => {
+  test("/edit POST", done => {
     db.createPage("EditPostExample", "foo bar", (err, page) => {
       expect(err).toBeNull();
 
