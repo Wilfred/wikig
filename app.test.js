@@ -1,22 +1,33 @@
 const request = require("supertest");
 const app = require("./app");
 
-test("Editing should require auth", done => {
-  request(app)
-    .get("/edit/Foo")
-    .then(res => {
-      expect(res.statusCode).toBe(401);
-      expect(res.headers["www-authenticate"]).toBe("Basic");
-      done();
-    });
+describe("Authentication", () => {
+  test("Editing pages", done => {
+    request(app)
+      .get("/edit/Foo")
+      .then(res => {
+        expect(res.statusCode).toBe(401);
+        expect(res.headers["www-authenticate"]).toBe("Basic");
+        done();
+      });
+  });
+
+  test("Creating pages", done => {
+    request(app)
+      .get("/new")
+      .then(res => {
+        expect(res.statusCode).toBe(401);
+        expect(res.headers["www-authenticate"]).toBe("Basic");
+        done();
+      });
+  });
 });
 
-test("Creating should require auth", done => {
+test("/all", done => {
   request(app)
-    .get("/new")
+    .get("/all")
     .then(res => {
-      expect(res.statusCode).toBe(401);
-      expect(res.headers["www-authenticate"]).toBe("Basic");
+      expect(res.statusCode).toBe(200);
       done();
     });
 });
