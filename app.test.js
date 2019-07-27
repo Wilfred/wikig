@@ -93,6 +93,11 @@ describe("Editing", () => {
 });
 
 describe("Viewing", () => {
+  test("/", done => {
+    request(app)
+      .get("/")
+      .expect(302, done);
+  });
   test("/all", done => {
     request(app)
       .get("/all")
@@ -105,5 +110,11 @@ describe("Viewing", () => {
         .get("/AnExamplePage")
         .expect(200, done);
     });
+  });
+
+  test("/NoSuchPage", done => {
+    request(app)
+      .get("/NoSuchPage")
+      .expect(404, done);
   });
 });
