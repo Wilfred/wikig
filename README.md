@@ -1,4 +1,4 @@
-# Wikig [![CircleCI](https://circleci.com/gh/Wilfred/wikig.svg?style=svg)](https://circleci.com/gh/Wilfred/wikig)![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/wilfred/wikig.svg)
+# Wikig [![CircleCI](https://circleci.com/gh/Wilfred/wikig.svg?style=svg)](https://circleci.com/gh/Wilfred/wikig)[![codecov](https://codecov.io/gh/Wilfred/wikig/branch/master/graph/badge.svg)](https://codecov.io/gh/Wilfred/wikig)![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/wilfred/wikig.svg)
 
 A wiki with some blog influences.
 
