@@ -5,6 +5,7 @@ const path = require("path");
 
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
+const editingRouter = require("./routes/editing");
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(
 app.use("/static/", express.static(path.join(__dirname, "static")));
 
 app.use("/", indexRouter);
+app.use("/", editingRouter);
+// Needs to come last, so we register /:name after other routes.
 app.use("/", pageRouter);
 
 // catch 404 and forward to error handler
