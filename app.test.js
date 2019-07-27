@@ -23,6 +23,20 @@ describe("Authentication", () => {
   });
 });
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+
+describe("Editing", () => {
+  test("/new", done => {
+    request(app)
+      .get("/new")
+      .auth("admin", ADMIN_PASSWORD)
+      .then(res => {
+        expect(res.statusCode).toBe(200);
+        done();
+      });
+  });
+});
+
 test("/all", done => {
   request(app)
     .get("/all")
