@@ -30,18 +30,12 @@ describe("Editing", () => {
     request(app)
       .get("/new")
       .auth("admin", ADMIN_PASSWORD)
-      .then(res => {
-        expect(res.statusCode).toBe(200);
-        done();
-      });
+      .expect(200, done);
   });
 });
 
 test("/all", done => {
   request(app)
     .get("/all")
-    .then(res => {
-      expect(res.statusCode).toBe(200);
-      done();
-    });
+    .expect(200, done);
 });
