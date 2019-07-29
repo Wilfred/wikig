@@ -39,6 +39,10 @@ router.get("/all", (req, res) => {
     if (err) {
       console.error(err);
     }
+    pages = pages.map(page => {
+      return Object.assign({}, page, { updated: formatDate(page.updated) });
+    });
+
     return res.render("all", {
       SITE_NAME: SITE_NAME,
       title: "All | " + SITE_NAME,

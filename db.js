@@ -22,7 +22,12 @@ CREATE TABLE pages (
 }
 
 function allPages(callback) {
-  db.all(`SELECT rowid, name FROM pages`, callback);
+  db.all(
+    `SELECT rowid, name, created, updated
+     FROM pages
+     ORDER BY updated DESC`,
+    callback
+  );
 }
 
 function getPageByName(name, callback) {

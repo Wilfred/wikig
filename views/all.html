@@ -3,11 +3,13 @@
         <table>
             <tr>
                 <th>Name</th>
+                <th>Updated</th>
                 <th></th>
             </tr>
             {{#each pages}}
             <tr>
                 <td><a href="{{this.name}}">{{this.name}}</a></td>
+                <td>{{this.updated}}</td>
                 <td><a href="/edit/{{this.rowid}}">Edit</a></td>
             </tr>
             {{/each}}
