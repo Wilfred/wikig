@@ -2,6 +2,7 @@ const moment = require("moment");
 const express = require("express");
 const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
+const linkifyTransform = require("commonmark-linkify");
 
 const db = require("../db");
 const SITE_NAME = require("../config").SITE_NAME;
@@ -11,10 +12,11 @@ const router = express.Router();
 function renderMarkdown(src) {
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
-  // parsed is a 'Node' tree
-  const parsed = reader.parse(src);
+  let parsed = reader.parse(src);
 
-  return writer.render(wikiwords.transform(parsed));
+  parsed = linkifyTransform(wikiwords.transform(parsed));
+
+  return writer.render(parsed);
 }
 
 function formatDate(dateString) {
