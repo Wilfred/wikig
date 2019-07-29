@@ -1,3 +1,32 @@
+/* Apply semantic UI's .error class to any invalid input. */
+.ui input:invalid {
+  background-color: #fff6f6 !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.ui input:invalid::-webkit-input-placeholder {
+  color: #e7bdbc !important;
+}
+.ui input:invalid::-moz-placeholder {
+  color: #e7bdbc !important;
+}
+.ui input:invalid:-ms-input-placeholder {
+  color: #e7bdbc !important;
+}
+
+.ui input:invalid:focus::-webkit-input-placeholder {
+  color: #da9796;
+}
+.ui input:invalid:focus::-moz-placeholder {
+  color: #da9796;
+}
+.ui input:invalid:focus:-ms-input-placeholder {
+  color: #da9796 !important;
+}
+
 p {
   font-size: 1.2em;
 }

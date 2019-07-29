@@ -3,7 +3,7 @@
         <form class="ui form" method="POST">
             <div class="field">
                 <label>Title</label>
-                <input type="text" name="name" placeholder="PageNameHere" value="{{page.name}}">
+                <input type="text" name="name" placeholder="PageNameHere" value="{{page.name}}" required pattern="^[A-Z][A-Za-z]*[A-Z][A-Za-z]*[a-z]$">
             </div>
             <div class="field">
                 <label>Content</label>
