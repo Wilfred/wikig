@@ -3,7 +3,9 @@
         <h1 class="header">No such page: {{name}}</h1>
     </div>
 
+    {{#if isWikiWord}}
     <div class="content">
         <p>Would you like to <a href="/new?name={{name}}">create it</a>?</p>
     </div>
+    {{/if}}
 </div>
