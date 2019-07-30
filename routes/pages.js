@@ -14,7 +14,6 @@ function renderMarkdown(src) {
   const writer = new commonmark.HtmlRenderer();
   let parsed = reader.parse(src);
 
-  // TODO: why is this order sensitive?
   parsed = wikiwords.transform(linkifyTransform(parsed));
 
   return writer.render(parsed);
