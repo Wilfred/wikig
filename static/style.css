@@ -27,7 +27,9 @@
   color: #da9796 !important;
 }
 
-p {
+p,
+ul,
+ol {
   font-size: 1.2em;
 }
 
