@@ -30,6 +30,14 @@ function allPages(callback) {
   );
 }
 
+function allPageNames(callback) {
+  db.all(
+    `SELECT name
+     FROM pages`,
+    callback
+  );
+}
+
 function getPageByName(name, callback) {
   db.get(
     `SELECT rowid, name, content, created, updated
@@ -77,6 +85,7 @@ function createPage(name, content, callback) {
 module.exports = {
   init: init,
   allPages: allPages,
+  allPageNames: allPageNames,
   getPage: getPage,
   getPageByName: getPageByName,
   createPage: createPage,

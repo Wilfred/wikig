@@ -9,12 +9,12 @@ const SITE_NAME = require("../config").SITE_NAME;
 
 const router = express.Router();
 
-function renderMarkdown(src) {
+function renderMarkdown(src, linkClassCallback) {
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
   let parsed = reader.parse(src);
 
-  parsed = wikiwords.transform(linkifyTransform(parsed));
+  parsed = wikiwords.transform(linkifyTransform(parsed), linkClassCallback);
 
   return writer.render(parsed);
 }
@@ -61,13 +61,22 @@ router.get("/:name", (req, res) => {
     if (!page) {
       return noSuchPage(name, res);
     }
-    page.rendered = renderMarkdown(page.content);
-    return res.render("page", {
-      SITE_NAME: SITE_NAME,
-      title: name + " | " + SITE_NAME,
-      subtitle: ": " + name,
-      page: page,
-      timestamp: formatTime(page.created, page.updated)
+
+    db.allPageNames((err, names) => {
+      if (err) {
+        console.error(err);
+      }
+
+      page.rendered = renderMarkdown(page.content, name =>
+        names.includes(name) ? null : "no-such-page"
+      );
+      return res.render("page", {
+        SITE_NAME: SITE_NAME,
+        title: name + " | " + SITE_NAME,
+        subtitle: ": " + name,
+        page: page,
+        timestamp: formatTime(page.created, page.updated)
+      });
     });
   });
 });

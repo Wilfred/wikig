@@ -37,3 +37,7 @@ table {
 h2 {
   font-size: 1.5em;
 }
+
+.no-such-page {
+  color: red;
+}
