@@ -30,7 +30,8 @@
 p,
 ul,
 ol,
-table {
+table,
+pre {
   font-size: 1.2em;
 }
 
@@ -40,4 +41,9 @@ h2 {
 
 .no-such-page {
   color: red;
+}
+
+code {
+  background-color: rgba(220, 220, 220, 0.5);
+  padding: 0 2px;
 }
