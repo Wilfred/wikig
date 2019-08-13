@@ -66,6 +66,7 @@ router.get("/:name", (req, res) => {
       if (err) {
         console.error(err);
       }
+      names = names.map(p => p.name);
 
       page.rendered = renderMarkdown(page.content, name =>
         names.includes(name) ? null : "no-such-page"
