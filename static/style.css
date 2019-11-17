@@ -52,3 +52,12 @@ code {
   background-color: rgba(220, 220, 220, 0.5);
   padding: 0 2px;
 }
+
+/* On smartphones (this is the width of an iPhone XS), use less margin
+ so we have more width for text. */
+@media only screen and (max-width: 414px) {
+  .ui.container {
+    margin-left: 0.1em !important;
+    margin-right: 0.1em !important;
+  }
+}
