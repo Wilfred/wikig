@@ -5,7 +5,6 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 
 const db = require("../db");
-const SITE_NAME = require("../config").SITE_NAME;
 
 const router = express.Router();
 
@@ -48,8 +47,7 @@ router.get("/all", (req, res) => {
     });
 
     return res.render("all", {
-      title: "All Pages | " + SITE_NAME,
-      subtitle: "All Pages",
+      title: "All Pages",
       pages: pages
     });
   });
@@ -72,8 +70,7 @@ router.get("/:name", (req, res) => {
         names.includes(name) ? null : "no-such-page"
       );
       return res.render("page", {
-        title: name + " | " + SITE_NAME,
-        subtitle: name,
+        title: name,
         page: page,
         timestamp: formatTime(page.created, page.updated)
       });

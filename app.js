@@ -6,10 +6,11 @@ const path = require("path");
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
 const editingRouter = require("./routes/editing");
+const SITE_NAME = require("./config").SITE_NAME;
 
 const app = express();
 
-app.engine(".html", exphbs({ extname: ".html" }));
+app.engine(".html", exphbs({ extname: ".html", helpers: { SITE_NAME } }));
 app.set("view engine", ".html");
 
 app.use(

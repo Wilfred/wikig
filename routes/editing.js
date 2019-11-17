@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 
 const db = require("../db");
-const SITE_NAME = require("../config").SITE_NAME;
-
 const router = express.Router();
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -23,8 +21,7 @@ router.use(
 router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
-    title: "New page | " + SITE_NAME,
-    subtitle: "",
+    title: "New page",
     page: page
   });
 });
@@ -54,8 +51,7 @@ router.get("/edit/:id", (req, res, next) => {
     }
 
     return res.render("edit", {
-      title: page.name + " | " + SITE_NAME,
-      subtitle: page.name,
+      title: page.name,
       page: page
     });
   });
