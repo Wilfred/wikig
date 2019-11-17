@@ -48,7 +48,8 @@ router.get("/all", (req, res) => {
     });
 
     return res.render("all", {
-      title: "All | " + SITE_NAME,
+      title: "All Pages | " + SITE_NAME,
+      subtitle: "All Pages",
       pages: pages
     });
   });
