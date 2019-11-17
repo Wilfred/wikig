@@ -1,22 +1,19 @@
-<div class="ui fluid card">
-    <div class="content">
-        <table>
+<div class="content">
+    <table class="ui celled table">
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Updated</th>
-                <th></th>
             </tr>
+        </thead>
+        <tbody>
             {{#each pages}}
             <tr>
                 <td><a href="{{this.name}}">{{this.name}}</a></td>
                 <td>{{this.updated}}</td>
-                <td><a href="/edit/{{this.rowid}}">Edit</a></td>
             </tr>
             {{/each}}
-        </table>
-
-        
-    </div>
+        </tbody>
+    </table>
 
 </div>
-
