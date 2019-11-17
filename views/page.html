@@ -1,15 +1,12 @@
-<div class="ui fluid card">
-    <div class="content">
-        {{{page.rendered}}}
-    </div>
-
-    <div class="content">
-        {{timestamp}}
-        <div style="float: right;" >
-            <a href="/edit/{{page.rowid}}">Edit</a>
-            <a href="/new">New</a>
-            <a href="/all">All</a>
-        </div>
-    </div>
+<div class="content">
+    {{{page.rendered}}}
 </div>
 
+<div class="ui menu">
+    <div class="item">{{timestamp}}</div>
+    <div class="right menu">
+        <a class="item" href="/edit/{{page.rowid}}">Edit</a>
+        <a class="item" href="/new">New</a>
+        <a class="item" href="/all">All</a>
+    </div>
+</div>
