@@ -25,3 +25,26 @@ $ docker run -e ADMIN_PASSWORD=secrethere -e SITE_NAME="My Site" -v wikig_storag
 
 The [image is on Docker
 Hub](https://hub.docker.com/r/wilfred/wikig).
+
+## Backups
+
+If you're running wikig in Docker, you can copy the database as
+follows:
+
+```
+$ docker run -it --rm -v wikig_storage:/vol busybox ls -l /vol
+-rw-r--r--    1 root     root         24576 Aug 13 09:41 wikig.db
+
+# Based on https://github.com/moby/moby/issues/25245#issuecomment-365980572
+$ docker container create --name dummy -v wikig_storage:/root hello-world
+$ docker cp dummy:/root/wikig.db .
+$ docker rm dummy
+```
+
+To copy a local `wikig.db` into the container:
+
+```
+$ docker container create --name dummy -v wikig_storage:/root hello-world
+$ docker cp wikig.db dummy:/root/wikig.db
+$ docker rm dummy
+```
