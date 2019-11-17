@@ -23,7 +23,6 @@ router.use(
 router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
-    SITE_NAME: SITE_NAME,
     title: "New page | " + SITE_NAME,
     subtitle: "",
     page: page
@@ -55,9 +54,8 @@ router.get("/edit/:id", (req, res, next) => {
     }
 
     return res.render("edit", {
-      SITE_NAME: SITE_NAME,
       title: page.name + " | " + SITE_NAME,
-      subtitle: ": " + page.name,
+      subtitle: page.name,
       page: page
     });
   });

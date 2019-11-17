@@ -48,7 +48,6 @@ router.get("/all", (req, res) => {
     });
 
     return res.render("all", {
-      SITE_NAME: SITE_NAME,
       title: "All | " + SITE_NAME,
       pages: pages
     });
@@ -72,9 +71,8 @@ router.get("/:name", (req, res) => {
         names.includes(name) ? null : "no-such-page"
       );
       return res.render("page", {
-        SITE_NAME: SITE_NAME,
         title: name + " | " + SITE_NAME,
-        subtitle: ": " + name,
+        subtitle: name,
         page: page,
         timestamp: formatTime(page.created, page.updated)
       });
