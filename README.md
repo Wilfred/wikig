@@ -6,6 +6,7 @@ A wiki with some blog influences.
 
 ```
 $ npm i
+$ npm run init-db
 $ npm run watch
 ```
 
