@@ -74,10 +74,15 @@ function getPage(rowid, callback) {
 function updatePage(pageid, name, content, callback) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
-    `UPDATE pages SET name = ?, content = ?, updated = ?
+    `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
+    [pageid, name, content],
+    () =>
+      db.get(
+        `UPDATE pages SET name = ?, content = ?, updated = ?
      WHERE page_id = ?`,
-    [name, content, new Date().toISOString(), pageid],
-    callback
+        [name, content, new Date().toISOString(), pageid],
+        callback
+      )
   );
 }
 
