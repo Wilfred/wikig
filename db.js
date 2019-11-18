@@ -74,10 +74,9 @@ function getPage(rowid, callback) {
 function updatePage(pageid, name, content, callback) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
-    // TODO: This should update `updated` too.
-    `UPDATE pages SET name = ?, content = ?
+    `UPDATE pages SET name = ?, content = ?, updated = ?
      WHERE page_id = ?`,
-    [name, content, pageid],
+    [name, content, new Date().toISOString(), pageid],
     callback
   );
 }
