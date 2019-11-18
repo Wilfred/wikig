@@ -32,9 +32,11 @@ function formatTime(created, updated) {
 }
 
 function noSuchPage(name, res) {
-  return res
-    .status(404)
-    .render("404", { name, isWikiWord: wikiwords.isWikiWord(name) });
+  return res.status(404).render("404", {
+    title: "No Such Page",
+    name,
+    isWikiWord: wikiwords.isWikiWord(name)
+  });
 }
 
 router.get("/all", (req, res) => {
