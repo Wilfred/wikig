@@ -3,6 +3,7 @@ const express = require("express");
 const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
+const stringSimilarity = require("string-similarity");
 
 const db = require("../db");
 
@@ -32,10 +33,24 @@ function formatTime(created, updated) {
 }
 
 function noSuchPage(name, res) {
-  return res.status(404).render("404", {
-    title: "No Such Page",
-    name,
-    isWikiWord: wikiwords.isWikiWord(name)
+  db.allPageNames((err, names) => {
+    if (err) {
+      console.error(err);
+    }
+
+    let similarName = null;
+    if (names) {
+      names = names.map(n => n.name);
+      similarName = stringSimilarity.findBestMatch(name, names).bestMatch
+        .target;
+    }
+
+    return res.status(404).render("404", {
+      title: "No Such Page",
+      name,
+      similarName,
+      isWikiWord: wikiwords.isWikiWord(name)
+    });
   });
 }
 

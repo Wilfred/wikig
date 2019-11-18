@@ -31,7 +31,8 @@
     "http-errors": "^1.7.3",
     "moment": "^2.24.0",
     "semantic-ui-css": "^2.4.1",
-    "sqlite3": "^4.0.9"
+    "sqlite3": "^4.0.9",
+    "string-similarity": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

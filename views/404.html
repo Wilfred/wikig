@@ -1,5 +1,7 @@
 {{#if isWikiWord}}
 <div class="content">
-    <p>Would you like to <a href="/new?name={{name}}">create {{name}}</a>?</p>
+    <p>Did you mean <a href="/{{similarName}}">{{similarName}}</a>?</p>
+
+    <p>Would you like to create <a href="/new?name={{name}}">{{name}}</a>?</p>
 </div>
 {{/if}}
