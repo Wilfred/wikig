@@ -66,11 +66,14 @@ router.get("/:name", (req, res) => {
       if (err) {
         console.error(err);
       }
-      names = names.map(p => p.name);
 
+      // Render the page, highlighting markdown links to nonexitsente
+      // pages in a different colour.
+      names = names.map(p => p.name);
       page.rendered = renderMarkdown(page.content, name =>
         names.includes(name) ? null : "no-such-page"
       );
+
       return res.render("page", {
         title: name,
         page: page,
