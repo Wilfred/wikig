@@ -44,7 +44,16 @@ h5 {
   margin-top: 1rem;
 }
 
-.no-such-page {
+a {
+  color: blue;
+}
+a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.no-such-page,
+.no-such-page:hover {
   color: red;
 }
 
