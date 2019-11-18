@@ -54,7 +54,7 @@ a:hover {
 
 .no-such-page,
 .no-such-page:hover {
-  color: red;
+  color: #ea0000;
 }
 
 code {
