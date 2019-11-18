@@ -21,7 +21,7 @@ describe("Authentication", () => {
       expect(err).toBeNull();
 
       request(app)
-        .post("/edit/" + page.rowid)
+        .post("/edit/" + page.page_id)
         .type("form")
         .send({ name: "EditPostExample", content: "hello world" })
         .then(res => {
@@ -73,7 +73,7 @@ describe("Editing", () => {
       expect(err).toBeNull();
 
       request(app)
-        .get("/edit/" + page.rowid)
+        .get("/edit/" + page.page_id)
         .auth("admin", ADMIN_PASSWORD)
         .expect(200, done);
     });
@@ -83,7 +83,7 @@ describe("Editing", () => {
       expect(err).toBeNull();
 
       request(app)
-        .post("/edit/" + page.rowid)
+        .post("/edit/" + page.page_id)
         .type("form")
         .send({ name: "EditPostExample", content: "hello world" })
         .auth("admin", ADMIN_PASSWORD)

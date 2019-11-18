@@ -12,12 +12,27 @@ function init(cb) {
   db.serialize(function() {
     db.run(`
 CREATE TABLE pages (
-  name VARCHAR(1024),
+  page_id INTEGER PRIMARY KEY,
+  name VARCHAR(1024) NOT NULL UNIQUE,
   content TEXT NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 )`);
-    db.run("CREATE UNIQUE INDEX idx_name ON pages(name)", cb);
+
+    // TODO: Enable foreign key constraints.
+    // https://stackoverflow.com/q/15301643/509706
+    db.run(
+      `
+CREATE TABLE page_revisions (
+  revision_id INTEGER PRIMARY KEY,
+  name VARCHAR(1024) NOT NULL,
+  content TEXT NOT NULL,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  page_id INTEGER NOT NULL,
+  FOREIGN KEY (page_id) references pages(page_id)
+)`,
+      cb
+    );
   });
 }
 
@@ -40,7 +55,7 @@ function allPageNames(callback) {
 
 function getPageByName(name, callback) {
   db.get(
-    `SELECT rowid, name, content, created, updated
+    `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
     [name],
     callback
@@ -49,20 +64,20 @@ function getPageByName(name, callback) {
 
 function getPage(rowid, callback) {
   db.get(
-    `SELECT rowid, name, content, created, updated
+    `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
     [rowid],
     callback
   );
 }
 
-function updatePage(rowid, name, content, callback) {
+function updatePage(pageid, name, content, callback) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
     // TODO: This should update `updated` too.
     `UPDATE pages SET name = ?, content = ?
-     WHERE rowid = ?`,
-    [name, content, rowid],
+     WHERE page_id = ?`,
+    [name, content, pageid],
     callback
   );
 }
