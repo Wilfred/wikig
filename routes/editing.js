@@ -21,7 +21,7 @@ router.use(
 router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
-    title: "New page",
+    title: "New Page",
     page: page
   });
 });
