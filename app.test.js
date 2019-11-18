@@ -104,6 +104,12 @@ describe("Viewing", () => {
       .expect(200, done);
   });
 
+  test("/version", done => {
+    request(app)
+      .get("/version")
+      .expect(200, done);
+  });
+
   test("/AnExamplePage", done => {
     db.createPage("AnExamplePage", "foo bar", () => {
       request(app)

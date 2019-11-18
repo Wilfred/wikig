@@ -6,6 +6,7 @@ const path = require("path");
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
 const editingRouter = require("./routes/editing");
+const versionRouter = require("./routes/version");
 const SITE_NAME = require("./config").SITE_NAME;
 
 const app = express();
@@ -26,6 +27,8 @@ app.use("/static/", express.static(path.join(__dirname, "static")));
 
 app.use("/", indexRouter);
 app.use("/", editingRouter);
+app.use("/", versionRouter);
+
 // Needs to come last, so we register /:name after other routes.
 app.use("/", pageRouter);
 
