@@ -70,6 +70,22 @@ router.get("/all", (req, res) => {
   });
 });
 
+function randomItem(items) {
+  const index = Math.floor(Math.random() * items.length);
+  return items[index];
+}
+
+router.get("/random", (req, res) => {
+  db.allPages((err, pages) => {
+    if (err) {
+      console.error(err);
+    }
+
+    const page = randomItem(pages);
+    return res.redirect("/" + page.name);
+  });
+});
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPageByName(name, (err, page) => {

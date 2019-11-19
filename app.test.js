@@ -104,6 +104,12 @@ describe("Viewing", () => {
       .expect(200, done);
   });
 
+  test("/random", done => {
+    request(app)
+      .get("/random")
+      .expect(302, done);
+  });
+
   test("/version", done => {
     request(app)
       .get("/version")
