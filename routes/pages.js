@@ -29,7 +29,7 @@ function formatTime(created, updated) {
     return formatDate(created);
   }
   const updatedM = moment.utc(updated);
-  return `Created ${formatDate(created)}, last updated ${updatedM.fromNow()}.`;
+  return `${formatDate(created)}, updated ${updatedM.fromNow()}.`;
 }
 
 function noSuchPage(name, res) {
