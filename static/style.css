@@ -1,3 +1,9 @@
+/* Since the site is prose, reduce the page width to help
+   readability. */
+body .ui.grid.container {
+  max-width: 600px !important;
+}
+
 /* Apply semantic UI's .error class to any invalid input. */
 .ui input:invalid {
   background-color: #fff6f6 !important;
