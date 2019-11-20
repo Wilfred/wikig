@@ -55,6 +55,10 @@ a {
   border-bottom: 2px dotted blue;
 }
 
+.menu a {
+  border-bottom: 0;
+}
+
 a:hover {
   color: blue;
   border-bottom: 0;
