@@ -22,7 +22,7 @@
     "body-parser": "^1.19.0",
     "commonmark": "^0.29.0",
     "commonmark-linkify": "^1.2.0",
-    "commonmark-wikiwords": "^2.3.0",
+    "commonmark-wikiwords": "^2.4.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
