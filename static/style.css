@@ -51,16 +51,21 @@ h5 {
 }
 
 a {
-  color: blue;
-}
-a:hover {
-  color: blue;
-  text-decoration: underline;
+  color: black;
+  border-bottom: 2px dotted blue;
 }
 
-.no-such-page,
+a:hover {
+  color: blue;
+  border-bottom: 0;
+}
+
+.no-such-page {
+  border-bottom: 2px dotted #ea0000;
+}
 .no-such-page:hover {
   color: #ea0000;
+  border-bottom: 0;
 }
 
 code {
