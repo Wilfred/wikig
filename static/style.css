@@ -51,8 +51,7 @@ h5 {
 }
 
 a {
-  color: black;
-  border-bottom: 2px dotted blue;
+  color: blue;
 }
 
 .menu a {
@@ -61,15 +60,15 @@ a {
 
 a:hover {
   color: blue;
-  border-bottom: 0;
+  border-bottom: 1px solid blue;
 }
 
 .no-such-page {
-  border-bottom: 2px dotted #ea0000;
+  color: #ea0000;
 }
 .no-such-page:hover {
   color: #ea0000;
-  border-bottom: 0;
+  border-bottom: 1px solid #ea0000;
 }
 
 code {
