@@ -98,7 +98,7 @@ router.get("/:name", (req, res) => {
         console.error(err);
       }
 
-      // Render the page, highlighting markdown links to nonexitsente
+      // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
       names = names.map(p => p.name);
       page.rendered = renderMarkdown(page.content, name =>
