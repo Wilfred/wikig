@@ -80,10 +80,29 @@ code {
   margin-left: 0.1em !important;
 }
 
+.emojicon {
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
+  font-size: 120px;
+  font-weight: normal;
+  line-height: 120px;
+}
+
 /* On smartphones (this is the width of an iPhone XS), use less margin
  so we have more width for text. */
 @media only screen and (max-width: 414px) {
   .ui.container {
     margin-right: 0.1em !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .emojicon {
+    display: inline-block;
+    float: right;
+    position: static;
+    font-size: inherit;
+    line-height: inherit;
   }
 }

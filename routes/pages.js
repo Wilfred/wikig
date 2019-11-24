@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const moment = require("moment");
 const express = require("express");
 const commonmark = require("commonmark");
@@ -5,6 +6,7 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 
+const emoji = require("../lib/emoji");
 const db = require("../db");
 
 const router = express.Router();
@@ -86,6 +88,14 @@ router.get("/random", (req, res) => {
   });
 });
 
+// Exclude link URLs and code from markdown.
+function markdownProse(src) {
+  // Remove URLs. TODO: It would be nice to split CamelCase too.
+  src = src.replace(/\[(.*?)\]\(.*?\)/g, "$1");
+  // Remove code.
+  return src.replace(/`.*?`/, "");
+}
+
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPageByName(name, (err, page) => {
@@ -98,16 +108,31 @@ router.get("/:name", (req, res) => {
         console.error(err);
       }
 
+      const titleEmoji = emoji.findEmoji(_.startCase(page.name).split(" "));
+      const bodyEmoji = emoji.findNounEmoji(markdownProse(page.content));
+
+      let emojis = _.uniq(_.concat(titleEmoji, bodyEmoji));
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
       names = names.map(p => p.name);
+
       page.rendered = renderMarkdown(page.content, name =>
         names.includes(name) ? null : "no-such-page"
       );
 
-      return res.render("page", {
+      let emojiStr = null;
+      let emojiCaption = null;
+      if (emojis.length) {
+        emojis = emojis.slice(0, 3);
+        emojiStr = emojis.map(e => e.char).join("");
+        emojiCaption = emojis.map(e => e.target).join(" ");
+      }
+
+      res.render("page", {
         title: name,
         page: page,
+        emoji: emojiStr,
+        emoji_caption: emojiCaption,
         timestamp: formatTime(page.created, page.updated)
       });
     });
