@@ -100,7 +100,6 @@ code {
 @media (max-width: 900px) {
   .emojicon {
     display: inline-block;
-    float: right;
     position: static;
     font-size: inherit;
     line-height: inherit;
