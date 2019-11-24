@@ -7,6 +7,16 @@
         <link rel="stylesheet" href="/static/semantic/semantic.min.css">
         <link rel="stylesheet" href="/static/style.css">
         <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+        {{#if GOOGLE_ANALYTICS}}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '{{GOOGLE_ANALYTICS}}');
+        </script>
+        {{/if}}
     </head>
     <body>
         <div class="ui grid container">

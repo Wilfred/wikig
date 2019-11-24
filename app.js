@@ -7,11 +7,14 @@ const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
 const editingRouter = require("./routes/editing");
 const versionRouter = require("./routes/version");
-const SITE_NAME = require("./config").SITE_NAME;
+const config = require("./config");
 
 const app = express();
 
-app.engine(".html", exphbs({ extname: ".html", helpers: { SITE_NAME } }));
+app.engine(".html", exphbs({ extname: ".html" }));
+app.locals.SITE_NAME = config.SITE_NAME;
+app.locals.GOOGLE_ANALYTICS = config.GOOGLE_ANALYTICS;
+
 app.set("view engine", ".html");
 
 app.use(
