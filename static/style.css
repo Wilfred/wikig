@@ -114,5 +114,6 @@ code {
     position: static;
     font-size: inherit;
     line-height: inherit;
+    width: auto;
   }
 }
