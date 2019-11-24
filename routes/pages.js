@@ -130,6 +130,7 @@ router.get("/:name", (req, res) => {
       res.render("page", {
         title: addZeroWidthBreaks(page.name),
         page,
+        isHomePage: page.name === "HomePage",
         emoji: emojiStr,
         emoji_caption: emojiCaption,
         timestamp: formatTime(page.created, page.updated)

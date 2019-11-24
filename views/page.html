@@ -2,6 +2,9 @@
     {{{page.rendered}}}
 
     <em>{{timestamp}}</em>
-    <a class="edit" href="/edit/{{page.page_id}}">✏️</a>
+    {{#unless isHomePage}}
+    <a class="right-button" href="/">🏠</a>
+    {{/unless}}
+    <a class="right-button" href="/edit/{{page.page_id}}">✏️</a>
 </div>
 
