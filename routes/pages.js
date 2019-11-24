@@ -52,6 +52,7 @@ function noSuchPage(name, res) {
       title: "No Such Page",
       name,
       similarName,
+      emoji: "❓",
       isWikiWord: wikiwords.isWikiWord(name)
     });
   });
