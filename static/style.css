@@ -81,12 +81,19 @@ code {
 }
 
 .emojicon {
+  /* Position fixed in the bottom right corner of the browser window. */
   position: fixed;
-  bottom: 15px;
+  bottom: 5px;
   right: 10px;
   font-size: 120px;
+  /* Set the width to one emoji, so we stack vertically. */
+  width: 120px;
+  /* For emoji that aren't square (e.g. 'level'), align with the right
+   edge. */
+  text-align: right;
+  /* We're inside a heading tag, so undo the bold. */
   font-weight: normal;
-  line-height: 120px;
+  line-height: 140px;
 }
 
 .edit {
@@ -101,7 +108,7 @@ code {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .emojicon {
     display: inline-block;
     position: static;
