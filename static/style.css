@@ -89,6 +89,10 @@ code {
   line-height: 120px;
 }
 
+.edit {
+  float: right;
+}
+
 /* On smartphones (this is the width of an iPhone XS), use less margin
  so we have more width for text. */
 @media only screen and (max-width: 414px) {
