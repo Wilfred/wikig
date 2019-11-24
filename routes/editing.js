@@ -3,6 +3,7 @@ const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 
+const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
 const router = express.Router();
 
@@ -51,7 +52,7 @@ router.get("/edit/:id", (req, res, next) => {
     }
 
     return res.render("edit", {
-      title: page.name,
+      title: addZeroWidthBreaks(page.name),
       page
     });
   });

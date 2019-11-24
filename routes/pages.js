@@ -8,6 +8,7 @@ const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
 
 const emoji = require("../lib/emoji");
+const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
 
 const router = express.Router();
@@ -92,14 +93,6 @@ function markdownProse(src) {
   src = src.replace(/\[(.*?)\]\(.*?\)/g, "$1");
   // Remove code.
   return src.replace(/`.*?`/, "");
-}
-
-// Add zero width spaces to CamelCaseStrings so browsers know where to
-// break lines.
-function addZeroWidthBreaks(txt) {
-  const ZERO_WIDTH_SPACE = "\u200B";
-  // Look for transitions from lowercase to uppercase.
-  return txt.replace(/([a-z])([A-Z])/g, "$1" + ZERO_WIDTH_SPACE + "$2");
 }
 
 router.get("/:name", (req, res) => {
