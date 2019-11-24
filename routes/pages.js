@@ -5,6 +5,7 @@ const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
+const randomItem = require("random-item");
 
 const emoji = require("../lib/emoji");
 const db = require("../db");
@@ -71,11 +72,6 @@ router.get("/all", (req, res) => {
     });
   });
 });
-
-function randomItem(items) {
-  const index = Math.floor(Math.random() * items.length);
-  return items[index];
-}
 
 router.get("/random", (req, res) => {
   db.allPages((err, pages) => {

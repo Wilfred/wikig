@@ -33,6 +33,7 @@
     "http-errors": "^1.7.3",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "random-item": "^3.0.0",
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.0.9",
     "string-similarity": "^3.0.0"
