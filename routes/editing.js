@@ -22,7 +22,7 @@ router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
     title: "New Page",
-    page: page
+    page
   });
 });
 
@@ -52,7 +52,7 @@ router.get("/edit/:id", (req, res, next) => {
 
     return res.render("edit", {
       title: page.name,
-      page: page
+      page
     });
   });
 });

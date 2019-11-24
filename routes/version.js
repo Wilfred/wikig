@@ -3,7 +3,7 @@ const express = require("express");
 const os = require("os");
 const router = express.Router();
 
-router.get("/version", function(req, res) {
+router.get("/version", (req, res) => {
   const appUptime = moment
     .duration(-1 * process.uptime(), "seconds")
     .humanize();

@@ -70,7 +70,7 @@ router.get("/all", (req, res) => {
     return res.render("all", {
       title: "All Pages",
       emoji: "📚",
-      pages: pages
+      pages
     });
   });
 });
@@ -128,7 +128,7 @@ router.get("/:name", (req, res) => {
 
       res.render("page", {
         title: name,
-        page: page,
+        page,
         emoji: emojiStr,
         emoji_caption: emojiCaption,
         timestamp: formatTime(page.created, page.updated)

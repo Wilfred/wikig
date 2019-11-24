@@ -9,7 +9,7 @@ if (process.env.IN_MEMORY_DB) {
 }
 
 function init(cb) {
-  db.serialize(function() {
+  db.serialize(() => {
     db.run(`
 CREATE TABLE pages (
   page_id INTEGER PRIMARY KEY,
@@ -103,11 +103,11 @@ function createPage(name, content, callback) {
 }
 
 module.exports = {
-  init: init,
-  allPages: allPages,
-  allPageNames: allPageNames,
-  getPage: getPage,
-  getPageByName: getPageByName,
-  createPage: createPage,
-  updatePage: updatePage
+  init,
+  allPages,
+  allPageNames,
+  getPage,
+  getPageByName,
+  createPage,
+  updatePage
 };
