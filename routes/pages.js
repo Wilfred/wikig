@@ -69,6 +69,7 @@ router.get("/all", (req, res) => {
 
     return res.render("all", {
       title: "All Pages",
+      emoji: "📚",
       pages: pages
     });
   });
