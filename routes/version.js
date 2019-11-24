@@ -11,6 +11,7 @@ router.get("/version", function(req, res) {
 
   return res.render("version", {
     title: "Site Version",
+    emoji: "⚙️⏲️",
     version: process.versions.node,
     appUptime,
     serverUptime
