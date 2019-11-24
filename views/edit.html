@@ -1,15 +1,13 @@
-<div class="ui fluid card">
-    <div class="content">
-        <form class="ui form" method="POST">
-            <div class="field">
-                <label>Title</label>
-                <input type="text" name="name" placeholder="PageNameHere" value="{{page.name}}" required pattern="^[A-Z][A-Za-z]*[A-Z][A-Za-z]*[a-z]$">
-            </div>
-            <div class="field">
-                <label>Content</label>
-                <textarea name="content" rows="20">{{page.content}}</textarea>
-            </div>
-            <button class="ui button" type="submit">Save</button>
-        </form>
-    </div>
+<div class="content">
+    <form class="ui form" method="POST">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="name" placeholder="PageNameHere" value="{{page.name}}" required pattern="^[A-Z][A-Za-z]*[A-Z][A-Za-z]*[a-z]$">
+        </div>
+        <div class="field">
+            <label>Content</label>
+            <textarea name="content" rows="20">{{page.content}}</textarea>
+        </div>
+        <button class="ui button" type="submit">Save</button>
+    </form>
 </div>
