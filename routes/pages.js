@@ -54,7 +54,7 @@ function noSuchPage(name, res) {
       title: "No Such Page",
       name,
       similarName,
-      emoji: "❓",
+      emoji: twemoji.parse("❓"),
       isWikiWord: wikiwords.isWikiWord(name)
     });
   });
@@ -71,7 +71,7 @@ router.get("/all", (req, res) => {
 
     return res.render("all", {
       title: "All Pages",
-      emoji: "📚",
+      emoji: twemoji.parse("📚"),
       pages
     });
   });
@@ -124,7 +124,7 @@ router.get("/:name", (req, res) => {
       let emojiCaption = null;
       if (emojis.length) {
         emojis = emojis.slice(0, 3);
-        emojiStr = twemoji.parse(emojis.map(e => e.char).join("\u200B"));
+        emojiStr = emojis.map(e => e.char).join("\u200B");
         emojiCaption = emojis.map(e => e.target).join(" ");
       }
 
@@ -132,7 +132,7 @@ router.get("/:name", (req, res) => {
         title: addZeroWidthBreaks(page.name),
         page,
         isHomePage: page.name === "HomePage",
-        emoji: emojiStr,
+        emoji: twemoji.parse(emojiStr),
         emoji_caption: emojiCaption,
         timestamp: formatTime(page.created, page.updated)
       });

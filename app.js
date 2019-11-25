@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
+const twemoji = require("twemoji");
 
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
@@ -48,7 +49,7 @@ app.use((err, req, res) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error", { emoji: "‼️" });
+  res.render("error", { emoji: twemoji.parse("‼️") });
 });
 
 module.exports = app;
