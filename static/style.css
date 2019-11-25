@@ -86,8 +86,10 @@ code {
   bottom: 5px;
   right: 10px;
   font-size: 120px;
-  /* Set the width to one emoji, so we stack vertically. */
-  width: 120px;
+  /* Set the width to one emoji, so we stack vertically. Emoji are
+   typically square, but 'keyboard' is wider than 120px on my
+   machine. */
+  width: 170px;
   /* For emoji that aren't square (e.g. 'level'), align with the right
    edge. */
   text-align: right;
