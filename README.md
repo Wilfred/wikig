@@ -2,6 +2,10 @@
 
 A wiki with some blog influences.
 
+The wikig source code is under the MIT license (see package.json), but
+wikig also includes [twemoji(https://github.com/twitter/twemoji) under
+a CC-BY 4.0 license.
+
 ## Local Development
 
 ```
