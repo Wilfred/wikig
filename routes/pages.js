@@ -123,7 +123,7 @@ router.get("/:name", (req, res) => {
       let emojiCaption = null;
       if (emojis.length) {
         emojis = emojis.slice(0, 3);
-        emojiStr = emojis.map(e => e.char).join("");
+        emojiStr = emojis.map(e => e.char).join("\u200B");
         emojiCaption = emojis.map(e => e.target).join(" ");
       }
 
