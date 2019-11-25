@@ -24,7 +24,11 @@
                 <h1 class="ui dividing header">
                     {{title}}
                     <div class="emojicon" title="{{emoji_caption}}">
-                        {{#if emoji}}{{emoji}}{{else}}👨‍💻{{/if}}
+                        {{#if emoji}}
+                        {{{emoji}}}
+                        {{else}}
+                        <img class="emoji" draggable="false" alt="👨‍💻" src="https://twemoji.maxcdn.com/v/12.1.4/72x72/1f468-200d-1f4bb.png">
+                        {{/if}}
                     </div>
                 </h1>
 

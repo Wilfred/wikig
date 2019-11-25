@@ -83,19 +83,12 @@ code {
 .emojicon {
   /* Position fixed in the bottom right corner of the browser window. */
   position: fixed;
-  bottom: 5px;
+  bottom: 10px;
   right: 10px;
-  font-size: 120px;
-  /* Set the width to one emoji, so we stack vertically. Emoji are
-   typically square, but 'keyboard' is wider than 120px on my
-   machine. */
-  width: 170px;
-  /* For emoji that aren't square (e.g. 'level'), align with the right
-   edge. */
-  text-align: right;
-  /* We're inside a heading tag, so undo the bold. */
-  font-weight: normal;
-  line-height: 140px;
+}
+
+.emojicon img {
+  display: block;
 }
 
 .right-button {
@@ -110,12 +103,26 @@ code {
   }
 }
 
+.content img.emoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+}
+
 @media (max-width: 700px) {
   .emojicon {
     display: inline-block;
     position: static;
-    font-size: inherit;
-    line-height: inherit;
     width: auto;
+  }
+  .emojicon img {
+    display: inline-block;
+  }
+  img.emoji {
+    height: 1em;
+    width: 1em;
+    margin: 0 0.05em 0 0.1em;
+    vertical-align: -0.1em;
   }
 }

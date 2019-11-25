@@ -6,6 +6,7 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
+const twemoji = require("twemoji");
 
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
@@ -123,7 +124,7 @@ router.get("/:name", (req, res) => {
       let emojiCaption = null;
       if (emojis.length) {
         emojis = emojis.slice(0, 3);
-        emojiStr = emojis.map(e => e.char).join("\u200B");
+        emojiStr = twemoji.parse(emojis.map(e => e.char).join("\u200B"));
         emojiCaption = emojis.map(e => e.target).join(" ");
       }
 

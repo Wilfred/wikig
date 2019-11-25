@@ -36,7 +36,8 @@
     "random-item": "^3.0.0",
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.1.0",
-    "string-similarity": "^3.0.0"
+    "string-similarity": "^3.0.0",
+    "twemoji": "^12.1.4"
   },
   "devDependencies": {
     "eslint": "^6.7.0",
