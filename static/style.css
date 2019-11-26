@@ -89,6 +89,7 @@ code {
 
 .emojicon img {
   display: block;
+  padding-top: 20px;
 }
 
 .right-button {
@@ -118,6 +119,7 @@ code {
   }
   .emojicon img {
     display: inline-block;
+    padding-top: 0;
   }
   img.emoji {
     height: 1em;
