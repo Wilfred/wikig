@@ -1,7 +1,7 @@
 const moment = require("moment");
 const express = require("express");
 const os = require("os");
-const twemoji = require("twemoji");
+const emoji = require("../lib/emoji");
 const router = express.Router();
 
 router.get("/version", (req, res) => {
@@ -12,7 +12,7 @@ router.get("/version", (req, res) => {
 
   return res.render("version", {
     title: "Site Version",
-    emoji: twemoji.parse("⚙️⏲️"),
+    emoji: emoji.render("⚙️⏲️"),
     version: process.versions.node,
     appUptime,
     serverUptime

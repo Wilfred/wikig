@@ -6,7 +6,6 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
-const twemoji = require("twemoji");
 
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
@@ -54,7 +53,7 @@ function noSuchPage(name, res) {
       title: "No Such Page",
       name,
       similarName,
-      emoji: twemoji.parse("❓"),
+      emoji: emoji.render("❓"),
       isWikiWord: wikiwords.isWikiWord(name)
     });
   });
@@ -71,7 +70,7 @@ router.get("/all", (req, res) => {
 
     return res.render("all", {
       title: "All Pages",
-      emoji: twemoji.parse("📚"),
+      emoji: emoji.render("📚"),
       pages
     });
   });
@@ -132,7 +131,7 @@ router.get("/:name", (req, res) => {
         title: addZeroWidthBreaks(page.name),
         page,
         isHomePage: page.name === "HomePage",
-        emoji: twemoji.parse(emojiStr),
+        emoji: emoji.render(emojiStr),
         emoji_caption: emojiCaption,
         timestamp: formatTime(page.created, page.updated)
       });
