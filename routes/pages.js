@@ -65,7 +65,10 @@ router.get("/all", (req, res) => {
       console.error(err);
     }
     pages = pages.map(page => {
-      return Object.assign({}, page, { updated: formatDate(page.updated) });
+      return Object.assign({}, page, {
+        updated: formatDate(page.updated),
+        name: addZeroWidthBreaks(page.name)
+      });
     });
 
     return res.render("all", {
