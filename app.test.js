@@ -130,3 +130,11 @@ describe("Viewing", () => {
       .expect(404, done);
   });
 });
+
+describe("Static content", () => {
+  test("/robots.txt", done => {
+    request(app)
+      .get("/robots.txt")
+      .expect(200, done);
+  });
+});
