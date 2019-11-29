@@ -21,7 +21,7 @@
     <body>
         <div class="ui grid container">
             <div class="column">
-                <h1 class="ui dividing header">
+                <h1 class="ui dividing header" {{#if page}}data-edit-url="/edit/{{page.page_id}}"{{/if}}>
                     {{title}}
                     <div class="emojicon" title="{{emoji_caption}}">
                         {{#if emoji}}
@@ -36,4 +36,6 @@
             </div>
         </div>
     </body>
+    <script src="/static/hammerjs/hammer.min.js"></script>
+    <script src="/static/tapedit.js"></script>
 </html>
