@@ -15,6 +15,9 @@ const db = require("../db");
 const router = express.Router();
 
 function renderMarkdown(src, linkClassCallback) {
+  if (!linkClassCallback) {
+    linkClassCallback = () => null;
+  }
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
   let parsed = reader.parse(src);
@@ -51,17 +54,23 @@ function noSuchPage(name, res) {
       console.error(err);
     }
 
-    let similarName = null;
+    let similarPages = null;
     if (names) {
       names = names.map(n => n.name);
-      similarName = stringSimilarity.findBestMatch(name, names).bestMatch
-        .target;
+
+      let matches = stringSimilarity.findBestMatch(name, names).ratings;
+      matches = _.sortBy(matches, "rating").map(match => match.target);
+      matches.reverse();
+
+      similarPages = renderMarkdown(
+        `Did you mean ${matches[0]} or ${matches[1]}?`
+      );
     }
 
     return res.status(404).render("404", {
       title: "No Such Page",
       name,
-      similarName,
+      similarPages,
       emoji: emoji.render("❓"),
       isWikiWord: wikiwords.isWikiWord(name)
     });
