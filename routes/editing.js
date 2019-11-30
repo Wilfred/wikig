@@ -3,6 +3,7 @@ const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 
+const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
 const router = express.Router();
@@ -23,6 +24,7 @@ router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
     title: "New Page",
+    emoji: emoji.render("✏️"),
     page
   });
 });
@@ -53,6 +55,7 @@ router.get("/edit/:id", (req, res, next) => {
 
     return res.render("edit", {
       title: addZeroWidthBreaks(page.name),
+      emoji: emoji.render("✏️"),
       page
     });
   });
