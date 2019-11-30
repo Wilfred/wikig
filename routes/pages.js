@@ -7,6 +7,7 @@ const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
 
+const emojiTransform = require("../lib/commonmark-emoji");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
@@ -18,7 +19,15 @@ function renderMarkdown(src, linkClassCallback) {
   const writer = new commonmark.HtmlRenderer();
   let parsed = reader.parse(src);
 
-  parsed = wikiwords.transform(linkifyTransform(parsed), linkClassCallback);
+  parsed = wikiwords.transform(
+    linkifyTransform(
+      emojiTransform(parsed, {
+        base: "/static/twemoji/",
+        folder: "72x72"
+      })
+    ),
+    linkClassCallback
+  );
 
   return writer.render(parsed);
 }
