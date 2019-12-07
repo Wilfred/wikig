@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . bin/* -f codeframe --fix",
-    "watch": "nodemon",
+    "watch": "concurrently nodemon gulp",
     "start": "node ./bin/www",
     "init-db": "node ./bin/init-db",
     "test": "IN_MEMORY_DB=true jest",
@@ -42,6 +42,7 @@
     "twemoji": "^12.1.4"
   },
   "devDependencies": {
+    "concurrently": "^5.0.0",
     "eslint": "^6.7.0",
     "gulp": "^4.0.2",
     "gulp-concat-css": "^3.1.0",
