@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
+const compression = require("compression");
 
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/pages");
@@ -11,6 +12,7 @@ const config = require("./config");
 const emoji = require("./lib/emoji");
 
 const app = express();
+app.use(compression());
 
 app.engine(".html", exphbs({ extname: ".html" }));
 app.locals.SITE_NAME = config.SITE_NAME;

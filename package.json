@@ -23,6 +23,7 @@
     "commonmark": "^0.29.0",
     "commonmark-linkify": "^1.2.0",
     "commonmark-wikiwords": "^3.0.0",
+    "compression": "^1.7.4",
     "compromise": "^11.14.3",
     "debug": "^4.1.1",
     "emojilib": "^2.4.0",
