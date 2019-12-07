@@ -1,6 +1,7 @@
 const { src, dest, watch } = require("gulp");
 const minifyCSS = require("gulp-csso");
 const concatCss = require("gulp-concat-css");
+const purgecss = require("gulp-purgecss");
 
 function css() {
   return src([
@@ -17,6 +18,11 @@ function css() {
     "static/style.css"
   ])
     .pipe(concatCss("bundle.css"))
+    .pipe(
+      purgecss({
+        content: ["views/**/*.html"]
+      })
+    )
     .pipe(minifyCSS())
     .pipe(dest("static"));
 }
