@@ -19,12 +19,20 @@ function formatDate(dateString) {
   return moment.utc(dateString).format("Do MMMM YYYY");
 }
 
+function formatTimeSince(datetime) {
+  const m = moment.utc(datetime);
+  const elapsed = moment.duration(moment().diff(m));
+  if (elapsed.asDays() < 1) {
+    return "today";
+  }
+  return m.fromNow();
+}
+
 function formatTime(created, updated) {
   if (created == updated) {
     return formatDate(created);
   }
-  const updatedM = moment.utc(updated);
-  return `${formatDate(created)}, updated ${updatedM.fromNow()}.`;
+  return `${formatDate(created)}, updated ${formatTimeSince(updated)}.`;
 }
 
 function noSuchPage(name, res) {
