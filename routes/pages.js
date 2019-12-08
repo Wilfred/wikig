@@ -1,41 +1,18 @@
 const _ = require("lodash");
 const moment = require("moment");
 const express = require("express");
-const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
-const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
 const ExpressCache = require("express-cache-middleware");
 
-const emojiTransform = require("../lib/commonmark-emoji");
+const commonmark = require("../lib/commonmark");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
 const memoryCache = require("../lib/cache");
 
 const router = express.Router();
-
-function renderMarkdown(src, linkClassCallback) {
-  if (!linkClassCallback) {
-    linkClassCallback = () => null;
-  }
-  const reader = new commonmark.Parser();
-  const writer = new commonmark.HtmlRenderer();
-  let parsed = reader.parse(src);
-
-  parsed = wikiwords.transform(
-    linkifyTransform(
-      emojiTransform(parsed, {
-        base: "/static/twemoji/",
-        folder: "72x72"
-      })
-    ),
-    linkClassCallback
-  );
-
-  return writer.render(parsed);
-}
 
 function formatDate(dateString) {
   // sqlite uses GMT for datetime values.
@@ -64,7 +41,7 @@ function noSuchPage(name, res) {
       matches = _.sortBy(matches, "rating").map(match => match.target);
       matches.reverse();
 
-      similarPages = renderMarkdown(
+      similarPages = commonmark.render(
         `Did you mean ${matches[0]} or ${matches[1]}?`
       );
     }
@@ -110,14 +87,6 @@ router.get("/random", (req, res) => {
   });
 });
 
-// Exclude link URLs and code from markdown.
-function markdownProse(src) {
-  // Remove URLs. TODO: It would be nice to split CamelCase too.
-  src = src.replace(/\[(.*?)\]\(.*?\)/g, "$1");
-  // Remove code.
-  return src.replace(/`.*?`/, "");
-}
-
 const cacheMiddleware = new ExpressCache(memoryCache);
 cacheMiddleware.attach(router);
 
@@ -134,14 +103,14 @@ router.get("/:name", (req, res) => {
       }
 
       const titleEmoji = emoji.findEmoji(_.startCase(page.name).split(" "));
-      const bodyEmoji = emoji.findNounEmoji(markdownProse(page.content));
+      const bodyEmoji = emoji.findNounEmoji(commonmark.prose(page.content));
 
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
       names = names.map(p => p.name);
 
-      page.rendered = renderMarkdown(page.content, name =>
+      page.rendered = commonmark.render(page.content, name =>
         names.includes(name) ? null : "no-such-page"
       );
 
