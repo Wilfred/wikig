@@ -111,7 +111,7 @@ router.get("/:name", (req, res) => {
       }
 
       const titleEmoji = emoji.findEmoji(_.startCase(page.name).split(" "));
-      const bodyEmoji = emoji.findNounEmoji(commonmark.prose(page.content));
+      const bodyEmoji = emoji.findWordEmoji(commonmark.prose(page.content));
 
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
