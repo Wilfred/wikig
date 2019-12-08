@@ -28,5 +28,5 @@ function css() {
 }
 
 exports.default = function() {
-  watch("static/style.css", css);
+  watch("static/style.css", { ignoreInitial: false }, css);
 };
