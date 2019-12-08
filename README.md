@@ -1,6 +1,8 @@
 # Wikig [![CircleCI](https://circleci.com/gh/Wilfred/wikig.svg?style=svg)](https://circleci.com/gh/Wilfred/wikig)[![codecov](https://codecov.io/gh/Wilfred/wikig/branch/master/graph/badge.svg)](https://codecov.io/gh/Wilfred/wikig)[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/wilfred/wikig.svg)](https://hub.docker.com/r/wilfred/wikig)
 
-A wiki with some blog influences.
+A blog with some wiki influences.
+
+Live site: https://notes.wilfred.me.uk
 
 The wikig source code is under the MIT license (see package.json), but
 wikig also includes [twemoji(https://github.com/twitter/twemoji) under
