@@ -8,7 +8,11 @@
 /* global Hammer */
 var headers = document.getElementsByTagName("h1");
 
-for (var header of headers) {
+// Newer browsers support .forEach on NodeList, as well as .forEach,
+// but an old fashioned loop covers everything.
+// https://developer.mozilla.org/en-US/docs/Web/API/NodeList
+for (var i = 0; i < headers.length; i++) {
+  var header = headers[i];
   if (header.hasAttribute("data-edit-url")) {
     var url = header.getAttribute("data-edit-url");
     var h = new Hammer(header);
