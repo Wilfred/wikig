@@ -28,10 +28,6 @@ app.use(
   "/static/font-awesome/",
   express.static(path.join(__dirname, "node_modules", "font-awesome"))
 );
-app.use(
-  "/static/hammerjs/",
-  express.static(path.join(__dirname, "node_modules", "hammerjs"))
-);
 
 app.use("/static/", express.static(path.join(__dirname, "static")));
 

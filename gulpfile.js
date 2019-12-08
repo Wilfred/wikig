@@ -2,6 +2,9 @@ const { src, dest, watch } = require("gulp");
 const minifyCSS = require("gulp-csso");
 const concatCss = require("gulp-concat-css");
 const purgecss = require("gulp-purgecss");
+const uglify = require("gulp-uglify");
+const rename = require("gulp-rename");
+const concat = require("gulp-concat");
 
 function css() {
   return src([
@@ -27,6 +30,15 @@ function css() {
     .pipe(dest("static"));
 }
 
+function js() {
+  return src(["node_modules/hammerjs/hammer.js", "./static/tapedit.js"])
+    .pipe(concat("bundle"))
+    .pipe(uglify())
+    .pipe(rename({ extname: ".min.js" }))
+    .pipe(dest("static"));
+}
+
 exports.default = function() {
   watch("static/style.css", { ignoreInitial: false }, css);
+  watch("static/tapedit.js", { ignoreInitial: false }, js);
 };
