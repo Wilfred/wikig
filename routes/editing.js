@@ -3,6 +3,7 @@ const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 
+const memoryCache = require("../lib/cache");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
@@ -67,7 +68,9 @@ router.post("/edit/:id", urlencodedParser, (req, res) => {
     if (err) {
       console.error(err);
     }
-    res.redirect("/" + name);
+    memoryCache.del("/" + name, () => {
+      res.redirect("/" + name);
+    });
   });
 });
 

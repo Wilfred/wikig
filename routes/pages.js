@@ -6,11 +6,13 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
+const ExpressCache = require("express-cache-middleware");
 
 const emojiTransform = require("../lib/commonmark-emoji");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const db = require("../db");
+const memoryCache = require("../lib/cache");
 
 const router = express.Router();
 
@@ -115,6 +117,9 @@ function markdownProse(src) {
   // Remove code.
   return src.replace(/`.*?`/, "");
 }
+
+const cacheMiddleware = new ExpressCache(memoryCache);
+cacheMiddleware.attach(router);
 
 router.get("/:name", (req, res) => {
   const name = req.params.name;
