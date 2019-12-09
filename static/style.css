@@ -64,11 +64,11 @@ a:hover {
 }
 
 .no-such-page {
-  color: #ea0000;
+  color: gray;
 }
 .no-such-page:hover {
-  color: #ea0000;
-  border-bottom: 1px solid #ea0000;
+  color: gray;
+  border-bottom: 1px solid gray;
 }
 
 code {
