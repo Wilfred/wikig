@@ -40,6 +40,6 @@ function js() {
 }
 
 exports.default = function() {
-  watch("static/style.css", { ignoreInitial: false }, css);
-  watch("static/tapedit.js", { ignoreInitial: false }, js);
+  watch(["gulpfile.js", "static/style.css"], { ignoreInitial: false }, css);
+  watch(["gulpfile.js", "static/tapedit.js"], { ignoreInitial: false }, js);
 };
