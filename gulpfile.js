@@ -18,6 +18,7 @@ function css() {
     "node_modules/semantic-ui-css/components/input.css",
     "node_modules/semantic-ui-css/components/item.css",
     "node_modules/semantic-ui-css/components/site.css",
+    "node_modules/semantic-ui-css/components/table.css",
     "static/style.css"
   ])
     .pipe(concatCss("bundle.css"))
