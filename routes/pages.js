@@ -72,6 +72,7 @@ router.get("/all", (req, res) => {
     pages = pages.map(page => {
       return Object.assign({}, page, {
         updated: formatDate(page.updated),
+        url: `/${page.name}`,
         name: addZeroWidthBreaks(page.name)
       });
     });
