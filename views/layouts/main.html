@@ -24,7 +24,7 @@
             <div class="column">
                 <h1 class="ui dividing header" {{#if page}}data-edit-url="/edit/{{page.page_id}}"{{/if}}>
                     {{title}}
-                    <div class="emojicon" title="{{emoji_caption}}">
+                    <div class="emojicon" data-tooltip="{{emoji_caption}}" data-position="top right">
                         {{#if emoji}}
                         {{{emoji}}}
                         {{else}}

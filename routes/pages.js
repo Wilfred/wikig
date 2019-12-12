@@ -130,7 +130,7 @@ router.get("/:name", (req, res) => {
       if (emojis.length) {
         emojis = emojis.slice(0, 3);
         emojiStr = emojis.map(e => e.char).join("");
-        emojiCaption = emojis.map(e => e.target).join(" ");
+        emojiCaption = "EmojiSummary: " + emojis.map(e => e.target).join(" ");
       }
 
       res.render("page", {
