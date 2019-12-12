@@ -2,6 +2,7 @@ const _ = require("lodash");
 const moment = require("moment");
 const express = require("express");
 const wikiwords = require("commonmark-wikiwords");
+const extract = require("commonmark-extract-text");
 const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
 const ExpressCache = require("express-cache-middleware");
@@ -112,7 +113,8 @@ router.get("/:name", (req, res) => {
       }
 
       const titleEmoji = emoji.findEmoji(_.startCase(page.name).split(" "));
-      const bodyEmoji = emoji.findWordEmoji(commonmark.prose(page.content));
+      // TODO: It would be nice to rewrite wikiword URLs from FooBar to Foo Bar.
+      const bodyEmoji = emoji.findWordEmoji(extract.fromText(page.content));
 
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
