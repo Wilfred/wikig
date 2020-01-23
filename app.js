@@ -53,7 +53,7 @@ app.use((err, req, res) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error", { emoji: emoji.render("‼️") });
+  res.render("error", { title: "Error", emoji: emoji.render("‼️") });
 });
 
 module.exports = app;
