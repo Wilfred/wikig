@@ -25,7 +25,7 @@ router.get("/new", (req, res) => {
   const page = { name: req.query.name };
   return res.render("edit", {
     title: "New Page",
-    emoji: emoji.render("✏️"),
+    emoji: emoji.render("🐣"),
     page
   });
 });
