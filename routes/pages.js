@@ -56,10 +56,10 @@ function noSuchPage(name, res) {
     }
 
     return res.status(404).render("404", {
-      title: "No Such Page",
+      title: "No Such Page: " + name,
       name,
       similarPages,
-      emoji: emoji.render("❓"),
+      emoji: emoji.render("🤷"),
       isWikiWord: wikiwords.isWikiWord(name)
     });
   });
