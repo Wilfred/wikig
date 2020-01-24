@@ -38,6 +38,10 @@ body {
   font-size: 16px;
 }
 
+.content {
+  text-align: justify;
+}
+
 h2 {
   font-size: 1.5em;
 }
