@@ -54,6 +54,10 @@ h5 {
   margin-top: 1rem;
 }
 
+blockquote {
+  margin-right: 0;
+}
+
 a {
   color: blue;
 }

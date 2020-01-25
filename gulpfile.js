@@ -26,7 +26,7 @@ function css() {
     .pipe(concatCss("bundle.css"))
     .pipe(
       purgecss({
-        whitelist: ["no-such-page"],
+        whitelist: ["no-such-page", "blockquote"],
         content: ["views/**/*.html"]
       })
     )
