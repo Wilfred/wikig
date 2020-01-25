@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint . bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
     "watch": "concurrently nodemon gulp",
+    "gulp": "gulp",
     "start": "node ./bin/www",
     "init-db": "node ./bin/init-db",
     "test": "IN_MEMORY_DB=true jest",
