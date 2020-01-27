@@ -22,6 +22,13 @@
     <body>
         <div class="ui grid container">
             <div class="column">
+                {{#unless isHomePage}}
+                <div class="toolbar">
+                    <a href="/">
+                        <img draggable="false" alt="🏠" src="/static/twemoji/72x72/1f3e0.png">
+                    </a>
+                </div>
+                {{/unless}}
                 <div class="ui piled segment">
                     <h1 class="ui header" {{#if page}}data-edit-url="/edit/{{page.page_id}}"{{/if}}>
                         {{title}}
