@@ -88,26 +88,8 @@ code {
   margin-left: 0.1em !important;
 }
 
-.toolbar a:hover {
-  border-bottom: 0;
-}
-.toolbar img {
-  height: 1.7em;
-}
-
 .ui.piled.segment {
   margin-top: 1em;
-}
-
-.emojicon {
-  opacity: 0.3;
-  position: absolute;
-  right: 1em;
-  bottom: 0.5em;
-}
-
-.emojicon img {
-  padding-left: 1em;
 }
 
 /* On smartphones (this is the width of an iPhone XS), use less margin
@@ -123,6 +105,16 @@ code {
   width: 1em;
   margin: 0 0.05em 0 0.1em;
   vertical-align: -0.1em;
+}
+
+.emoji-summary {
+  text-align: center;
+}
+
+.emoji-summary img {
+  height: 3em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .button img {

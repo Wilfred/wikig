@@ -128,9 +128,9 @@ router.get("/:name", (req, res) => {
       let emojiStr = null;
       let emojiCaption = null;
       if (emojis.length) {
-        emojis = emojis.slice(0, 2);
+        emojis = emojis.slice(0, 4);
         emojiStr = emojis.map(e => e.char).join("");
-        emojiCaption = "EmojiSummary: " + emojis.map(e => e.target).join(" ");
+        emojiCaption = emojis.map(e => e.target).join(" ");
       }
 
       res.render("page", {
