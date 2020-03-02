@@ -21,14 +21,14 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cache-manager": "^2.10.1",
-    "commonmark": "^0.29.0",
+    "cache-manager": "^2.11.1",
+    "commonmark": "^0.29.1",
     "commonmark-extract-text": "^0.1.0",
     "commonmark-linkify": "^1.2.0",
     "commonmark-twemoji": "^1.1.0",
     "commonmark-wikiwords": "^3.0.0",
     "compression": "^1.7.4",
-    "compromise": "^12.2.1",
+    "compromise": "^12.3.0",
     "debug": "^4.1.1",
     "emojilib": "^2.4.0",
     "express": "^4.17.1",
@@ -44,11 +44,11 @@
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.1.1",
     "string-similarity": "^4.0.1",
-    "twemoji": "^12.1.4"
+    "twemoji": "^12.1.5"
   },
   "devDependencies": {
-    "concurrently": "^5.0.0",
-    "eslint": "^6.7.2",
+    "concurrently": "^5.1.0",
+    "eslint": "^6.8.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-concat-css": "^3.1.0",
@@ -58,7 +58,7 @@
     "gulp-uglify": "^3.0.2",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
-    "nodemon": "^2.0.1",
+    "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   }
 }
