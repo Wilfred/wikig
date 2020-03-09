@@ -122,3 +122,15 @@ code {
   vertical-align: -0.2em;
   margin-left: 5px;
 }
+
+.emoji-caption {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s ease-in-out;
+}
+
+.emoji-summary:hover .emoji-caption,
+.emoji-summary:active .emoji-caption {
+  visibility: visible;
+  opacity: 1;
+}

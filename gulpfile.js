@@ -17,6 +17,7 @@ function css() {
     "node_modules/semantic-ui-css/components/header.css",
     "node_modules/semantic-ui-css/components/input.css",
     "node_modules/semantic-ui-css/components/item.css",
+    "node_modules/semantic-ui-css/components/label.css",
     "node_modules/semantic-ui-css/components/popup.css",
     "node_modules/semantic-ui-css/components/segment.css",
     "node_modules/semantic-ui-css/components/site.css",
@@ -26,7 +27,7 @@ function css() {
     .pipe(concatCss("bundle.css"))
     .pipe(
       purgecss({
-        whitelist: ["no-such-page", "blockquote"],
+        whitelist: ["no-such-page", "blockquote", "label", "pointing"],
         content: ["views/**/*.html"]
       })
     )
