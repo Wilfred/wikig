@@ -131,7 +131,11 @@ router.get("/:name", (req, res) => {
       if (emojis.length) {
         emojis = emojis.slice(0, 4);
         emojiStr = emojis.map(e => e.char).join("");
-        emojiCaption = emojis.map(e => "<div class=\"ui basic pointing label\">" + e.target + "</div>").join("");
+        emojiCaption = emojis
+          .map(
+            e => '<div class="ui black pointing label">' + e.target + "</div>"
+          )
+          .join("");
       }
 
       res.render("page", {

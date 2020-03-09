@@ -27,7 +27,14 @@ function css() {
     .pipe(concatCss("bundle.css"))
     .pipe(
       purgecss({
-        whitelist: ["no-such-page", "blockquote", "label", "pointing"],
+        whitelist: [
+          "no-such-page",
+          "blockquote",
+          // used for labels in emoji-summary
+          "label",
+          "pointing",
+          "black"
+        ],
         content: ["views/**/*.html"]
       })
     )

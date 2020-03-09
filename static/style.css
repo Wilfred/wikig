@@ -109,6 +109,7 @@ code {
 
 .emoji-summary {
   text-align: center;
+  position: relative;
 }
 
 .emoji-summary img {
@@ -127,6 +128,13 @@ code {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.2s, opacity 0.2s ease-out;
+
+  position: absolute;
+
+  top: 45px;
+  left: 50%;
+  /* https://stackoverflow.com/a/25776315/509706 */
+  transform: translate(-50%, -50%);
 }
 
 .emoji-summary:hover .emoji-caption,
