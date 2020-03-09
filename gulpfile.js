@@ -43,7 +43,11 @@ function css() {
 }
 
 function js() {
-  return src(["node_modules/hammerjs/hammer.js", "./static/tapedit.js"])
+  return src([
+    "node_modules/hammerjs/hammer.js",
+    "./static/tapedit.js",
+    "./static/shortcuts.js"
+  ])
     .pipe(concat("bundle"))
     .pipe(uglify())
     .pipe(rename({ extname: ".min.js" }))
@@ -52,5 +56,9 @@ function js() {
 
 exports.default = function() {
   watch(["gulpfile.js", "static/style.css"], { ignoreInitial: false }, css);
-  watch(["gulpfile.js", "static/tapedit.js"], { ignoreInitial: false }, js);
+  watch(
+    ["gulpfile.js", "./static/tapedit.js", "./static/shortcuts.js"],
+    { ignoreInitial: false },
+    js
+  );
 };
