@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* eslint no-var: "off", prefer-arrow-callback: "off" */
+
 // Ensure Shift-Enter in a textarea submits the enclosing form.
 var textareas = document.getElementsByTagName("textarea");
 
