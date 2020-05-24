@@ -17,7 +17,7 @@ const router = express.Router();
 
 function formatDate(dateString) {
   // sqlite uses GMT for datetime values.
-  return moment.utc(dateString).format("Do MMMM YYYY");
+  return "Created " + moment.utc(dateString).format("Do MMMM YYYY");
 }
 
 function formatTimeSince(datetime) {
@@ -33,7 +33,7 @@ function formatTime(created, updated) {
   if (created == updated) {
     return formatDate(created);
   }
-  return `${formatDate(created)}, updated ${formatTimeSince(updated)}.`;
+  return `${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
 function noSuchPage(name, res) {
@@ -144,7 +144,7 @@ router.get("/:name", (req, res) => {
         isHomePage: page.name === "HomePage",
         emoji: emoji.render(emojiStr),
         emoji_caption: emojiCaption,
-        timestamp: formatTime(page.created, page.updated)
+        timestamp: formatTime(page.created, page.updated) + "."
       });
     });
   });
