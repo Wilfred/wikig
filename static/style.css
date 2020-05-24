@@ -112,14 +112,15 @@ code {
 }
 
 .emoji-summary {
+  padding-top: 70px;
   text-align: center;
   position: relative;
 }
 
 .emoji-summary img {
   height: 3em;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
 }
 
 .button img {
