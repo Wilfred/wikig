@@ -142,6 +142,10 @@ router.get("/:name", (req, res) => {
         names.includes(name) ? null : "no-such-page"
       );
 
+      let related = similarNames(name, names)
+        .slice(0, 2)
+        .join(", ");
+
       let emojiStr = null;
       let emojiCaption = null;
       if (emojis.length) {
@@ -160,7 +164,9 @@ router.get("/:name", (req, res) => {
         isHomePage: page.name === "HomePage",
         emoji: emoji.render(emojiStr),
         emoji_caption: emojiCaption,
-        timestamp: formatTime(page.created, page.updated) + "."
+        footer: commonmark.render(
+          `${formatTime(page.created, page.updated)}. Related: ${related}`
+        )
       });
     });
   });
