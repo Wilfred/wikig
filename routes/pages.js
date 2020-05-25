@@ -10,6 +10,7 @@ const ExpressCache = require("express-cache-middleware");
 const commonmark = require("../lib/commonmark");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
+const addSpaces = require("../lib/camelcase").addSpaces;
 const db = require("../db");
 const memoryCache = require("../lib/cache");
 
@@ -159,7 +160,7 @@ router.get("/:name", (req, res) => {
       }
 
       res.render("page", {
-        title: addZeroWidthBreaks(page.name),
+        title: addSpaces(page.name),
         page,
         isHomePage: page.name === "HomePage",
         emoji: emoji.render(emojiStr),
