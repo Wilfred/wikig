@@ -68,7 +68,7 @@ function noSuchPage(name, res) {
     let similarPages = null;
     if (names) {
       similarPages = commonmark.render(
-        `Did you mean ${names[0]} or ${names[1]}?`
+        `The closest matches are ${names[0]} and ${names[1]}.`
       );
     }
 
