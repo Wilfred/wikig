@@ -36,7 +36,10 @@ router.post("/new", urlencodedParser, (req, res) => {
     if (err) {
       console.error(err);
     }
-    res.redirect("/" + name);
+    // Remove cache of other pages, so we update link colours.
+    memoryCache.reset(() => {
+      res.redirect("/" + name);
+    });
   });
 });
 
