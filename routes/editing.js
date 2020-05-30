@@ -22,11 +22,25 @@ router.use(
 );
 
 router.get("/new", (req, res) => {
-  const page = { name: req.query.name };
-  return res.render("edit", {
-    title: "New Page",
-    emoji: emoji.render("🐣"),
-    page
+  const name = req.query.name;
+
+  db.getPageByName(name, (err, page) => {
+    if (err) {
+      console.error(err);
+    }
+
+    if (page) {
+      // Page already exists, just redirect.
+      return res.redirect("/" + name);
+    } else {
+      page = { name };
+    }
+
+    return res.render("edit", {
+      title: "New Page",
+      emoji: emoji.render("🐣"),
+      page
+    });
   });
 });
 

@@ -68,6 +68,17 @@ describe("Editing", () => {
       .expect(302, done);
   });
 
+  test("/new when page exists", done => {
+    db.createPage("ExistingPage", "foo bar", (err, _page) => {
+      expect(err).toBeNull();
+
+      request(app)
+        .get("/new?name=ExistingPage")
+        .auth("admin", ADMIN_PASSWORD)
+        .expect(302, done);
+    });
+  });
+
   test("/edit GET", done => {
     db.createPage("EditGetExample", "foo bar", (err, page) => {
       expect(err).toBeNull();
