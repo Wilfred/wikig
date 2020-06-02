@@ -115,8 +115,8 @@ router.get("/random", (req, res) => {
   });
 });
 
-const cacheMiddleware = new ExpressCache(memoryCache);
-cacheMiddleware.attach(router);
+// const cacheMiddleware = new ExpressCache(memoryCache);
+// cacheMiddleware.attach(router);
 
 router.get("/:name", (req, res) => {
   const name = req.params.name;
