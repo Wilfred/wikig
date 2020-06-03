@@ -12,7 +12,7 @@ router.get("/version", (req, res) => {
 
   return res.render("version", {
     title: "Site Version",
-    emoji: emoji.render("⚙️⏲️"),
+    emoji: emoji.render("⚙️"),
     version: process.versions.node,
     appUptime,
     serverUptime
