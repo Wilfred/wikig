@@ -1,2 +1,5 @@
 node_modules
 *.db
+
+# JS profiling info
+.clinic
