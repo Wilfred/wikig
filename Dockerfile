@@ -12,7 +12,8 @@ COPY package*.json ./
 
 ENV NODE_ENV production
 
-RUN npm install
+# Install dependencies according to package-lock.json.
+RUN npm ci
 
 # Bundle app source
 COPY . .
