@@ -154,10 +154,7 @@ router.get("/:name", (req, res) => {
         emojiStr = emojis.map(e => e.char).join("");
         emojiCaption = emojis
           .map(
-            e =>
-              '<div class="ui black pointing below label">' +
-              e.target +
-              "</div>"
+            e => '<div class="ui pointing below label">' + e.target + "</div>"
           )
           .join("");
       }

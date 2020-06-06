@@ -32,8 +32,7 @@ function css() {
           "blockquote",
           // used for labels in emoji-summary
           "label",
-          "pointing",
-          "black"
+          "pointing"
         ],
         content: ["views/**/*.html"]
       })
