@@ -143,7 +143,7 @@ router.get("/:name", (req, res) => {
         names.includes(name) ? null : "no-such-page"
       );
 
-      let related = similarNames(name, names)
+      const related = similarNames(name, names)
         .slice(0, 2)
         .join(", ");
 
