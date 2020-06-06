@@ -1,7 +1,16 @@
-/* Since the site is prose, reduce the page width to help
-   readability. */
+/* Set a maximum width of the whole page. This keeps the site readable
+   on larger screens. */
+.constrained-width {
+  max-width: 690px;
+}
+
+/* Make the container slightly smaller than its wrapper, and
+   right-align. This gives us some whitespace on the left on larger
+   screen, rather than hugging the edge. */
 body .ui.grid.container {
   max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
 }
 
 /* Apply semantic UI's .error class to any invalid input. */

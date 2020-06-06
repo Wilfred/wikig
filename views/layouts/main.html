@@ -20,37 +20,39 @@
         {{/if}}
     </head>
     <body>
-        <div class="ui grid container">
-            <div class="column">
-                <div class="ui buttons">
-                <a href="/" class="basic tiny ui button {{#if isHomePage}}disabled{{/if}}">
-                    /
-                    <img draggable="false" alt="🏠" src="/static/twemoji/72x72/1f3e0.png">
-                </a>
-                <a href="/all" class="basic tiny ui button {{#if isAllPages}}disabled{{/if}}">
-                    /all
-                    <img draggable="false" alt="🎲" src="/static/twemoji/72x72/1f4da.png">
-                </a>
-                <a href="/random" class="basic tiny ui button">
-                    /random
-                    <img draggable="false" alt="🎲" src="/static/twemoji/72x72/1f3b2.png">
-                </a>
-                </div>
-                <div class="ui piled segment">
-                    <h1 class="ui dividing header" {{#if page}}data-edit-url="/edit/{{page.page_id}}"{{/if}}>
-                        {{title}}
-                    </h1>
+        <div class="constrained-width">
+            <div class="ui grid container">
+                <div class="column">
+                    <div class="ui buttons">
+                        <a href="/" class="basic tiny ui button {{#if isHomePage}}disabled{{/if}}">
+                            /
+                            <img draggable="false" alt="🏠" src="/static/twemoji/72x72/1f3e0.png">
+                        </a>
+                        <a href="/all" class="basic tiny ui button {{#if isAllPages}}disabled{{/if}}">
+                            /all
+                            <img draggable="false" alt="🎲" src="/static/twemoji/72x72/1f4da.png">
+                        </a>
+                        <a href="/random" class="basic tiny ui button">
+                            /random
+                            <img draggable="false" alt="🎲" src="/static/twemoji/72x72/1f3b2.png">
+                        </a>
+                    </div>
+                    <div class="ui piled segment">
+                        <h1 class="ui dividing header" {{#if page}}data-edit-url="/edit/{{page.page_id}}"{{/if}}>
+                            {{title}}
+                        </h1>
 
-                    {{{body}}}
+                        {{{body}}}
 
-                    <div class="emoji-summary">
-                        {{#if emoji}}
-                        {{{emoji}}}
-                        {{else}}
-                        <img class="emoji"  draggable="false" alt="👨‍💻" src="/static/twemoji/72x72/1f468-200d-1f4bb.png">
-                        {{/if}}
-                        <div class="emoji-caption">
-                            {{{emoji_caption}}}
+                        <div class="emoji-summary">
+                            {{#if emoji}}
+                            {{{emoji}}}
+                            {{else}}
+                            <img class="emoji"  draggable="false" alt="👨‍💻" src="/static/twemoji/72x72/1f468-200d-1f4bb.png">
+                            {{/if}}
+                            <div class="emoji-caption">
+                                {{{emoji_caption}}}
+                            </div>
                         </div>
                     </div>
                 </div>
