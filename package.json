@@ -26,7 +26,7 @@
     "commonmark-extract-text": "^0.1.0",
     "commonmark-linkify": "^1.2.0",
     "commonmark-twemoji": "^1.1.0",
-    "commonmark-wikiwords": "^3.0.0",
+    "commonmark-wikiwords": "^3.1.0",
     "compression": "^1.7.4",
     "compromise": "^12.3.0",
     "debug": "^4.1.1",
