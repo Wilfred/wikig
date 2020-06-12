@@ -18,7 +18,7 @@ const router = express.Router();
 
 function formatDate(dateString) {
   // sqlite uses GMT for datetime values.
-  return "Created " + moment.utc(dateString).format("Do MMMM YYYY");
+  return moment.utc(dateString).format("Do MMMM YYYY");
 }
 
 function formatTimeSince(datetime) {
@@ -32,9 +32,9 @@ function formatTimeSince(datetime) {
 
 function formatTime(created, updated) {
   if (created == updated) {
-    return formatDate(created);
+    return `Created {formatDate(created)}`;
   }
-  return `${formatDate(created)}, updated ${formatTimeSince(updated)}`;
+  return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
 function similarNames(name, names) {
