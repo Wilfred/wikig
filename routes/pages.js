@@ -32,7 +32,7 @@ function formatTimeSince(datetime) {
 
 function formatTime(created, updated) {
   if (created == updated) {
-    return `Created {formatDate(created)}`;
+    return `Created ${formatDate(created)}`;
   }
   return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
