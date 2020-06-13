@@ -1,19 +1,9 @@
 <div class="content">
-    <table class="ui very basic celled table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Updated</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each pages}}
-            <tr>
-                <td><a href="{{this.url}}">{{this.name}}</a></td>
-                <td>{{this.updated}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    {{#each pages}}
+    <tr>
+        <td><a href="{{this.url}}">{{this.name}}</a></td>
+        <td>{{this.updated}}</td>
+    </tr>
+    {{/each}}
 
 </div>

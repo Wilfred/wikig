@@ -140,6 +140,12 @@ describe("Viewing", () => {
       .get("/NoSuchPage")
       .expect(404, done);
   });
+
+  test("/search?term=foo", done => {
+    request(app)
+      .get("/all")
+      .expect(200, done);
+  });
 });
 
 describe("Static content", () => {

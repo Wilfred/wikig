@@ -36,6 +36,7 @@
     "express-cache-middleware": "^1.0.1",
     "express-handlebars": "^4.0.4",
     "font-awesome": "^4.7.0",
+    "fuse.js": "^6.0.4",
     "hammerjs": "^2.0.8",
     "http-errors": "^1.7.3",
     "lodash": "^4.17.15",
@@ -44,6 +45,7 @@
     "semantic-ui-css": "^2.4.1",
     "sqlite3": "^4.2.0",
     "string-similarity": "^4.0.1",
+    "truncate": "^2.1.0",
     "twemoji": "^12.1.5"
   },
   "devDependencies": {

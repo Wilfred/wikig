@@ -4,6 +4,7 @@ const express = require("express");
 const wikiwords = require("commonmark-wikiwords");
 const extract = require("commonmark-extract-text");
 const randomItem = require("random-item");
+const truncate = require("truncate");
 const ExpressCache = require("express-cache-middleware");
 
 const commonmark = require("../lib/commonmark");
@@ -93,6 +94,26 @@ router.get("/random", (req, res) => {
   });
 });
 
+router.get("/search", (req, res) => {
+  const term = req.query.term;
+  search.search(term, (err, pages) => {
+    if (err) {
+      console.error(err);
+    }
+
+    pages = pages.map(page =>
+      Object.assign({}, page, { short: truncate(page.content, 200) })
+    );
+
+    pages = pages.slice(0, 5);
+
+    return res.render("search_results", {
+      title: "Search: " + term,
+      emoji: emoji.render("🔎"),
+      pages
+    });
+  });
+});
 const cacheMiddleware = new ExpressCache(memoryCache);
 cacheMiddleware.attach(router);
 

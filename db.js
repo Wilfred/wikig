@@ -38,7 +38,7 @@ CREATE TABLE page_revisions (
 
 function allPages(callback) {
   db.all(
-    `SELECT rowid, name, created, updated
+    `SELECT rowid, name, created, updated, content
      FROM pages
      ORDER BY updated DESC`,
     callback
