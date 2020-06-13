@@ -3,11 +3,11 @@ const moment = require("moment");
 const express = require("express");
 const wikiwords = require("commonmark-wikiwords");
 const extract = require("commonmark-extract-text");
-const stringSimilarity = require("string-similarity");
 const randomItem = require("random-item");
 const ExpressCache = require("express-cache-middleware");
 
 const commonmark = require("../lib/commonmark");
+const search = require("../lib/search");
 const emoji = require("../lib/emoji");
 const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
 const addSpaces = require("../lib/camelcase").addSpaces;
@@ -37,30 +37,8 @@ function formatTime(created, updated) {
   return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
-function similarNames(name, names) {
-  let matches = stringSimilarity.findBestMatch(name, names).ratings;
-  matches = _.sortBy(matches, "rating").map(match => match.target);
-  matches.reverse();
-
-  return matches.filter(m => m !== name);
-}
-
-// Find other pages whose name looks similar.
-// TODO: Consider word boundaries, so BananaPie and BandanaClothes are
-// less similar.
-function similarPages(name, cb) {
-  db.allPageNames((err, names) => {
-    if (err) {
-      return cb(err);
-    }
-
-    names = names.map(n => n.name);
-    return cb(null, similarNames(name, names));
-  });
-}
-
 function noSuchPage(name, res) {
-  similarPages(name, (err, names) => {
+  search.similarPages(name, (err, names) => {
     if (err) {
       console.error(err);
     }
@@ -143,7 +121,8 @@ router.get("/:name", (req, res) => {
         names.includes(name) ? null : "no-such-page"
       );
 
-      const related = similarNames(name, names)
+      const related = search
+        .similarNames(name, names)
         .slice(0, 2)
         .join(", ");
 
