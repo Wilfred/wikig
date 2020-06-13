@@ -83,7 +83,7 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/random", (req, res) => {
-  db.allPages((err, pages) => {
+  db.allPageNames((err, pages) => {
     if (err) {
       console.error(err);
     }
