@@ -143,7 +143,7 @@ describe("Viewing", () => {
 
   test("/search?term=foo", done => {
     request(app)
-      .get("/all")
+      .get("/search?term=foo")
       .expect(200, done);
   });
 });
