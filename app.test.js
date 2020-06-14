@@ -146,6 +146,12 @@ describe("Viewing", () => {
       .get("/search?term=foo")
       .expect(200, done);
   });
+
+  test("/search", done => {
+    request(app)
+      .get("/search")
+      .expect(200, done);
+  });
 });
 
 describe("Static content", () => {
