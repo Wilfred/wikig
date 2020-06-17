@@ -1,3 +1,7 @@
+body {
+  background-color: #fff7f0;
+}
+
 /* Set a maximum width of the whole page. This keeps the site readable
    on larger screens. */
 .constrained-width {
