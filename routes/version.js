@@ -11,7 +11,8 @@ router.get("/version", (req, res) => {
     .humanize();
   const serverUptime = moment.duration(-1 * os.uptime(), "seconds").humanize();
 
-  const commit = execSync("git rev-parse HEAD").toString();
+  // const commit = execSync("git rev-parse HEAD").toString();
+  const commit = "TODO";
   const commitUrl = `https://github.com/Wilfred/wikig/commit/${commit}`;
 
   return res.render("version", {
