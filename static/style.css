@@ -65,14 +65,6 @@ h1 {
 h2 {
   font-size: 1.5em;
 }
-h1,
-h2,
-h3,
-h4,
-h5 {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-}
 
 blockquote {
   margin-right: 0;
