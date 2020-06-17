@@ -5,7 +5,7 @@ const basicAuth = require("express-basic-auth");
 
 const memoryCache = require("../lib/cache");
 const emoji = require("../lib/emoji");
-const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
+const addShyHyphen = require("../lib/camelcase").addShyHyphen;
 const db = require("../db");
 const router = express.Router();
 
@@ -72,7 +72,7 @@ router.get("/edit/:id", (req, res, next) => {
     }
 
     return res.render("edit", {
-      title: addZeroWidthBreaks(page.name),
+      title: addShyHyphen(page.name),
       emoji: emoji.render("✏️"),
       page
     });

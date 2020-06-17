@@ -10,7 +10,7 @@ const ExpressCache = require("express-cache-middleware");
 const commonmark = require("../lib/commonmark");
 const search = require("../lib/search");
 const emoji = require("../lib/emoji");
-const addZeroWidthBreaks = require("../lib/camelcase").addZeroWidthBreaks;
+const addShyHyphen = require("../lib/camelcase").addShyHyphen;
 const addSpaces = require("../lib/camelcase").addSpaces;
 const db = require("../db");
 const memoryCache = require("../lib/cache");
@@ -70,7 +70,7 @@ router.get("/all", (req, res) => {
       return Object.assign({}, page, {
         updated: formatDate(page.updated),
         url: `/${page.name}`,
-        name: addZeroWidthBreaks(page.name)
+        name: addShyHyphen(page.name)
       });
     });
 
