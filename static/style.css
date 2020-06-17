@@ -5,14 +5,14 @@ body {
 /* Set a maximum width of the whole page. This keeps the site readable
    on larger screens. */
 .constrained-width {
-  max-width: 690px;
+  max-width: 750px;
 }
 
 /* Make the container slightly smaller than its wrapper, and
    right-align. This gives us some whitespace on the left on larger
    screen, rather than hugging the edge. */
 body .ui.grid.container {
-  max-width: 600px !important;
+  max-width: 650px !important;
   margin-left: auto !important;
   margin-right: 0 !important;
 }
@@ -46,9 +46,11 @@ body .ui.grid.container {
   color: #da9796 !important;
 }
 
+html {
+  font-size: 16px;
+}
 body {
   padding-top: 10px;
-  font-size: 16px;
 }
 
 .content {
@@ -109,11 +111,11 @@ code {
   margin-top: 1em;
 }
 
-/* On smartphones (this is the width of an iPhone XS), use less margin
- so we have more width for text. */
-@media only screen and (max-width: 414px) {
-  .ui.container {
-    margin-right: 0.1em !important;
+/* On smaller devices (e.g. iPhone XS has a width of 414px), use a
+   smaller font. */
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 14px;
   }
 }
 
