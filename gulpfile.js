@@ -32,7 +32,13 @@ function css() {
           "blockquote",
           // used for labels in emoji-summary
           "label",
-          "pointing"
+          "pointing",
+          // Used in markdown, but we don't have any examples in the
+          // raw HTML layouts.
+          "h1",
+          "h2",
+          "h3",
+          "h4",
         ],
         content: ["views/**/*.html"],
       })
