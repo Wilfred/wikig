@@ -22,7 +22,7 @@ function css() {
     "node_modules/semantic-ui-css/components/segment.css",
     "node_modules/semantic-ui-css/components/site.css",
     "node_modules/semantic-ui-css/components/table.css",
-    "static/style.css"
+    "static/style.css",
   ])
     .pipe(concatCss("bundle.css"))
     .pipe(
@@ -34,7 +34,7 @@ function css() {
           "label",
           "pointing"
         ],
-        content: ["views/**/*.html"]
+        content: ["views/**/*.html"],
       })
     )
     .pipe(minifyCSS())
@@ -45,7 +45,7 @@ function js() {
   return src([
     "node_modules/hammerjs/hammer.js",
     "./static/tapedit.js",
-    "./static/shortcuts.js"
+    "./static/shortcuts.js",
   ])
     .pipe(concat("bundle"))
     .pipe(uglify())
@@ -53,7 +53,7 @@ function js() {
     .pipe(dest("static"));
 }
 
-exports.default = function() {
+exports.default = function () {
   watch(["gulpfile.js", "static/style.css"], { ignoreInitial: false }, css);
   watch(
     ["gulpfile.js", "./static/tapedit.js", "./static/shortcuts.js"],
