@@ -160,3 +160,8 @@ code {
   visibility: visible;
   opacity: 1;
 }
+
+footer {
+  margin-top: 3rem;
+  font-style: italic;
+}
