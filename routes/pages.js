@@ -55,7 +55,7 @@ function noSuchPage(name, res) {
       name,
       similarPages,
       emoji: emoji.render("🤷"),
-      isWikiWord: wikiwords.isWikiWord(name)
+      isWikiWord: wikiwords.isWikiWord(name),
     });
   });
 }
@@ -65,11 +65,11 @@ router.get("/all", (req, res) => {
     if (err) {
       console.error(err);
     }
-    pages = pages.map(page => {
+    pages = pages.map((page) => {
       return Object.assign({}, page, {
         updated: formatDate(page.updated),
         url: `/${page.name}`,
-        name: addSpaces(page.name)
+        name: addSpaces(page.name),
       });
     });
 
@@ -77,7 +77,7 @@ router.get("/all", (req, res) => {
       title: "All Pages",
       emoji: emoji.render("📚"),
       isAllPages: true,
-      pages
+      pages,
     });
   });
 });
@@ -99,7 +99,7 @@ router.get("/search", (req, res) => {
   if (!term) {
     return res.render("search_form", {
       title: "Search",
-      emoji: emoji.render("🔎")
+      emoji: emoji.render("🔎"),
     });
   }
 
@@ -108,7 +108,7 @@ router.get("/search", (req, res) => {
       console.error(err);
     }
 
-    pages = pages.map(page =>
+    pages = pages.map((page) =>
       Object.assign({}, page, { short: truncate(page.content, 200) })
     );
 
@@ -117,7 +117,7 @@ router.get("/search", (req, res) => {
     return res.render("search_results", {
       title: "Search: " + term,
       emoji: emoji.render("🔎"),
-      pages
+      pages,
     });
   });
 });
@@ -143,25 +143,22 @@ router.get("/:name", (req, res) => {
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
-      names = names.map(p => p.name);
+      names = names.map((p) => p.name);
 
-      page.rendered = commonmark.render(page.content, name =>
+      page.rendered = commonmark.render(page.content, (name) =>
         names.includes(name) ? null : "no-such-page"
       );
 
-      const related = search
-        .similarNames(name, names)
-        .slice(0, 2)
-        .join(", ");
+      const related = search.similarNames(name, names).slice(0, 2).join(", ");
 
       let emojiStr = null;
       let emojiCaption = null;
       if (emojis.length) {
         emojis = emojis.slice(0, 3);
-        emojiStr = emojis.map(e => e.char).join("");
+        emojiStr = emojis.map((e) => e.char).join("");
         emojiCaption = emojis
           .map(
-            e => '<div class="ui pointing below label">' + e.target + "</div>"
+            (e) => '<div class="ui pointing below label">' + e.target + "</div>"
           )
           .join("");
       }
@@ -174,7 +171,7 @@ router.get("/:name", (req, res) => {
         emoji_caption: emojiCaption,
         footer: commonmark.render(
           `${formatTime(page.created, page.updated)}. Related: ${related}`
-        )
+        ),
       });
     });
   });
