@@ -39,6 +39,8 @@ function css() {
           "h2",
           "h3",
           "h4",
+          // Not autodetected, presumably because of our use of handlebars?
+          "dividing",
         ],
         content: ["views/**/*.html"],
       })
