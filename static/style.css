@@ -120,7 +120,7 @@ code {
 }
 
 .emoji-summary {
-  padding-top: 70px;
+  padding-top: 50px;
   text-align: center;
   position: relative;
 }
@@ -128,8 +128,8 @@ code {
 .emoji-summary img {
   height: 3em;
   width: 3em;
-  margin-left: 0.8em;
-  margin-right: 0.8em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .button img {
