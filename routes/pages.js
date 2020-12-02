@@ -167,6 +167,7 @@ router.get("/:name", (req, res) => {
         title: addSpaces(page.name),
         page,
         isHomePage: page.name === "HomePage",
+        emojiStr,
         emoji: emoji.render(emojiStr),
         emoji_caption: emojiCaption,
         footer: commonmark.render(
