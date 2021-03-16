@@ -10,16 +10,6 @@
         <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" rel="stylesheet">
-        {{#if GOOGLE_ANALYTICS}}
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '{{GOOGLE_ANALYTICS}}');
-        </script>
-        {{/if}}
     </head>
     <body>
         <div class="constrained-width">
@@ -64,5 +54,15 @@
             </div>
         </div>
     </body>
+    {{#if GOOGLE_ANALYTICS}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{GOOGLE_ANALYTICS}}');
+    </script>
+    {{/if}}
     <script src="/static/bundle.min.js"></script>
 </html>
