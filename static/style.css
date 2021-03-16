@@ -62,6 +62,12 @@ body {
   padding-top: 10px;
 }
 
+.ui.header,
+h1,
+h2 {
+  font-family: "Ubuntu", serif;
+}
+
 h1 {
   margin-top: 0.5rem !important;
 }
