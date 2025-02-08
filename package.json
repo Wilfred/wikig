@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cache-manager": "^3.3.0",
+    "cache-manager": "^2.11.0",
     "commonmark": "^0.29.1",
     "commonmark-extract-text": "^0.1.0",
     "commonmark-linkify": "^1.2.0",
