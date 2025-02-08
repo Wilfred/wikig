@@ -31,7 +31,7 @@
     "compromise": "^12.3.0",
     "debug": "^4.1.1",
     "emojilib": "^2.4.0",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "express-basic-auth": "^1.2.0",
     "express-cache-middleware": "^1.0.1",
     "express-handlebars": "^4.0.4",
