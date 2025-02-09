@@ -1,15 +1,16 @@
-"use strict";
 const commonmark = require("commonmark");
 const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const emojiTransform = require("commonmark-twemoji");
-function render(src, linkClassCallback) {
+
+function render(src: string, linkClassCallback): string {
   if (!linkClassCallback) {
     linkClassCallback = () => null;
   }
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
   let parsed = reader.parse(src);
+
   parsed = wikiwords.transform(
     linkifyTransform(
       emojiTransform(parsed, {
@@ -20,6 +21,8 @@ function render(src, linkClassCallback) {
     linkClassCallback,
     ["GitHub"],
   );
+
   return writer.render(parsed);
 }
+
 module.exports = { render };
