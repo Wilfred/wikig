@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . src src/bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
-    "format": "prettier --write lib routes *.js",
+    "format": "prettier --write src *.js",
     "watch": "concurrently nodemon gulp",
     "gulp": "gulp",
     "start": "node ./src/bin/www",
