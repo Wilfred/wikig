@@ -10,7 +10,8 @@
     "gulp": "gulp",
     "start": "node ./src/bin/www",
     "init-db": "node ./src/bin/init-db",
-    "test": "IN_MEMORY_DB=true jest"
+    "test": "IN_MEMORY_DB=true jest",
+    "tsc": "tsc"
   },
   "keywords": [
     "wiki",
@@ -49,6 +50,8 @@
     "twemoji": "^12.1.5"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
     "concurrently": "^5.2.0",
     "eslint": "^8.57.0",
     "eslint-formatter-codeframe": "^7.32.1",
@@ -62,6 +65,7 @@
     "jest": "^29.7.0",
     "nodemon": "^2.0.4",
     "prettier": "^3.4.2",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "typescript": "^5.7.3"
   }
 }
