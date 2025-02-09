@@ -11,6 +11,7 @@
     "start": "node ./src/bin/www",
     "init-db": "node ./src/bin/init-db",
     "test": "IN_MEMORY_DB=true jest",
+    "check": "tsc --noEmit",
     "tsc": "tsc"
   },
   "keywords": [
