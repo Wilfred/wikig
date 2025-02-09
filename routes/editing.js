@@ -17,8 +17,8 @@ router.use(
   "/new",
   basicAuth({
     users: { admin: ADMIN_PASSWORD },
-    challenge: true
-  })
+    challenge: true,
+  }),
 );
 
 router.get("/new", (req, res) => {
@@ -39,7 +39,7 @@ router.get("/new", (req, res) => {
     return res.render("edit", {
       title: "New Page",
       emoji: emoji.render("🐣"),
-      page
+      page,
     });
   });
 });
@@ -61,8 +61,8 @@ router.use(
   "/edit/:name",
   basicAuth({
     users: { admin: ADMIN_PASSWORD },
-    challenge: true
-  })
+    challenge: true,
+  }),
 );
 
 router.get("/edit/:id", (req, res, next) => {
@@ -74,7 +74,7 @@ router.get("/edit/:id", (req, res, next) => {
     return res.render("edit", {
       title: addShyHyphen(page.name),
       emoji: emoji.render("✏️"),
-      page
+      page,
     });
   });
 });

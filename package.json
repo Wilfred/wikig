@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
+    "format": "prettier --write lib routes *.js",
     "watch": "concurrently nodemon gulp",
     "gulp": "gulp",
     "start": "node ./bin/www",
@@ -60,6 +61,7 @@
     "gulp-uglify": "^3.0.2",
     "jest": "^29.7.0",
     "nodemon": "^2.0.4",
+    "prettier": "^3.4.2",
     "supertest": "^4.0.2"
   }
 }

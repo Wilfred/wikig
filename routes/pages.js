@@ -46,7 +46,7 @@ function noSuchPage(name, res) {
     let similarPages = null;
     if (names) {
       similarPages = commonmark.render(
-        `The closest matches are ${names[0]} and ${names[1]}.`
+        `The closest matches are ${names[0]} and ${names[1]}.`,
       );
     }
 
@@ -109,7 +109,7 @@ router.get("/search", (req, res) => {
     }
 
     pages = pages.map((page) =>
-      Object.assign({}, page, { short: truncate(page.content, 200) })
+      Object.assign({}, page, { short: truncate(page.content, 200) }),
     );
 
     pages = pages.slice(0, 5);
@@ -146,7 +146,7 @@ router.get("/:name", (req, res) => {
       names = names.map((p) => p.name);
 
       page.rendered = commonmark.render(page.content, (name) =>
-        names.includes(name) ? null : "no-such-page"
+        names.includes(name) ? null : "no-such-page",
       );
 
       const related = search.similarNames(name, names).slice(0, 2).join(", ");
@@ -158,7 +158,8 @@ router.get("/:name", (req, res) => {
         emojiStr = emojis.map((e) => e.char).join("");
         emojiCaption = emojis
           .map(
-            (e) => '<div class="ui pointing below label">' + e.target + "</div>"
+            (e) =>
+              '<div class="ui pointing below label">' + e.target + "</div>",
           )
           .join("");
       }
@@ -171,7 +172,7 @@ router.get("/:name", (req, res) => {
         emoji: emoji.render(emojiStr),
         emoji_caption: emojiCaption,
         footer: commonmark.render(
-          `${formatTime(page.created, page.updated)}. Related: ${related}`
+          `${formatTime(page.created, page.updated)}. Related: ${related}`,
         ),
       });
     });

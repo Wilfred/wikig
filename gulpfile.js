@@ -43,7 +43,7 @@ function css() {
           "dividing",
         ],
         content: ["views/**/*.html"],
-      })
+      }),
     )
     .pipe(minifyCSS())
     .pipe(dest("static"));
@@ -66,6 +66,6 @@ exports.default = function () {
   watch(
     ["gulpfile.js", "./static/tapedit.js", "./static/shortcuts.js"],
     { ignoreInitial: false },
-    js
+    js,
   );
 };

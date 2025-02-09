@@ -31,7 +31,7 @@ CREATE TABLE page_revisions (
   page_id INTEGER NOT NULL,
   FOREIGN KEY (page_id) references pages(page_id)
 )`,
-      cb
+      cb,
     );
   });
 }
@@ -41,7 +41,7 @@ function allPages(callback) {
     `SELECT rowid, name, created, updated, content
      FROM pages
      ORDER BY updated DESC`,
-    callback
+    callback,
   );
 }
 
@@ -49,7 +49,7 @@ function allPageNames(callback) {
   db.all(
     `SELECT name
      FROM pages`,
-    callback
+    callback,
   );
 }
 
@@ -58,7 +58,7 @@ function getPageByName(name, callback) {
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
     [name],
-    callback
+    callback,
   );
 }
 
@@ -67,7 +67,7 @@ function getPage(rowid, callback) {
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
     [rowid],
-    callback
+    callback,
   );
 }
 
@@ -81,8 +81,8 @@ function updatePage(pageid, name, content, callback) {
         `UPDATE pages SET name = ?, content = ?, updated = ?
      WHERE page_id = ?`,
         [name, content, new Date().toISOString(), pageid],
-        callback
-      )
+        callback,
+      ),
   );
 }
 
@@ -93,12 +93,12 @@ function createPage(name, content, callback) {
   db.run(
     `INSERT INTO pages (name, content) VALUES(?, ?)`,
     [name, content],
-    err => {
+    (err) => {
       if (err) {
         return err;
       }
       return getPageByName(name, callback);
-    }
+    },
   );
 }
 
@@ -109,5 +109,5 @@ module.exports = {
   getPage,
   getPageByName,
   createPage,
-  updatePage
+  updatePage,
 };

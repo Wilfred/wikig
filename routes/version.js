@@ -21,7 +21,7 @@ router.get("/version", (req, res) => {
     commit: commit.substring(0, 8),
     commitUrl,
     appUptime,
-    serverUptime
+    serverUptime,
   });
 });
 

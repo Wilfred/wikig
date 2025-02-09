@@ -22,11 +22,11 @@ app.set("view engine", ".html");
 
 app.use(
   "/static/semantic/",
-  express.static(path.join(__dirname, "node_modules", "semantic-ui-css"))
+  express.static(path.join(__dirname, "node_modules", "semantic-ui-css")),
 );
 app.use(
   "/static/font-awesome/",
-  express.static(path.join(__dirname, "node_modules", "font-awesome"))
+  express.static(path.join(__dirname, "node_modules", "font-awesome")),
 );
 
 app.use("/static/", express.static(path.join(__dirname, "static")));
