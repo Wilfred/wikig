@@ -22,16 +22,16 @@ app.set("view engine", ".html");
 
 app.use(
   "/static/semantic/",
-  express.static(path.join(__dirname, "node_modules", "semantic-ui-css")),
+  express.static(path.join(__dirname, "..","node_modules", "semantic-ui-css")),
 );
 app.use(
   "/static/font-awesome/",
-  express.static(path.join(__dirname, "node_modules", "font-awesome")),
+  express.static(path.join(__dirname, "..","node_modules", "font-awesome")),
 );
 
-app.use("/static/", express.static(path.join(__dirname, "static")));
+app.use("/static/", express.static(path.join(__dirname, "..","static")));
 
-app.use("/", express.static(path.join(__dirname, "static", "robots")));
+app.use("/", express.static(path.join(__dirname, "..","static", "robots")));
 
 app.use("/", indexRouter);
 app.use("/", editingRouter);

@@ -1,5 +1,5 @@
 {
-  "exec": "DEBUG=wikig:* ./bin/www",
+  "exec": "DEBUG=wikig:* ./src/bin/www",
   "watch": ["*"],
   "ignore": ["node_modules/*"],
   "ext": "www, js, html, css, json, md"
