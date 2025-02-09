@@ -6,7 +6,6 @@ module.exports = {
   },
   extends: "eslint:recommended",
   rules: {
-    "linebreak-style": ["error", "unix"],
     "no-alert": "warn",
     "no-console": ["warn", { allow: ["warn", "error"] }],
     "no-debugger": "warn",
@@ -23,6 +22,5 @@ module.exports = {
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
     "sort-imports": "warn",
-    semi: ["error", "always"]
   }
 };
