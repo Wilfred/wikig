@@ -3,7 +3,10 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const emojiTransform = require("commonmark-twemoji");
 
-function render(src: string, linkClassCallback): string {
+function render(
+  src: string,
+  linkClassCallback: (text: string) => string | null,
+): string {
   if (!linkClassCallback) {
     linkClassCallback = () => null;
   }
