@@ -1,4 +1,6 @@
-const commonmark = require("commonmark");
+import * as commonmark from "commonmark";
+
+// No types yet.
 const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const emojiTransform = require("commonmark-twemoji");
