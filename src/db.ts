@@ -1,20 +1,16 @@
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const sqlite3_1 = __importDefault(require("sqlite3"));
-sqlite3_1.default.verbose();
-let db;
+import sqlite3 from "sqlite3";
+
+sqlite3.verbose();
+
+let db: sqlite3.Database;
 if (process.env.IN_MEMORY_DB) {
-  db = new sqlite3_1.default.Database(":memory:");
+  db = new sqlite3.Database(":memory:");
 } else {
   // This will create the file if it doesn't exist.
-  db = new sqlite3_1.default.Database(process.env.DB_PATH || "wikig.db");
+  db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 }
-function init(cb) {
+
+function init(cb: (this: sqlite3.RunResult, err: Error | null) => void): void {
   db.serialize(() => {
     db.run(`
 CREATE TABLE pages (
@@ -24,6 +20,7 @@ CREATE TABLE pages (
   created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 )`);
+
     // TODO: Enable foreign key constraints.
     // https://stackoverflow.com/q/15301643/509706
     db.run(
@@ -40,7 +37,20 @@ CREATE TABLE page_revisions (
     );
   });
 }
-function allPages(callback) {
+
+function allPages(
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    rows: {
+      name: string;
+      content: string;
+      rowid: any;
+      created: Date;
+      updated: Date;
+    }[],
+  ) => void,
+) {
   db.all(
     `SELECT rowid, name, created, updated, content
      FROM pages
@@ -48,14 +58,35 @@ function allPages(callback) {
     callback,
   );
 }
-function allPageNames(callback) {
+
+function allPageNames(
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    rows: { name: string }[],
+  ) => void,
+) {
   db.all(
     `SELECT name
      FROM pages`,
     callback,
   );
 }
-function getPageByName(name, callback) {
+
+function getPageByName(
+  name: string,
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    rows: {
+      page_id: any;
+      name: string;
+      content: string;
+      created: Date;
+      updated: Date;
+    }[],
+  ) => void,
+) {
   db.get(
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
@@ -63,7 +94,21 @@ function getPageByName(name, callback) {
     callback,
   );
 }
-function getPage(rowid, callback) {
+
+function getPage(
+  rowid: any,
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    rows: {
+      page_id: any;
+      name: string;
+      content: string;
+      created: Date;
+      updated: Date;
+    }[],
+  ) => void,
+) {
   db.get(
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
@@ -71,7 +116,8 @@ function getPage(rowid, callback) {
     callback,
   );
 }
-function updatePage(pageid, name, content, callback) {
+
+function updatePage(pageid: any, name: string, content: string, callback: any) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
     `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
@@ -85,9 +131,24 @@ function updatePage(pageid, name, content, callback) {
       ),
   );
 }
+
 // Create a page with this name and content, then return the newly
 // created page.
-function createPage(name, content, callback) {
+function createPage(
+  name: string,
+  content: string,
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    rows: {
+      page_id: any;
+      name: string;
+      content: string;
+      created: Date;
+      updated: Date;
+    }[],
+  ) => void,
+) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.run(
     `INSERT INTO pages (name, content) VALUES(?, ?)`,
@@ -100,6 +161,7 @@ function createPage(name, content, callback) {
     },
   );
 }
+
 module.exports = {
   init,
   allPages,
