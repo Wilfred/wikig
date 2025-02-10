@@ -53,6 +53,7 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.9",
     "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.1",
     "concurrently": "^5.2.0",
     "eslint": "^8.57.0",
