@@ -19,4 +19,4 @@ RUN npm ci
 COPY . .
 
 EXPOSE 3000
-CMD [ ".src//bin/www" ]
+CMD [ "./src/bin/www" ]
