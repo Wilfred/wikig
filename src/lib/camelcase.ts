@@ -14,7 +14,7 @@ function isLowerCase(str: string): boolean {
 export function splitParts(wikiword: string): string[] {
   const chars = wikiword.split("");
 
-  const parts = [];
+  const parts: string[] = [];
   let part = "";
   let prev = "";
 
