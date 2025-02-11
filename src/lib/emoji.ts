@@ -164,7 +164,7 @@ function emojiMatchingKeyword(originalTarget: string): LabelledEmoji | null {
   return null;
 }
 
-function findEmoji(words: string[]): LabelledEmoji[] {
+export function findEmoji(words: string[]): LabelledEmoji[] {
   const result: LabelledEmoji[] = [];
   _.forEach(words, (word: string) => {
     if (word.length < 3 || WORD_BLACKLIST.includes(word.toLowerCase())) {
@@ -188,13 +188,13 @@ function words(txt: string): string[] {
     .out("array");
 }
 
-function findWordEmoji(src: string) {
+export function findWordEmoji(src: string) {
   return findEmoji(words(src));
 }
 
 /** Replace emojis in emojiStr with img tags.
  */
-function render(emojiStr: string | null): string | null {
+export function render(emojiStr: string | null): string | null {
   if (!emojiStr) {
     return null;
   }
@@ -204,5 +204,3 @@ function render(emojiStr: string | null): string | null {
     folder: "72x72",
   });
 }
-
-module.exports = { findWordEmoji, findEmoji, render };

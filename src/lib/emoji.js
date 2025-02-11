@@ -61,6 +61,9 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.findEmoji = findEmoji;
+exports.findWordEmoji = findWordEmoji;
+exports.render = render;
 const _ = __importStar(require("lodash"));
 const compromise_1 = __importDefault(require("compromise"));
 const emojilib = require("emojilib");
@@ -216,4 +219,3 @@ function render(emojiStr) {
     folder: "72x72",
   });
 }
-module.exports = { findWordEmoji, findEmoji, render };

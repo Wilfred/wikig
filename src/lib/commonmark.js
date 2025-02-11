@@ -56,6 +56,7 @@ var __importStar =
     };
   })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.render = render;
 const commonmark = __importStar(require("commonmark"));
 // No types yet.
 const wikiwords = require("commonmark-wikiwords");
@@ -80,4 +81,3 @@ function render(src, linkClassCallback) {
   );
   return writer.render(parsed);
 }
-module.exports = { render };

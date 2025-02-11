@@ -1,4 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addShyHyphen = addShyHyphen;
+exports.splitParts = splitParts;
+exports.addSpaces = addSpaces;
 // Add 'shy hyphens' to CamelCaseStrings so browsers know where to
 // break lines.
 // https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens#Suggesting_line_break_opportunities
@@ -46,4 +50,3 @@ function addSpaces(txt) {
       .replace("Isnt", "Isn't")
   );
 }
-module.exports = { addShyHyphen, addSpaces, splitParts };

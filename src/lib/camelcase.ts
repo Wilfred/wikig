@@ -1,7 +1,7 @@
 // Add 'shy hyphens' to CamelCaseStrings so browsers know where to
 // break lines.
 // https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens#Suggesting_line_break_opportunities
-function addShyHyphen(txt: string): string {
+export function addShyHyphen(txt: string): string {
   const SHY_TAB = "\u00ad";
   return splitParts(txt).join(SHY_TAB);
 }
@@ -11,7 +11,7 @@ function isLowerCase(str: string): boolean {
 }
 
 // Split FooBarABCBaz as ["Foo", "Bar", "ABC", "Baz"].
-function splitParts(wikiword: string): string[] {
+export function splitParts(wikiword: string): string[] {
   const chars = wikiword.split("");
 
   const parts = [];
@@ -43,7 +43,7 @@ function splitParts(wikiword: string): string[] {
   return parts.filter((p) => p != "");
 }
 
-function addSpaces(txt: string): string {
+export function addSpaces(txt: string): string {
   return (
     splitParts(txt)
       .join(" ")
@@ -53,5 +53,3 @@ function addSpaces(txt: string): string {
       .replace("Isnt", "Isn't")
   );
 }
-
-module.exports = { addShyHyphen, addSpaces, splitParts };

@@ -5,7 +5,7 @@ const wikiwords = require("commonmark-wikiwords");
 const linkifyTransform = require("commonmark-linkify");
 const emojiTransform = require("commonmark-twemoji");
 
-function render(
+export function render(
   src: string,
   linkClassCallback: (text: string) => string | null,
 ): string {
@@ -29,5 +29,3 @@ function render(
 
   return writer.render(parsed);
 }
-
-module.exports = { render };
