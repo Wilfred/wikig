@@ -7,11 +7,12 @@ const randomItem = require("random-item");
 const truncate = require("truncate");
 const ExpressCache = require("express-cache-middleware");
 
+import * as db from "../db";
+import * as emoji from "../lib/emoji";
+
 const commonmark = require("../lib/commonmark");
 const search = require("../lib/search");
-const emoji = require("../lib/emoji");
 const addSpaces = require("../lib/camelcase").addSpaces;
-const db = require("../db");
 const memoryCache = require("../lib/cache");
 
 const router = express.Router();
