@@ -139,7 +139,7 @@ const ALL_EMOJI: { [key: string]: Emoji } = relevantEmoji();
 const EMOJI_BY_KEYWORD = keywordMap(ALL_EMOJI);
 const EMOJI_BY_PREFIX = prefixMap(ALL_EMOJI);
 
-function emojiMatchingKeyword(originalTarget: string) {
+function emojiMatchingKeyword(originalTarget: string): LabelledEmoji | null {
   const target = REPLACEMENTS[originalTarget] || originalTarget;
 
   // If there's an emoji with exactly this name, use it.
@@ -166,8 +166,8 @@ function emojiMatchingKeyword(originalTarget: string) {
   return null;
 }
 
-function findEmoji(words: string[]): { target: string; key: string }[] {
-  const result: { target: string; key: string }[] = [];
+function findEmoji(words: string[]): LabelledEmoji[] {
+  const result: LabelledEmoji[] = [];
   _.forEach(words, (word: string) => {
     if (word.length < 3 || WORD_BLACKLIST.includes(word.toLowerCase())) {
       return true;
