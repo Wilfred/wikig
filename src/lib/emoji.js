@@ -55,10 +55,15 @@ var __importStar =
       return result;
     };
   })();
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const _ = __importStar(require("lodash"));
+const compromise_1 = __importDefault(require("compromise"));
 const emojilib = require("emojilib");
-const nlp = require("compromise");
 const twemoji = require("twemoji");
 const WORD_BLACKLIST = [
   "data",
@@ -194,7 +199,7 @@ function findEmoji(words) {
   return result;
 }
 function words(txt) {
-  return nlp(txt)
+  return (0, compromise_1.default)(txt)
     .normalize({ plurals: true, verbs: true })
     .terms()
     .out("array");

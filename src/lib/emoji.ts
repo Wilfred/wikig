@@ -1,6 +1,6 @@
 import * as _ from "lodash";
+import nlp from "compromise";
 const emojilib = require("emojilib");
-const nlp = require("compromise");
 const twemoji = require("twemoji");
 
 type Emoji = {
