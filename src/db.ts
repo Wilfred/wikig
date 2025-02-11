@@ -75,7 +75,7 @@ export function allPageNames(
 
 export function getPageByName(
   name: string,
-  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
 ) {
   db.get(
     `SELECT page_id, name, content, created, updated
@@ -87,7 +87,7 @@ export function getPageByName(
 
 export function getPage(
   rowid: any,
-  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
 ) {
   db.get(
     `SELECT page_id, name, content, created, updated
@@ -101,7 +101,7 @@ export function updatePage(
   pageid: any,
   name: string,
   content: string,
-  callback: any,
+  callback: (this: sqlite3.Statement, err: Error | null, result: any) => void,
 ) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
@@ -122,7 +122,7 @@ export function updatePage(
 export function createPage(
   name: string,
   content: string,
-  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
 ) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.run(
