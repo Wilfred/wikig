@@ -90,8 +90,7 @@ function keywordMap(emojiMap: { [key: string]: Emoji }): {
 
   // TODO: Iterate object more nicely.
   Object.keys(emojiMap).forEach((key) => {
-    // TODO: Prefer built-in methods.
-    const value = _.extend({ key }, emojiMap[key]);
+    const value = { key, ...emojiMap[key] };
 
     value.keywords.forEach((keyword: string) => {
       const prev = result[keyword];
@@ -120,8 +119,7 @@ function prefixMap(emojiMap: { [key: string]: Emoji }): {
 
   // TODO: Iterate object more nicely.
   Object.keys(emojiMap).forEach((key) => {
-    // TODO: Prefer built-in methods.
-    const value = _.extend({ key }, emojiMap[key]);
+    const value = { key, ...emojiMap[key] };
 
     // Only use the first part, so 'call_me_hand' doesn't match
     // 'me'.
@@ -145,13 +143,13 @@ function emojiMatchingKeyword(originalTarget: string): LabelledEmoji | null {
   // If there's an emoji with exactly this name, use it.
   const exactMatch = ALL_EMOJI[target];
   if (exactMatch != null) {
-    return _.extend({ key: target, target: originalTarget }, exactMatch);
+    return { key: target, target: originalTarget, ...exactMatch };
   }
 
   // Otherwise, try to find an emoji that contains this word as a keyword.
   const keywordMatch = EMOJI_BY_KEYWORD[target];
   if (keywordMatch != null) {
-    return _.extend({ key: target, target: originalTarget }, keywordMatch);
+    return { target: originalTarget, ...keywordMatch };
   }
 
   // If we still haven't found something, try splitting names.
@@ -160,7 +158,7 @@ function emojiMatchingKeyword(originalTarget: string): LabelledEmoji | null {
   const prefixMatch = EMOJI_BY_PREFIX[target];
   if (target.length > 1 && prefixMatch != null) {
     const prefixMatch = EMOJI_BY_PREFIX[target];
-    return _.extend({ key: target, target: originalTarget }, prefixMatch);
+    return { target: originalTarget, ...prefixMatch };
   }
 
   return null;
