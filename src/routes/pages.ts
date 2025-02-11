@@ -1,6 +1,6 @@
 import _ from "lodash";
+import * as express from "express";
 const moment = require("moment");
-const express = require("express");
 const wikiwords = require("commonmark-wikiwords");
 const extract = require("commonmark-extract-text");
 const randomItem = require("random-item");
@@ -9,10 +9,10 @@ const ExpressCache = require("express-cache-middleware");
 
 import * as db from "../db";
 import * as emoji from "../lib/emoji";
+import { addSpaces } from "../lib/camelcase";
 
 const commonmark = require("../lib/commonmark");
 const search = require("../lib/search");
-const addSpaces = require("../lib/camelcase").addSpaces;
 const memoryCache = require("../lib/cache");
 
 const router = express.Router();
@@ -38,7 +38,7 @@ function formatTime(created: string, updated: string): string {
   return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
-function noSuchPage(name, res) {
+function noSuchPage(name: string, res: express.Response) {
   search.similarPages(name, (err, names) => {
     if (err) {
       console.error(err);
@@ -83,7 +83,7 @@ router.get("/all", (req, res) => {
   });
 });
 
-router.get("/random", (req, res) => {
+router.get("/random", (_, res) => {
   db.allPageNames((err, pages) => {
     if (err) {
       console.error(err);
@@ -122,6 +122,7 @@ router.get("/search", (req, res) => {
     });
   });
 });
+
 const cacheMiddleware = new ExpressCache(memoryCache);
 cacheMiddleware.attach(router);
 

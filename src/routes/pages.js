@@ -62,8 +62,8 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = __importDefault(require("lodash"));
+const express = __importStar(require("express"));
 const moment = require("moment");
-const express = require("express");
 const wikiwords = require("commonmark-wikiwords");
 const extract = require("commonmark-extract-text");
 const randomItem = require("random-item");
@@ -71,9 +71,9 @@ const truncate = require("truncate");
 const ExpressCache = require("express-cache-middleware");
 const db = __importStar(require("../db"));
 const emoji = __importStar(require("../lib/emoji"));
+const camelcase_1 = require("../lib/camelcase");
 const commonmark = require("../lib/commonmark");
 const search = require("../lib/search");
-const addSpaces = require("../lib/camelcase").addSpaces;
 const memoryCache = require("../lib/cache");
 const router = express.Router();
 function formatDate(dateString) {
@@ -123,7 +123,7 @@ router.get("/all", (req, res) => {
       return Object.assign({}, page, {
         updated: formatDate(page.updated),
         url: `/${page.name}`,
-        name: addSpaces(page.name),
+        name: (0, camelcase_1.addSpaces)(page.name),
       });
     });
     return res.render("all", {
@@ -134,7 +134,7 @@ router.get("/all", (req, res) => {
     });
   });
 });
-router.get("/random", (req, res) => {
+router.get("/random", (_, res) => {
   db.allPageNames((err, pages) => {
     if (err) {
       console.error(err);
@@ -214,7 +214,7 @@ router.get("/:name", (req, res) => {
           .join("");
       }
       res.render("page", {
-        title: addSpaces(page.name),
+        title: (0, camelcase_1.addSpaces)(page.name),
         page,
         isHomePage: page.name === "HomePage",
         emojiStr,
