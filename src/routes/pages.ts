@@ -9,9 +9,9 @@ const ExpressCache = require("express-cache-middleware");
 
 import * as db from "../db";
 import * as emoji from "../lib/emoji";
+import * as commonmark from "../lib/commonmark";
 import { addSpaces } from "../lib/camelcase";
 
-const commonmark = require("../lib/commonmark");
 const search = require("../lib/search");
 const memoryCache = require("../lib/cache");
 
@@ -44,7 +44,7 @@ function noSuchPage(name: string, res: express.Response) {
       console.error(err);
     }
 
-    let similarPages = null;
+    let similarPages: string | null = null;
     if (names) {
       similarPages = commonmark.render(
         `The closest matches are ${names[0]} and ${names[1]}.`,

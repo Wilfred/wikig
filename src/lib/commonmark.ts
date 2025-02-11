@@ -7,7 +7,7 @@ const emojiTransform = require("commonmark-twemoji");
 
 export function render(
   src: string,
-  linkClassCallback: (text: string) => string | null,
+  linkClassCallback?: (text: string) => string | null,
 ): string {
   if (!linkClassCallback) {
     linkClassCallback = () => null;
