@@ -171,6 +171,9 @@ cacheMiddleware.attach(router);
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPageByName(name, (err, page) => {
+    if (err) {
+      console.error(err);
+    }
     if (!page) {
       return noSuchPage(name, res);
     }
@@ -189,11 +192,15 @@ router.get("/:name", (req, res) => {
       );
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
-      names = names.map((p) => p.name);
+      let pageNames = names.map((p) => p.name);
+      // @ts-ignore
       page.rendered = commonmark.render(page.content, (name) =>
-        names.includes(name) ? null : "no-such-page",
+        pageNames.includes(name) ? null : "no-such-page",
       );
-      const related = search.similarNames(name, names).slice(0, 2).join(", ");
+      const related = search
+        .similarNames(name, pageNames)
+        .slice(0, 2)
+        .join(", ");
       let emojiStr = null;
       let emojiCaption = null;
       if (emojis.length) {

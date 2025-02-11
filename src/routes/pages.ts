@@ -148,13 +148,17 @@ router.get("/:name", (req, res) => {
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
-      names = names.map((p) => p.name);
+      let pageNames = names.map((p) => p.name);
 
-      page.rendered = commonmark.render(page.content, (name) =>
-        names.includes(name) ? null : "no-such-page",
+      // @ts-ignore
+      page.rendered = commonmark.render(page.content, (name: string) =>
+        pageNames.includes(name) ? null : "no-such-page",
       );
 
-      const related = search.similarNames(name, names).slice(0, 2).join(", ");
+      const related = search
+        .similarNames(name, pageNames)
+        .slice(0, 2)
+        .join(", ");
 
       let emojiStr: string | null = null;
       let emojiCaption: string | null = null;
