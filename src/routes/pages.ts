@@ -128,6 +128,10 @@ cacheMiddleware.attach(router);
 router.get("/:name", (req, res) => {
   const name = req.params.name;
   db.getPageByName(name, (err, page) => {
+    if (err) {
+      console.error(err);
+    }
+
     if (!page) {
       return noSuchPage(name, res);
     }
