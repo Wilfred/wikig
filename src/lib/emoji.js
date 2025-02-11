@@ -1,60 +1,4 @@
 "use strict";
-var __createBinding =
-  (this && this.__createBinding) ||
-  (Object.create
-    ? function (o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (
-          !desc ||
-          ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)
-        ) {
-          desc = {
-            enumerable: true,
-            get: function () {
-              return m[k];
-            },
-          };
-        }
-        Object.defineProperty(o, k2, desc);
-      }
-    : function (o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        o[k2] = m[k];
-      });
-var __setModuleDefault =
-  (this && this.__setModuleDefault) ||
-  (Object.create
-    ? function (o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      }
-    : function (o, v) {
-        o["default"] = v;
-      });
-var __importStar =
-  (this && this.__importStar) ||
-  (function () {
-    var ownKeys = function (o) {
-      ownKeys =
-        Object.getOwnPropertyNames ||
-        function (o) {
-          var ar = [];
-          for (var k in o)
-            if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-          return ar;
-        };
-      return ownKeys(o);
-    };
-    return function (mod) {
-      if (mod && mod.__esModule) return mod;
-      var result = {};
-      if (mod != null)
-        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
-          if (k[i] !== "default") __createBinding(result, mod, k[i]);
-      __setModuleDefault(result, mod);
-      return result;
-    };
-  })();
 var __importDefault =
   (this && this.__importDefault) ||
   function (mod) {
@@ -64,7 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findEmoji = findEmoji;
 exports.findWordEmoji = findWordEmoji;
 exports.render = render;
-const _ = __importStar(require("lodash"));
+const lodash_1 = __importDefault(require("lodash"));
 const compromise_1 = __importDefault(require("compromise"));
 const emojilib = require("emojilib");
 const twemoji = require("twemoji");
@@ -115,15 +59,17 @@ const REPLACEMENTS = {
 };
 // Return true if `haystack` contains any of the values in `needles`.
 function containsAny(haystack, needles) {
-  return !_.isEmpty(_.intersection(haystack, needles));
+  return !lodash_1.default.isEmpty(
+    lodash_1.default.intersection(haystack, needles),
+  );
 }
 // All the emoji in emojilib that we want to use.
 function relevantEmoji() {
   let result = emojilib.lib;
   // Ignore emoji whose name is in the blacklist.
-  result = _.omit(result, EMOJI_BLACKLIST);
+  result = lodash_1.default.omit(result, EMOJI_BLACKLIST);
   // Ignore emoji if any keywords are in the blacklist.
-  result = _.omitBy(result, (value) =>
+  result = lodash_1.default.omitBy(result, (value) =>
     containsAny(value.keywords, KEYWORD_BLACKLIST),
   );
   return result;
@@ -188,7 +134,7 @@ function emojiMatchingKeyword(originalTarget) {
 }
 function findEmoji(words) {
   const result = [];
-  _.forEach(words, (word) => {
+  lodash_1.default.forEach(words, (word) => {
     if (word.length < 3 || WORD_BLACKLIST.includes(word.toLowerCase())) {
       return true;
     }

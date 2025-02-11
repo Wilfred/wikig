@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import _ from "lodash";
 import nlp from "compromise";
 const emojilib = require("emojilib");
 const twemoji = require("twemoji");
