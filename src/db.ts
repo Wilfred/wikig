@@ -11,11 +11,11 @@ if (process.env.IN_MEMORY_DB) {
 }
 
 type Page = {
-  page_id: any;
+  page_id: number;
   name: string;
   content: string;
-  created: any;
-  updated: any;
+  created: string;
+  updated: string;
 };
 
 export function init(
