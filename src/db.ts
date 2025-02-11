@@ -10,6 +10,14 @@ if (process.env.IN_MEMORY_DB) {
   db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 }
 
+type Page = {
+  page_id: any;
+  name: string;
+  content: string;
+  created: any;
+  updated: any;
+};
+
 export function init(
   cb: (this: sqlite3.RunResult, err: Error | null) => void,
 ): void {
@@ -41,17 +49,7 @@ CREATE TABLE page_revisions (
 }
 
 export function allPages(
-  callback: (
-    this: sqlite3.Statement,
-    err: Error | null,
-    rows: {
-      name: string;
-      content: string;
-      rowid: any;
-      created: Date;
-      updated: Date;
-    }[],
-  ) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
 ) {
   db.all(
     `SELECT rowid, name, created, updated, content
@@ -77,17 +75,7 @@ export function allPageNames(
 
 export function getPageByName(
   name: string,
-  callback: (
-    this: sqlite3.Statement,
-    err: Error | null,
-    rows: {
-      page_id: any;
-      name: string;
-      content: string;
-      created: Date;
-      updated: Date;
-    }[],
-  ) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
 ) {
   db.get(
     `SELECT page_id, name, content, created, updated
@@ -99,17 +87,7 @@ export function getPageByName(
 
 export function getPage(
   rowid: any,
-  callback: (
-    this: sqlite3.Statement,
-    err: Error | null,
-    rows: {
-      page_id: any;
-      name: string;
-      content: string;
-      created: Date;
-      updated: Date;
-    }[],
-  ) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
 ) {
   db.get(
     `SELECT page_id, name, content, created, updated
@@ -144,17 +122,7 @@ export function updatePage(
 export function createPage(
   name: string,
   content: string,
-  callback: (
-    this: sqlite3.Statement,
-    err: Error | null,
-    rows: {
-      page_id: any;
-      name: string;
-      content: string;
-      created: Date;
-      updated: Date;
-    }[],
-  ) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
 ) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.run(
