@@ -31,7 +31,7 @@ function formatTimeSince(datetime: string): string {
   return m.fromNow();
 }
 
-function formatTime(created, updated): string {
+function formatTime(created: string, updated: string): string {
   if (created == updated) {
     return `Created ${formatDate(created)}`;
   }
