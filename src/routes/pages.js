@@ -154,7 +154,7 @@ router.get("/:name", (req, res) => {
       let emojiStr = null;
       let emojiCaption = null;
       if (emojis.length) {
-        emojis = emojis.slice(0, 3);
+        emojis = emojis.slice(0, 2);
         emojiStr = emojis.map((e) => e.char).join("");
         emojiCaption = emojis
           .map(
