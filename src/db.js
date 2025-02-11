@@ -5,6 +5,13 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = init;
+exports.allPages = allPages;
+exports.allPageNames = allPageNames;
+exports.getPageByName = getPageByName;
+exports.getPage = getPage;
+exports.updatePage = updatePage;
+exports.createPage = createPage;
 const sqlite3_1 = __importDefault(require("sqlite3"));
 sqlite3_1.default.verbose();
 let db;
@@ -100,12 +107,3 @@ function createPage(name, content, callback) {
     },
   );
 }
-module.exports = {
-  init,
-  allPages,
-  allPageNames,
-  getPage,
-  getPageByName,
-  createPage,
-  updatePage,
-};

@@ -10,7 +10,9 @@ if (process.env.IN_MEMORY_DB) {
   db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 }
 
-function init(cb: (this: sqlite3.RunResult, err: Error | null) => void): void {
+export function init(
+  cb: (this: sqlite3.RunResult, err: Error | null) => void,
+): void {
   db.serialize(() => {
     db.run(`
 CREATE TABLE pages (
@@ -38,7 +40,7 @@ CREATE TABLE page_revisions (
   });
 }
 
-function allPages(
+export function allPages(
   callback: (
     this: sqlite3.Statement,
     err: Error | null,
@@ -59,7 +61,7 @@ function allPages(
   );
 }
 
-function allPageNames(
+export function allPageNames(
   callback: (
     this: sqlite3.Statement,
     err: Error | null,
@@ -73,7 +75,7 @@ function allPageNames(
   );
 }
 
-function getPageByName(
+export function getPageByName(
   name: string,
   callback: (
     this: sqlite3.Statement,
@@ -95,7 +97,7 @@ function getPageByName(
   );
 }
 
-function getPage(
+export function getPage(
   rowid: any,
   callback: (
     this: sqlite3.Statement,
@@ -117,7 +119,12 @@ function getPage(
   );
 }
 
-function updatePage(pageid: any, name: string, content: string, callback: any) {
+export function updatePage(
+  pageid: any,
+  name: string,
+  content: string,
+  callback: any,
+) {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
     `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
@@ -134,7 +141,7 @@ function updatePage(pageid: any, name: string, content: string, callback: any) {
 
 // Create a page with this name and content, then return the newly
 // created page.
-function createPage(
+export function createPage(
   name: string,
   content: string,
   callback: (
@@ -161,13 +168,3 @@ function createPage(
     },
   );
 }
-
-module.exports = {
-  init,
-  allPages,
-  allPageNames,
-  getPage,
-  getPageByName,
-  createPage,
-  updatePage,
-};
