@@ -12,13 +12,24 @@ if (process.env.IN_MEMORY_DB) {
 }
 
 const dbRun = promisify<string, any[]>(
-  db.run.bind(db) as (sql: string, params: any[], cb: (err: Error | null) => void) => void,
+  db.run.bind(db) as (
+    sql: string,
+    params: any[],
+    cb: (err: Error | null) => void,
+  ) => void,
 );
 const dbGet = promisify<string, any[], any>(
-  db.get.bind(db) as (sql: string, params: any[], cb: (err: Error | null, row: any) => void) => void,
+  db.get.bind(db) as (
+    sql: string,
+    params: any[],
+    cb: (err: Error | null, row: any) => void,
+  ) => void,
 );
 const dbAll = promisify<string, any[]>(
-  db.all.bind(db) as (sql: string, cb: (err: Error | null, rows: any[]) => void) => void,
+  db.all.bind(db) as (
+    sql: string,
+    cb: (err: Error | null, rows: any[]) => void,
+  ) => void,
 );
 
 type Page = {
@@ -77,9 +88,7 @@ export async function allPageNames(): Promise<{ name: string }[]> {
   )) as { name: string }[];
 }
 
-export async function getPageByName(
-  name: string,
-): Promise<Page | undefined> {
+export async function getPageByName(name: string): Promise<Page | undefined> {
   return (await dbGet(
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
@@ -114,15 +123,12 @@ export async function updatePage(
 
 // Create a page with this name and content, then return the newly
 // created page.
-export async function createPage(
-  name: string,
-  content: string,
-): Promise<Page> {
+export async function createPage(name: string, content: string): Promise<Page> {
   // Based on https://stackoverflow.com/a/4330694/509706
-  await dbRun(
-    `INSERT INTO pages (name, content) VALUES(?, ?)`,
-    [name, content],
-  );
+  await dbRun(`INSERT INTO pages (name, content) VALUES(?, ?)`, [
+    name,
+    content,
+  ]);
   const page = await getPageByName(name);
   return page!;
 }

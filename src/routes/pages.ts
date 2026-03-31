@@ -37,10 +37,7 @@ function formatTime(created: string, updated: string): string {
   return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
-async function noSuchPage(
-  name: string,
-  res: express.Response,
-): Promise<void> {
+async function noSuchPage(name: string, res: express.Response): Promise<void> {
   try {
     const names = await search.similarPages(name);
     let similarPages: string | null = null;
@@ -159,10 +156,7 @@ router.get("/:name", async (req, res) => {
       pageNames.includes(name) ? null : "no-such-page",
     );
 
-    const related = search
-      .similarNames(name, pageNames)
-      .slice(0, 2)
-      .join(", ");
+    const related = search.similarNames(name, pageNames).slice(0, 2).join(", ");
 
     let emojiStr: string | null = null;
     let emojiCaption: string | null = null;
@@ -171,8 +165,7 @@ router.get("/:name", async (req, res) => {
       emojiStr = emojis.map((e) => e.char).join("");
       emojiCaption = emojis
         .map(
-          (e) =>
-            '<div class="ui pointing below label">' + e.target + "</div>",
+          (e) => '<div class="ui pointing below label">' + e.target + "</div>",
         )
         .join("");
     }
