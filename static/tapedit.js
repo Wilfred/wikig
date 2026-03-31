@@ -16,7 +16,7 @@ for (var i = 0; i < headers.length; i++) {
   if (header.hasAttribute("data-edit-url")) {
     var url = header.getAttribute("data-edit-url");
     var h = new Hammer(header);
-    h.on("doubletap", function(_ev) {
+    h.on("doubletap", function (_ev) {
       window.location.href = url;
     });
   }

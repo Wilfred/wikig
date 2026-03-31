@@ -7,19 +7,19 @@ https://martinfowler.com/bliki/WhatIsaBliki.html
 
 Necessary features:
 
-* Markdown formatting (headings, code samples)
-* CamelCaseLinks (minimise creation efforts)
+- Markdown formatting (headings, code samples)
+- CamelCaseLinks (minimise creation efforts)
 
 Desirable features:
 
-* Plugins (experiment with niche hypertext ideas such as persistent
+- Plugins (experiment with niche hypertext ideas such as persistent
   links, sidebars, type tags, content categories)
-* Visible history
-* Live preview
-* Expressive, edit-reload PL used for implementation
+- Visible history
+- Live preview
+- Expressive, edit-reload PL used for implementation
 
 Undesirable features:
 
-* User accounts, talk pages (single-user model)
-* Comments (adds complexity, too temporal, better served by other
+- User accounts, talk pages (single-user model)
+- Comments (adds complexity, too temporal, better served by other
   sites)

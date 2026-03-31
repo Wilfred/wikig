@@ -2,7 +2,7 @@ module.exports = {
   env: {
     es2020: true,
     jest: true,
-    node: true
+    node: true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -26,5 +26,5 @@ module.exports = {
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
     "sort-imports": "warn",
-  }
+  },
 };
