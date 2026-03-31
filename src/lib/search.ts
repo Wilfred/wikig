@@ -1,7 +1,7 @@
 import _ from "lodash";
+import Fuse from "fuse.js";
+import stringSimilarity from "string-similarity";
 import * as db from "../db";
-const stringSimilarity = require("string-similarity");
-const Fuse = require("fuse.js");
 
 export function similarNames(name, names) {
   let matches = stringSimilarity.findBestMatch(name, names).ratings;

@@ -1,9 +1,7 @@
 import * as commonmark from "commonmark";
-
-// No types yet.
-const wikiwords = require("commonmark-wikiwords");
-const linkifyTransform = require("commonmark-linkify");
-const emojiTransform = require("commonmark-twemoji");
+import emojiTransform from "commonmark-twemoji";
+import linkifyTransform from "commonmark-linkify";
+import wikiwords from "commonmark-wikiwords";
 
 export function render(
   src: string,

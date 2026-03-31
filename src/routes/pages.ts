@@ -1,19 +1,18 @@
 import _ from "lodash";
 import * as express from "express";
-const moment = require("moment");
-const wikiwords = require("commonmark-wikiwords");
-const extract = require("commonmark-extract-text");
-const randomItem = require("random-item");
-const truncate = require("truncate");
-const ExpressCache = require("express-cache-middleware");
+import ExpressCache from "express-cache-middleware";
+import extract from "commonmark-extract-text";
+import wikiwords from "commonmark-wikiwords";
+import moment from "moment";
+import randomItem from "random-item";
+import truncate from "truncate";
 
+import * as commonmark from "../lib/commonmark";
 import * as db from "../db";
 import * as emoji from "../lib/emoji";
-import * as commonmark from "../lib/commonmark";
-import { addSpaces } from "../lib/camelcase";
-
 import * as search from "../lib/search";
 import memoryCache from "../lib/cache";
+import { addSpaces } from "../lib/camelcase";
 
 const router = express.Router();
 

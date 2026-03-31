@@ -1,8 +1,8 @@
-const moment = require("moment");
 import express from "express";
+import moment from "moment";
 import os from "os";
-import * as emoji from "../lib/emoji";
 import { execSync } from "child_process";
+import * as emoji from "../lib/emoji";
 const router = express.Router();
 
 router.get("/version", (req, res) => {
