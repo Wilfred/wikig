@@ -4,6 +4,10 @@ module.exports = {
     jest: true,
     node: true
   },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
+  },
   extends: "eslint:recommended",
   rules: {
     "no-alert": "warn",

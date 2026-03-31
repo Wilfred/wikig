@@ -4,7 +4,7 @@
   "description": "A blog-influenced wiki",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint . src src/bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
+    "lint": "eslint --ext .js,.ts . src src/bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
     "format": "prettier --write src *.js",
     "dev": "concurrently nodemon gulp",
     "gulp": "gulp",
@@ -57,6 +57,7 @@
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.1",
+    "@typescript-eslint/parser": "^8.58.0",
     "concurrently": "^5.2.0",
     "eslint": "^8.57.0",
     "eslint-formatter-codeframe": "^7.32.1",
