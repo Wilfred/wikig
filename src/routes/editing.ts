@@ -1,7 +1,7 @@
+import basicAuth from "express-basic-auth";
+import bodyParser from "body-parser";
 import express from "express";
 import createError from "http-errors";
-const bodyParser = require("body-parser");
-const basicAuth = require("express-basic-auth");
 
 import memoryCache from "../lib/cache";
 import * as emoji from "../lib/emoji";

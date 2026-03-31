@@ -1,4 +1,4 @@
-const cacheManager = require("cache-manager");
+import cacheManager from "cache-manager";
 
 const memoryCache = cacheManager.caching({
   store: "memory",

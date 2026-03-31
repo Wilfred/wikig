@@ -1,7 +1,7 @@
 import _ from "lodash";
 import nlp from "compromise";
-const emojilib = require("emojilib");
-const twemoji = require("twemoji");
+import emojilib from "emojilib";
+import twemoji from "twemoji";
 
 type Emoji = {
   keywords: string[];

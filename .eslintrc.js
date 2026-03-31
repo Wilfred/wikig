@@ -8,8 +8,10 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
   },
+  plugins: ["@typescript-eslint"],
   extends: "eslint:recommended",
   rules: {
+    "@typescript-eslint/no-require-imports": "error",
     "no-alert": "warn",
     "no-console": ["warn", { allow: ["warn", "error"] }],
     "no-debugger": "warn",
