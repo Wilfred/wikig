@@ -54,6 +54,7 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.9",
     "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.1",
     "concurrently": "^5.2.0",
@@ -70,7 +71,13 @@
     "nodemon": "^2.0.4",
     "prettier": "^3.4.2",
     "supertest": "^4.0.2",
+    "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
     "typescript": "^5.7.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    }
   }
 }

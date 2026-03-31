@@ -1,9 +1,9 @@
-const _ = require("lodash");
+import _ from "lodash";
+import * as db from "../db";
 const stringSimilarity = require("string-similarity");
-const db = require("../db");
 const Fuse = require("fuse.js");
 
-function similarNames(name, names) {
+export function similarNames(name, names) {
   let matches = stringSimilarity.findBestMatch(name, names).ratings;
   matches = _.sortBy(matches, "rating").map((match) => match.target);
   matches.reverse();
@@ -14,18 +14,18 @@ function similarNames(name, names) {
 // Find other pages whose name looks similar.
 // TODO: Consider word boundaries, so BananaPie and BandanaClothes are
 // less similar.
-function similarPages(name, cb) {
+export function similarPages(name, cb) {
   db.allPageNames((err, names) => {
     if (err) {
       return cb(err);
     }
 
-    names = names.map((n) => n.name);
-    return cb(null, similarNames(name, names));
+    const nameStrings = names.map((n) => n.name);
+    return cb(null, similarNames(name, nameStrings));
   });
 }
 
-function search(input, cb) {
+export function search(input, cb) {
   db.allPages((err, pages) => {
     if (err) {
       return cb(err);
@@ -38,5 +38,3 @@ function search(input, cb) {
     return cb(null, results);
   });
 }
-
-module.exports = { search, similarNames, similarPages };

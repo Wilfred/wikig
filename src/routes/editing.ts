@@ -1,12 +1,12 @@
-const express = require("express");
-const createError = require("http-errors");
+import express from "express";
+import createError from "http-errors";
 const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 
-const memoryCache = require("../lib/cache");
-const emoji = require("../lib/emoji");
-const addShyHyphen = require("../lib/camelcase").addShyHyphen;
-const db = require("../db");
+import memoryCache from "../lib/cache";
+import * as emoji from "../lib/emoji";
+import { addShyHyphen } from "../lib/camelcase";
+import * as db from "../db";
 const router = express.Router();
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -22,7 +22,7 @@ router.use(
 );
 
 router.get("/new", (req, res) => {
-  const name = req.query.name;
+  const name = req.query.name as string;
 
   db.getPageByName(name, (err, page) => {
     if (err) {
@@ -33,7 +33,7 @@ router.get("/new", (req, res) => {
       // Page already exists, just redirect.
       return res.redirect("/" + name);
     } else {
-      page = { name };
+      page = { name } as any;
     }
 
     return res.render("edit", {
@@ -91,4 +91,4 @@ router.post("/edit/:id", urlencodedParser, (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
