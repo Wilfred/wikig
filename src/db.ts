@@ -1,3 +1,4 @@
+import { promisify } from "util";
 import sqlite3 from "sqlite3";
 
 sqlite3.verbose();
@@ -9,6 +10,16 @@ if (process.env.IN_MEMORY_DB) {
   // This will create the file if it doesn't exist.
   db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 }
+
+const dbRun = promisify<string, any[]>(
+  db.run.bind(db) as (sql: string, params: any[], cb: (err: Error | null) => void) => void,
+);
+const dbGet = promisify<string, any[], any>(
+  db.get.bind(db) as (sql: string, params: any[], cb: (err: Error | null, row: any) => void) => void,
+);
+const dbAll = promisify<string, any[]>(
+  db.all.bind(db) as (sql: string, cb: (err: Error | null, rows: any[]) => void) => void,
+);
 
 type Page = {
   page_id: number;
@@ -51,59 +62,37 @@ CREATE TABLE page_revisions (
   });
 }
 
-export function allPages(): Promise<Page[]> {
-  return new Promise((resolve, reject) => {
-    db.all(
-      `SELECT rowid, name, created, updated, content
+export async function allPages(): Promise<Page[]> {
+  return (await dbAll(
+    `SELECT rowid, name, created, updated, content
      FROM pages
      ORDER BY updated DESC`,
-      (err, rows: Page[]) => {
-        if (err) reject(err);
-        else resolve(rows);
-      },
-    );
-  });
+  )) as Page[];
 }
 
-export function allPageNames(): Promise<{ name: string }[]> {
-  return new Promise((resolve, reject) => {
-    db.all(
-      `SELECT name
+export async function allPageNames(): Promise<{ name: string }[]> {
+  return (await dbAll(
+    `SELECT name
      FROM pages`,
-      (err, rows: { name: string }[]) => {
-        if (err) reject(err);
-        else resolve(rows);
-      },
-    );
-  });
+  )) as { name: string }[];
 }
 
-export function getPageByName(name: string): Promise<Page | undefined> {
-  return new Promise((resolve, reject) => {
-    db.get(
-      `SELECT page_id, name, content, created, updated
+export async function getPageByName(
+  name: string,
+): Promise<Page | undefined> {
+  return (await dbGet(
+    `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
-      [name],
-      (err, row: Page | undefined) => {
-        if (err) reject(err);
-        else resolve(row);
-      },
-    );
-  });
+    [name],
+  )) as Page | undefined;
 }
 
-export function getPage(rowid: any): Promise<Page | undefined> {
-  return new Promise((resolve, reject) => {
-    db.get(
-      `SELECT page_id, name, content, created, updated
+export async function getPage(rowid: any): Promise<Page | undefined> {
+  return (await dbGet(
+    `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
-      [rowid],
-      (err, row: Page | undefined) => {
-        if (err) reject(err);
-        else resolve(row);
-      },
-    );
-  });
+    [rowid],
+  )) as Page | undefined;
 }
 
 export async function updatePage(
@@ -112,27 +101,15 @@ export async function updatePage(
   content: string,
 ): Promise<void> {
   // Based on https://stackoverflow.com/a/4330694/509706
-  await new Promise<void>((resolve, reject) => {
-    db.get(
-      `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
-      [pageid, name, content],
-      (err) => {
-        if (err) reject(err);
-        else resolve();
-      },
-    );
-  });
-  await new Promise<void>((resolve, reject) => {
-    db.get(
-      `UPDATE pages SET name = ?, content = ?, updated = ?
+  await dbGet(
+    `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
+    [pageid, name, content],
+  );
+  await dbGet(
+    `UPDATE pages SET name = ?, content = ?, updated = ?
      WHERE page_id = ?`,
-      [name, content, new Date().toISOString(), pageid],
-      (err) => {
-        if (err) reject(err);
-        else resolve();
-      },
-    );
-  });
+    [name, content, new Date().toISOString(), pageid],
+  );
 }
 
 // Create a page with this name and content, then return the newly
@@ -142,16 +119,10 @@ export async function createPage(
   content: string,
 ): Promise<Page> {
   // Based on https://stackoverflow.com/a/4330694/509706
-  await new Promise<void>((resolve, reject) => {
-    db.run(
-      `INSERT INTO pages (name, content) VALUES(?, ?)`,
-      [name, content],
-      (err) => {
-        if (err) reject(err);
-        else resolve();
-      },
-    );
-  });
+  await dbRun(
+    `INSERT INTO pages (name, content) VALUES(?, ?)`,
+    [name, content],
+  );
   const page = await getPageByName(name);
   return page!;
 }
