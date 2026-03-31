@@ -182,7 +182,7 @@ export function findEmoji(words: string[]): LabelledEmoji[] {
 }
 
 function words(txt: string): string[] {
-  return nlp(txt)
+  return (nlp(txt) as any)
     .normalize({ plurals: true, verbs: true })
     .terms()
     .out("array");

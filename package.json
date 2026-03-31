@@ -6,10 +6,11 @@
   "scripts": {
     "lint": "eslint . src src/bin/* --ignore-pattern '**/*.min.js' -f codeframe --fix",
     "format": "prettier --write src *.js",
-    "watch": "concurrently nodemon gulp",
+    "dev": "concurrently nodemon gulp",
     "gulp": "gulp",
-    "start": "node ./src/bin/www",
-    "init-db": "node ./src/bin/init-db",
+    "build": "tsc && mkdir -p dist/bin && cp src/bin/www dist/bin/www && cp src/bin/init-db dist/bin/init-db",
+    "start": "node ./dist/bin/www",
+    "init-db": "node ./dist/bin/init-db",
     "test": "IN_MEMORY_DB=true jest",
     "check": "tsc --noEmit",
     "tsc": "tsc"
@@ -69,6 +70,7 @@
     "nodemon": "^2.0.4",
     "prettier": "^3.4.2",
     "supertest": "^4.0.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.3"
   }
 }
