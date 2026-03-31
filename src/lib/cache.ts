@@ -6,4 +6,4 @@ const memoryCache = cacheManager.caching({
   ttl: 24 * 60 * 60,
 });
 
-module.exports = memoryCache;
+export default memoryCache;

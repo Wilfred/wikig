@@ -1,8 +1,8 @@
 const moment = require("moment");
-const express = require("express");
-const os = require("os");
-const emoji = require("../lib/emoji");
-const execSync = require("child_process").execSync;
+import express from "express";
+import os from "os";
+import * as emoji from "../lib/emoji";
+import { execSync } from "child_process";
 const router = express.Router();
 
 router.get("/version", (req, res) => {
@@ -25,4 +25,4 @@ router.get("/version", (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

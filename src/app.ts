@@ -1,15 +1,15 @@
-const createError = require("http-errors");
-const express = require("express");
-const exphbs = require("express-handlebars");
-const path = require("path");
-const compression = require("compression");
+import createError from "http-errors";
+import express from "express";
+import exphbs from "express-handlebars";
+import path from "path";
+import compression from "compression";
 
-const indexRouter = require("./routes/index");
-const pageRouter = require("./routes/pages");
-const editingRouter = require("./routes/editing");
-const versionRouter = require("./routes/version");
-const config = require("./config");
-const emoji = require("./lib/emoji");
+import indexRouter from "./routes/index";
+import pageRouter from "./routes/pages";
+import editingRouter from "./routes/editing";
+import versionRouter from "./routes/version";
+import * as config from "./config";
+import * as emoji from "./lib/emoji";
 
 const app = express();
 app.use(compression());
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res) => {
+app.use((err, req, res, _next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -56,4 +56,4 @@ app.use((err, req, res) => {
   res.render("error", { title: "Error", emoji: emoji.render("‼️") });
 });
 
-module.exports = app;
+export default app;

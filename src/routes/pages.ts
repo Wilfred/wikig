@@ -12,8 +12,8 @@ import * as emoji from "../lib/emoji";
 import * as commonmark from "../lib/commonmark";
 import { addSpaces } from "../lib/camelcase";
 
-const search = require("../lib/search");
-const memoryCache = require("../lib/cache");
+import * as search from "../lib/search";
+import memoryCache from "../lib/cache";
 
 const router = express.Router();
 
@@ -189,4 +189,4 @@ router.get("/:name", (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
