@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Fuse from "fuse.js";
 import stringSimilarity from "string-similarity";
+import { Page } from "../db";
 import * as db from "../db";
 
 export function similarNames(name: string, names: string[]): string[] {
@@ -30,7 +31,7 @@ export function similarPages(
 
 export function search(
   input: string,
-  cb: (err: Error | null, results?: any[]) => void,
+  cb: (err: Error | null, results?: Page[]) => void,
 ): void {
   db.allPages((err, pages) => {
     if (err) {

@@ -10,7 +10,7 @@ if (process.env.IN_MEMORY_DB) {
   db = new sqlite3.Database(process.env.DB_PATH || "wikig.db");
 }
 
-type Page = {
+export type Page = {
   page_id: number;
   name: string;
   content: string;
@@ -86,7 +86,7 @@ export function getPageByName(
 }
 
 export function getPage(
-  rowid: any,
+  rowid: number | string,
   callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
 ): void {
   db.get(
@@ -98,10 +98,10 @@ export function getPage(
 }
 
 export function updatePage(
-  pageid: any,
+  pageid: number | string,
   name: string,
   content: string,
-  callback: (this: sqlite3.Statement, err: Error | null, result: any) => void,
+  callback: (this: sqlite3.Statement, err: Error | null, result: unknown) => void,
 ): void {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(

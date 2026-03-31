@@ -17,6 +17,7 @@ module.exports = {
         allowExpressions: true,
       },
     ],
+    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-require-imports": "error",
     "no-alert": "warn",
     "no-console": ["warn", { allow: ["warn", "error"] }],
