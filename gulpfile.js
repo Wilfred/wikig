@@ -1,6 +1,5 @@
 const { src, dest, watch } = require("gulp");
 const minifyCSS = require("gulp-csso");
-const concatCss = require("gulp-concat-css");
 const purgecss = require("gulp-purgecss");
 const uglify = require("gulp-uglify");
 const rename = require("gulp-rename");
@@ -24,7 +23,7 @@ function css() {
     "node_modules/semantic-ui-css/components/table.css",
     "static/style.css",
   ])
-    .pipe(concatCss("bundle.css"))
+    .pipe(concat("bundle.css"))
     .pipe(
       purgecss({
         whitelist: [
