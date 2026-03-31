@@ -1,4 +1,4 @@
-const camelcase = require("./camelcase");
+import * as camelcase from "./camelcase";
 
 describe("Camelcase", () => {
   test("Add spaces to simple WikiWords", () => {
