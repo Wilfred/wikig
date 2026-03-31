@@ -29,4 +29,12 @@ module.exports = {
     "prefer-const": "error",
     "sort-imports": "warn",
   },
+  overrides: [
+    {
+      files: ["gulpfile.js", "src/bin/*"],
+      rules: {
+        "@typescript-eslint/no-require-imports": "off",
+      },
+    },
+  ],
 };
