@@ -18,11 +18,10 @@ type Page = {
   updated: string;
 };
 
-export function init(
-  cb: (this: sqlite3.RunResult, err: Error | null) => void,
-): void {
-  db.serialize(() => {
-    db.run(`
+export function init(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.run(`
 CREATE TABLE pages (
   page_id INTEGER PRIMARY KEY,
   name VARCHAR(1024) NOT NULL UNIQUE,
@@ -31,10 +30,10 @@ CREATE TABLE pages (
   updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 )`);
 
-    // TODO: Enable foreign key constraints.
-    // https://stackoverflow.com/q/15301643/509706
-    db.run(
-      `
+      // TODO: Enable foreign key constraints.
+      // https://stackoverflow.com/q/15301643/509706
+      db.run(
+        `
 CREATE TABLE page_revisions (
   revision_id INTEGER PRIMARY KEY,
   name VARCHAR(1024) NOT NULL,
@@ -43,96 +42,116 @@ CREATE TABLE page_revisions (
   page_id INTEGER NOT NULL,
   FOREIGN KEY (page_id) references pages(page_id)
 )`,
-      cb,
+        (err) => {
+          if (err) reject(err);
+          else resolve();
+        },
+      );
+    });
+  });
+}
+
+export function allPages(): Promise<Page[]> {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT rowid, name, created, updated, content
+     FROM pages
+     ORDER BY updated DESC`,
+      (err, rows: Page[]) => {
+        if (err) reject(err);
+        else resolve(rows);
+      },
     );
   });
 }
 
-export function allPages(
-  callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
-): void {
-  db.all(
-    `SELECT rowid, name, created, updated, content
-     FROM pages
-     ORDER BY updated DESC`,
-    callback,
-  );
-}
-
-export function allPageNames(
-  callback: (
-    this: sqlite3.Statement,
-    err: Error | null,
-    rows: { name: string }[],
-  ) => void,
-): void {
-  db.all(
-    `SELECT name
+export function allPageNames(): Promise<{ name: string }[]> {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT name
      FROM pages`,
-    callback,
-  );
+      (err, rows: { name: string }[]) => {
+        if (err) reject(err);
+        else resolve(rows);
+      },
+    );
+  });
 }
 
-export function getPageByName(
-  name: string,
-  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-): void {
-  db.get(
-    `SELECT page_id, name, content, created, updated
+export function getPageByName(name: string): Promise<Page | undefined> {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
-    [name],
-    callback,
-  );
+      [name],
+      (err, row: Page | undefined) => {
+        if (err) reject(err);
+        else resolve(row);
+      },
+    );
+  });
 }
 
-export function getPage(
-  rowid: any,
-  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-): void {
-  db.get(
-    `SELECT page_id, name, content, created, updated
+export function getPage(rowid: any): Promise<Page | undefined> {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
-    [rowid],
-    callback,
-  );
+      [rowid],
+      (err, row: Page | undefined) => {
+        if (err) reject(err);
+        else resolve(row);
+      },
+    );
+  });
 }
 
-export function updatePage(
+export async function updatePage(
   pageid: any,
   name: string,
   content: string,
-  callback: (this: sqlite3.Statement, err: Error | null, result: any) => void,
-): void {
+): Promise<void> {
   // Based on https://stackoverflow.com/a/4330694/509706
-  db.get(
-    `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
-    [pageid, name, content],
-    () =>
-      db.get(
-        `UPDATE pages SET name = ?, content = ?, updated = ?
+  await new Promise<void>((resolve, reject) => {
+    db.get(
+      `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
+      [pageid, name, content],
+      (err) => {
+        if (err) reject(err);
+        else resolve();
+      },
+    );
+  });
+  await new Promise<void>((resolve, reject) => {
+    db.get(
+      `UPDATE pages SET name = ?, content = ?, updated = ?
      WHERE page_id = ?`,
-        [name, content, new Date().toISOString(), pageid],
-        callback,
-      ),
-  );
+      [name, content, new Date().toISOString(), pageid],
+      (err) => {
+        if (err) reject(err);
+        else resolve();
+      },
+    );
+  });
 }
 
 // Create a page with this name and content, then return the newly
 // created page.
-export function createPage(
+export async function createPage(
   name: string,
   content: string,
-  callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-): void {
+): Promise<Page> {
   // Based on https://stackoverflow.com/a/4330694/509706
-  db.run(
-    `INSERT INTO pages (name, content) VALUES(?, ?)`,
-    [name, content],
-    (err) => {
-      if (err) {
-        return err;
-      }
-      return getPageByName(name, callback);
-    },
-  );
+  await new Promise<void>((resolve, reject) => {
+    db.run(
+      `INSERT INTO pages (name, content) VALUES(?, ?)`,
+      [name, content],
+      (err) => {
+        if (err) reject(err);
+        else resolve();
+      },
+    );
+  });
+  const page = await getPageByName(name);
+  return page!;
 }

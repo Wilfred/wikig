@@ -14,33 +14,16 @@ export function similarNames(name: string, names: string[]): string[] {
 // Find other pages whose name looks similar.
 // TODO: Consider word boundaries, so BananaPie and BandanaClothes are
 // less similar.
-export function similarPages(
-  name: string,
-  cb: (err: Error | null, names?: string[]) => void,
-): void {
-  db.allPageNames((err, names) => {
-    if (err) {
-      return cb(err);
-    }
-
-    const nameStrings = names.map((n) => n.name);
-    return cb(null, similarNames(name, nameStrings));
-  });
+export async function similarPages(name: string): Promise<string[]> {
+  const names = await db.allPageNames();
+  const nameStrings = names.map((n) => n.name);
+  return similarNames(name, nameStrings);
 }
 
-export function search(
-  input: string,
-  cb: (err: Error | null, results?: any[]) => void,
-): void {
-  db.allPages((err, pages) => {
-    if (err) {
-      return cb(err);
-    }
-
-    const fuse = new Fuse(pages, {
-      keys: ["name", "content"],
-    });
-    const results = fuse.search(input).map((r) => r.item);
-    return cb(null, results);
+export async function search(input: string): Promise<any[]> {
+  const pages = await db.allPages();
+  const fuse = new Fuse(pages, {
+    keys: ["name", "content"],
   });
+  return fuse.search(input).map((r) => r.item);
 }

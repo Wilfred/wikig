@@ -4,6 +4,6 @@
 
 const db = require("../db");
 
-db.init(() => {
+db.init().then(() => {
   console.log("DB created");
 });
