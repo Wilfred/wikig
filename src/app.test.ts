@@ -1,6 +1,6 @@
-const request = require("supertest");
-const app = require("./app");
-const db = require("./db");
+import request from "supertest";
+import app from "./app";
+import * as db from "./db";
 
 beforeAll((done) => {
   db.init(done);

@@ -1,4 +1,4 @@
-const emoji = require("./emoji");
+import * as emoji from "./emoji";
 
 describe("Emoji", () => {
   test("Find a word that matches exactly", () => {

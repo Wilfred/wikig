@@ -1,4 +1,4 @@
-const search = require("./search");
+import * as search from "./search";
 
 describe("String similarity", () => {
   test("Similar names", () => {
