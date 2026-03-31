@@ -14,7 +14,10 @@ export function similarNames(name: string, names: string[]): string[] {
 // Find other pages whose name looks similar.
 // TODO: Consider word boundaries, so BananaPie and BandanaClothes are
 // less similar.
-export function similarPages(name: string, cb: (err: Error | null, names?: string[]) => void): void {
+export function similarPages(
+  name: string,
+  cb: (err: Error | null, names?: string[]) => void,
+): void {
   db.allPageNames((err, names) => {
     if (err) {
       return cb(err);
@@ -25,7 +28,10 @@ export function similarPages(name: string, cb: (err: Error | null, names?: strin
   });
 }
 
-export function search(input: string, cb: (err: Error | null, results?: any[]) => void): void {
+export function search(
+  input: string,
+  cb: (err: Error | null, results?: any[]) => void,
+): void {
   db.allPages((err, pages) => {
     if (err) {
       return cb(err);

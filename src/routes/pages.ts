@@ -96,7 +96,7 @@ router.get("/random", (_, res) => {
 router.get("/search", (req, res) => {
   const term = req.query.term;
 
-  if (!term) {
+  if (!term || typeof term !== "string") {
     return res.render("search_form", {
       title: "Search",
       emoji: emoji.render("🔎"),
@@ -106,6 +106,14 @@ router.get("/search", (req, res) => {
   search.search(term, (err, pages) => {
     if (err) {
       console.error(err);
+    }
+
+    if (!pages) {
+      return res.render("search_results", {
+        title: "Search: " + term,
+        emoji: emoji.render("🔎"),
+        pages: [],
+      });
     }
 
     pages = pages.map((page) =>
