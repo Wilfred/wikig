@@ -1,6 +1,6 @@
 {
-  "exec": "DEBUG=wikig:* ./src/bin/www",
+  "exec": "DEBUG=wikig:* tsx ./src/bin/www",
   "watch": ["*"],
-  "ignore": ["node_modules/*"],
-  "ext": "www, js, html, css, json, md"
+  "ignore": ["node_modules/*", "dist/*"],
+  "ext": "www, js, ts, html, css, json, md"
 }
