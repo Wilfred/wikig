@@ -149,7 +149,7 @@ router.get("/:name", (req, res) => {
       let emojis = _.uniqBy(_.concat(titleEmoji, bodyEmoji), "key");
       // Render the page, highlighting markdown links to nonexistent
       // pages in a different colour.
-      let pageNames = names.map((p) => p.name);
+      const pageNames = names.map((p) => p.name);
 
       // @ts-ignore
       page.rendered = commonmark.render(page.content, (name: string) =>
