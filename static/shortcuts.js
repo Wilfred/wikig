@@ -6,7 +6,7 @@ var textareas = document.getElementsByTagName("textarea");
 
 for (var i = 0; i < textareas.length; i++) {
   var textarea = textareas[i];
-  textarea.addEventListener("keydown", function(e) {
+  textarea.addEventListener("keydown", function (e) {
     if (e.key === "Enter" && e.shiftKey) {
       e.preventDefault();
       textarea.closest("form").submit();
