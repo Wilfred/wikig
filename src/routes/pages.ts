@@ -37,7 +37,7 @@ function formatTime(created: string, updated: string): string {
   return `Created ${formatDate(created)}, updated ${formatTimeSince(updated)}`;
 }
 
-function noSuchPage(name: string, res: express.Response) {
+function noSuchPage(name: string, res: express.Response): void {
   search.similarPages(name, (err, names) => {
     if (err) {
       console.error(err);

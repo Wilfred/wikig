@@ -188,7 +188,7 @@ function words(txt: string): string[] {
     .out("array");
 }
 
-export function findWordEmoji(src: string) {
+export function findWordEmoji(src: string): LabelledEmoji[] {
   return findEmoji(words(src));
 }
 

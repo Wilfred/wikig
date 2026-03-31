@@ -50,7 +50,7 @@ CREATE TABLE page_revisions (
 
 export function allPages(
   callback: (this: sqlite3.Statement, err: Error | null, rows: Page[]) => void,
-) {
+): void {
   db.all(
     `SELECT rowid, name, created, updated, content
      FROM pages
@@ -65,7 +65,7 @@ export function allPageNames(
     err: Error | null,
     rows: { name: string }[],
   ) => void,
-) {
+): void {
   db.all(
     `SELECT name
      FROM pages`,
@@ -76,7 +76,7 @@ export function allPageNames(
 export function getPageByName(
   name: string,
   callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-) {
+): void {
   db.get(
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE name = ?`,
@@ -88,7 +88,7 @@ export function getPageByName(
 export function getPage(
   rowid: any,
   callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-) {
+): void {
   db.get(
     `SELECT page_id, name, content, created, updated
      FROM pages WHERE rowid = ?`,
@@ -102,7 +102,7 @@ export function updatePage(
   name: string,
   content: string,
   callback: (this: sqlite3.Statement, err: Error | null, result: any) => void,
-) {
+): void {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
     `INSERT INTO page_revisions (page_id, name, content) VALUES(?, ?, ?)`,
@@ -123,7 +123,7 @@ export function createPage(
   name: string,
   content: string,
   callback: (this: sqlite3.Statement, err: Error | null, row: Page) => void,
-) {
+): void {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.run(
     `INSERT INTO pages (name, content) VALUES(?, ?)`,

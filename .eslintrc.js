@@ -11,6 +11,12 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   extends: "eslint:recommended",
   rules: {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        allowExpressions: true,
+      },
+    ],
     "@typescript-eslint/no-require-imports": "error",
     "no-alert": "warn",
     "no-console": ["warn", { allow: ["warn", "error"] }],
@@ -33,6 +39,7 @@ module.exports = {
     {
       files: ["gulpfile.js", "src/bin/*"],
       rules: {
+        "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-require-imports": "off",
       },
     },
