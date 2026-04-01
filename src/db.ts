@@ -101,7 +101,11 @@ export function updatePage(
   pageid: number | string,
   name: string,
   content: string,
-  callback: (this: sqlite3.Statement, err: Error | null, result: unknown) => void,
+  callback: (
+    this: sqlite3.Statement,
+    err: Error | null,
+    result: unknown,
+  ) => void,
 ): void {
   // Based on https://stackoverflow.com/a/4330694/509706
   db.get(
