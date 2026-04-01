@@ -32,14 +32,12 @@ router.get("/new", (req, res) => {
     if (page) {
       // Page already exists, just redirect.
       return res.redirect("/" + name);
-    } else {
-      page = { name } as any;
     }
 
     return res.render("edit", {
       title: "New Page",
       emoji: emoji.render("🐣"),
-      page,
+      page: { name },
     });
   });
 });
