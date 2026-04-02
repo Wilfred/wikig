@@ -21,40 +21,38 @@ router.use(
   }),
 );
 
-router.get("/new", (req, res) => {
-  const name = req.query.name as string;
-
-  db.getPageByName(name, (err, page) => {
-    if (err) {
-      console.error(err);
-    }
+router.get("/new", async (req, res) => {
+  try {
+    const name = req.query.name as string;
+    const page = await db.getPageByName(name);
 
     if (page) {
       // Page already exists, just redirect.
       return res.redirect("/" + name);
-    } else {
-      page = { name } as any;
     }
 
     return res.render("edit", {
       title: "New Page",
       emoji: emoji.render("🐣"),
-      page,
+      page: { name },
     });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-router.post("/new", urlencodedParser, (req, res) => {
-  const name = req.body.name;
-  db.createPage(name, req.body.content, (err, _page) => {
-    if (err) {
-      console.error(err);
-    }
+router.post("/new", urlencodedParser, async (req, res) => {
+  try {
+    const name = req.body.name;
+    await db.createPage(name, req.body.content);
     // Remove cache of other pages, so we update link colours.
-    memoryCache.reset(() => {
-      res.redirect("/" + name);
-    });
-  });
+    await memoryCache.reset();
+    res.redirect("/" + name);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.use(
@@ -65,8 +63,9 @@ router.use(
   }),
 );
 
-router.get("/edit/:id", (req, res, next) => {
-  db.getPage(req.params.id, (err, page) => {
+router.get("/edit/:id", async (req, res, next) => {
+  try {
+    const page = await db.getPage(req.params.id);
     if (!page) {
       return next(createError(404));
     }
@@ -76,19 +75,22 @@ router.get("/edit/:id", (req, res, next) => {
       emoji: emoji.render("✏️"),
       page,
     });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-router.post("/edit/:id", urlencodedParser, (req, res) => {
-  const name = req.body.name;
-  db.updatePage(req.params.id, name, req.body.content, (err, _page) => {
-    if (err) {
-      console.error(err);
-    }
-    memoryCache.del("/" + name, () => {
-      res.redirect("/" + name);
-    });
-  });
+router.post("/edit/:id", urlencodedParser, async (req, res) => {
+  try {
+    const name = req.body.name;
+    await db.updatePage(req.params.id, name, req.body.content);
+    await memoryCache.del("/" + name);
+    res.redirect("/" + name);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 export default router;
