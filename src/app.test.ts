@@ -2,141 +2,154 @@ import request from "supertest";
 import app from "./app";
 import * as db from "./db";
 
-beforeAll((done) => {
-  db.init(done);
+beforeAll(async () => {
+  await db.init();
 });
 
 describe("Authentication", () => {
-  test("/edit GET", (done) => {
-    request(app)
-      .get("/edit/Foo")
-      .then((res) => {
-        expect(res.statusCode).toBe(401);
-        expect(res.headers["www-authenticate"]).toBe("Basic");
-        done();
-      });
+  test("/edit GET", async () => {
+    const res = await request(app).get("/edit/Foo");
+    expect(res.statusCode).toBe(401);
+    expect(res.headers["www-authenticate"]).toBe("Basic");
   });
-  test("/edit POST", (done) => {
-    db.createPage("EditAuthExample", "foo bar", (err, page) => {
-      expect(err).toBeNull();
+  test("/edit POST", async () => {
+    const page = await db.createPage("EditAuthExample", "foo bar");
 
-      request(app)
-        .post("/edit/" + page.page_id)
-        .type("form")
-        .send({ name: "EditPostExample", content: "hello world" })
-        .then((res) => {
-          expect(res.statusCode).toBe(401);
-          expect(res.headers["www-authenticate"]).toBe("Basic");
-          done();
-        });
-    });
+    const res = await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "EditPostExample", content: "hello world" });
+    expect(res.statusCode).toBe(401);
+    expect(res.headers["www-authenticate"]).toBe("Basic");
   });
 
-  test("/new GET", (done) => {
-    request(app)
-      .get("/new")
-      .then((res) => {
-        expect(res.statusCode).toBe(401);
-        expect(res.headers["www-authenticate"]).toBe("Basic");
-        done();
-      });
+  test("/new GET", async () => {
+    const res = await request(app).get("/new");
+    expect(res.statusCode).toBe(401);
+    expect(res.headers["www-authenticate"]).toBe("Basic");
   });
-  test("/new POST", (done) => {
-    request(app)
+  test("/new POST", async () => {
+    await request(app)
       .post("/new")
       .type("form")
       .send({ name: "FooBarBaz", content: "hello world" })
-      .expect(401, done);
+      .expect(401);
   });
 });
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
 describe("Editing", () => {
-  test("/new GET", (done) => {
-    request(app).get("/new").auth("admin", ADMIN_PASSWORD).expect(200, done);
+  test("/new GET", async () => {
+    await request(app).get("/new").auth("admin", ADMIN_PASSWORD).expect(200);
   });
-  test("/new POST", (done) => {
-    request(app)
+  test("/new POST", async () => {
+    await request(app)
       .post("/new")
       .type("form")
       .send({ name: "FooBar", content: "hello world" })
       .auth("admin", ADMIN_PASSWORD)
-      .expect(302, done);
+      .expect(302);
   });
 
-  test("/new when page exists", (done) => {
-    db.createPage("ExistingPage", "foo bar", (err, _page) => {
-      expect(err).toBeNull();
+  test("/new when page exists", async () => {
+    await db.createPage("ExistingPage", "foo bar");
 
-      request(app)
-        .get("/new?name=ExistingPage")
-        .auth("admin", ADMIN_PASSWORD)
-        .expect(302, done);
-    });
+    await request(app)
+      .get("/new?name=ExistingPage")
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(302);
   });
 
-  test("/edit GET", (done) => {
-    db.createPage("EditGetExample", "foo bar", (err, page) => {
-      expect(err).toBeNull();
+  test("/edit GET", async () => {
+    const page = await db.createPage("EditGetExample", "foo bar");
 
-      request(app)
-        .get("/edit/" + page.page_id)
-        .auth("admin", ADMIN_PASSWORD)
-        .expect(200, done);
-    });
+    await request(app)
+      .get("/edit/" + page.page_id)
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(200);
   });
-  test("/edit POST", (done) => {
-    db.createPage("EditPostExample", "foo bar", (err, page) => {
-      expect(err).toBeNull();
+  test("/edit POST", async () => {
+    const page = await db.createPage("EditPostExample2", "foo bar");
 
-      request(app)
-        .post("/edit/" + page.page_id)
-        .type("form")
-        .send({ name: "EditPostExample", content: "hello world" })
-        .auth("admin", ADMIN_PASSWORD)
-        .expect(302, done);
-    });
+    await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "EditPostExample2", content: "hello world" })
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(302);
+  });
+});
+
+describe("Database errors", () => {
+  test("init rejects when tables already exist", async () => {
+    await expect(db.init()).rejects.toThrow(/already exists/);
+  });
+
+  test("/new POST with an existing name responds with 500", async () => {
+    await db.createPage("DuplicateNewPage", "foo bar");
+
+    await request(app)
+      .post("/new")
+      .type("form")
+      .send({ name: "DuplicateNewPage", content: "hello world" })
+      .auth("admin", ADMIN_PASSWORD)
+      .timeout(2000)
+      .expect(500);
+  });
+
+  test("/edit POST renaming to an existing name responds with 500", async () => {
+    await db.createPage("RenameTarget", "foo bar");
+    const page = await db.createPage("RenameSource", "foo bar");
+
+    await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "RenameTarget", content: "hello world" })
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(500);
+
+    const unchanged = await db.getPage(page.page_id);
+    expect(unchanged?.name).toBe("RenameSource");
   });
 });
 
 describe("Viewing", () => {
-  test("/", (done) => {
-    request(app).get("/").expect(302, done);
+  test("/", async () => {
+    await request(app).get("/").expect(302);
   });
-  test("/all", (done) => {
-    request(app).get("/all").expect(200, done);
-  });
-
-  test("/random", (done) => {
-    request(app).get("/random").expect(302, done);
+  test("/all", async () => {
+    await request(app).get("/all").expect(200);
   });
 
-  test("/version", (done) => {
-    request(app).get("/version").expect(200, done);
+  test("/random", async () => {
+    await request(app).get("/random").expect(302);
   });
 
-  test("/AnExamplePage", (done) => {
-    db.createPage("AnExamplePage", "foo bar", () => {
-      request(app).get("/AnExamplePage").expect(200, done);
-    });
+  test("/version", async () => {
+    await request(app).get("/version").expect(200);
   });
 
-  test("/NoSuchPage", (done) => {
-    request(app).get("/NoSuchPage").expect(404, done);
+  test("/AnExamplePage", async () => {
+    await db.createPage("AnExamplePage", "foo bar");
+    await request(app).get("/AnExamplePage").expect(200);
   });
 
-  test("/search?term=foo", (done) => {
-    request(app).get("/search?term=foo").expect(200, done);
+  test("/NoSuchPage", async () => {
+    await request(app).get("/NoSuchPage").expect(404);
   });
 
-  test("/search", (done) => {
-    request(app).get("/search").expect(200, done);
+  test("/search?term=foo", async () => {
+    await request(app).get("/search?term=foo").expect(200);
+  });
+
+  test("/search", async () => {
+    await request(app).get("/search").expect(200);
   });
 });
 
 describe("Static content", () => {
-  test("/robots.txt", (done) => {
-    request(app).get("/robots.txt").expect(200, done);
+  test("/robots.txt", async () => {
+    await request(app).get("/robots.txt").expect(200);
   });
 });

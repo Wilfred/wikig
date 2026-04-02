@@ -4,6 +4,12 @@
 
 const db = require("../db");
 
-db.init(() => {
-  console.log("DB created");
-});
+db.init().then(
+  () => {
+    console.log("DB created");
+  },
+  (err) => {
+    console.error(`Could not create DB: ${err.message}`);
+    process.exitCode = 1;
+  },
+);
