@@ -6,6 +6,12 @@ on:
   pull_request:
 
 jobs:
+  actionlint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: reviewdog/action-actionlint@v1
+
   install:
     runs-on: ubuntu-24.04
     steps:
