@@ -136,5 +136,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/wilfred/wikig:latest
+            ghcr.io/wilfred/wikig:${{ github.sha }}
