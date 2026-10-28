@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # Matching Dockerfile
-          node-version: "20.4"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.4"
+          node-version: "24"
 
       - name: Restore node_modules
         uses: actions/cache/restore@v4
@@ -62,7 +62,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.4"
+          node-version: "24"
 
       - name: Restore node_modules
         uses: actions/cache/restore@v4
@@ -82,7 +82,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.4"
+          node-version: "24"
 
       - name: Restore node_modules
         uses: actions/cache/restore@v4
@@ -102,7 +102,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.4"
+          node-version: "24"
 
       - name: Restore node_modules
         uses: actions/cache/restore@v4
