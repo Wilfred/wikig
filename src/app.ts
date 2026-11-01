@@ -1,6 +1,6 @@
 import createError from "http-errors";
 import express from "express";
-import exphbs from "express-handlebars";
+import { engine } from "express-handlebars";
 import path from "path";
 import compression from "compression";
 
@@ -14,7 +14,7 @@ import * as emoji from "./lib/emoji";
 const app = express();
 app.use(compression());
 
-app.engine(".html", exphbs({ extname: ".html" }));
+app.engine(".html", engine({ extname: ".html" }));
 app.locals.SITE_NAME = config.SITE_NAME;
 app.locals.GOOGLE_ANALYTICS = config.GOOGLE_ANALYTICS;
 
