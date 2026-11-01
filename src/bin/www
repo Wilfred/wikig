@@ -6,7 +6,7 @@
  * Module dependencies.
  */
 
-const app = require("../app");
+const app = require("../app").default;
 const debug = require("debug")("wikig:server");
 const http = require("http");
 
