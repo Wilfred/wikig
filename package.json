@@ -12,7 +12,7 @@
     "build": "tsc && mkdir -p dist/bin && cp src/bin/www dist/bin/www && cp src/bin/init-db dist/bin/init-db",
     "start": "node ./dist/bin/www",
     "init-db": "node ./dist/bin/init-db",
-    "test": "IN_MEMORY_DB=true jest",
+    "test": "npm run build && IN_MEMORY_DB=true jest",
     "check": "tsc --noEmit",
     "tsc": "tsc"
   },
@@ -78,6 +78,9 @@
     "typescript": "^5.7.3"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
     }
