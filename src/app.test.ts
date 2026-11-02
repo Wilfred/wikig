@@ -136,6 +136,21 @@ describe("Viewing", () => {
     expect(res.text).toContain("<p>foo <strong>bar</strong></p>");
   });
 
+  test("renders page markdown and distinguishes missing links", async () => {
+    await db.createPage("RenderedLinkTarget", "target");
+    await db.createPage(
+      "RenderedPageExample",
+      "**Bold content** RenderedLinkTarget MissingLinkTarget",
+    );
+
+    const res = await request(app).get("/RenderedPageExample").expect(200);
+    expect(res.text).toContain("<strong>Bold content</strong>");
+    expect(res.text).toContain('<a href="RenderedLinkTarget">');
+    expect(res.text).toMatch(
+      /<a class="no-such-page" href="MissingLinkTarget">/,
+    );
+  });
+
   test("/NoSuchPage", async () => {
     await request(app).get("/NoSuchPage").expect(404);
   });
