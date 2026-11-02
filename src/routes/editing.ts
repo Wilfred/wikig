@@ -23,8 +23,12 @@ router.use(
 
 router.get("/new", async (req, res) => {
   try {
-    const name = req.query.name as string;
-    const page = await db.getPageByName(name);
+    const name = req.query.name;
+    if (name !== undefined && typeof name !== "string") {
+      res.status(400).send("Invalid page name");
+      return;
+    }
+    const page = name === undefined ? undefined : await db.getPageByName(name);
 
     if (page) {
       // Page already exists, just redirect.
