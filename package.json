@@ -53,11 +53,16 @@
     "twemoji": "^12.1.5"
   },
   "devDependencies": {
+    "@types/cache-manager": "^2.10.3",
     "@types/commonmark": "^0.27.9",
+    "@types/compression": "^1.8.1",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.1",
+    "@types/string-similarity": "^4.0.2",
+    "@types/supertest": "^2.0.16",
+    "@types/twemoji": "^12.1.2",
     "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.58.0",
     "concurrently": "^5.2.0",
