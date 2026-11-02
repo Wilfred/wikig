@@ -79,7 +79,7 @@
     "prettier": "^3.4.2",
     "supertest": "^4.0.2",
     "ts-jest": "^29.4.6",
-    "tsx": "^4.21.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.7.3"
   },
   "jest": {
