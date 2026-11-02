@@ -181,17 +181,11 @@ export function findEmoji(words: string[]): LabelledEmoji[] {
   return result;
 }
 
-interface NlpDocument {
-  normalize(opts: { plurals: boolean; verbs: boolean }): NlpDocument;
-  terms(): NlpDocument;
-  out(format: string): string[];
-}
-
 function words(txt: string): string[] {
-  return (nlp(txt) as unknown as NlpDocument)
-    .normalize({ plurals: true, verbs: true })
-    .terms()
-    .out("array");
+  const doc = nlp(txt);
+  // normalize mutates the document; its bundled return type is incorrect.
+  doc.normalize({ plurals: true, verbs: true });
+  return doc.terms().out("array");
 }
 
 export function findWordEmoji(src: string): LabelledEmoji[] {

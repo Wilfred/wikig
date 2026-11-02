@@ -32,4 +32,10 @@ describe("Language analysis", () => {
   test("Plurals", () => {
     expect(emoji.findWordEmoji("pythons")).toMatchObject([{ key: "snake" }]);
   });
+
+  test("Normalizes plurals and verbs across a sentence", () => {
+    expect(emoji.findWordEmoji("pythons were running")).toEqual(
+      emoji.findEmoji(["python", "run"]),
+    );
+  });
 });
