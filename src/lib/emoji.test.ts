@@ -38,4 +38,10 @@ describe("Language analysis", () => {
       emoji.findEmoji(["python", "run"]),
     );
   });
+
+  test("Normalizes irregular plurals and inflected verbs", () => {
+    expect(emoji.findWordEmoji("mice are swimming")).toEqual(
+      emoji.findEmoji(["mouse", "swim"]),
+    );
+  });
 });

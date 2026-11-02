@@ -182,10 +182,17 @@ export function findEmoji(words: string[]): LabelledEmoji[] {
 }
 
 function words(txt: string): string[] {
-  const doc = nlp(txt);
-  // normalize mutates the document; its bundled return type is incorrect.
-  doc.normalize({ plurals: true, verbs: true });
-  return doc.terms().out("array");
+  const result: unknown = nlp(txt)
+    .normalize({ nouns: true, verbs: true })
+    .terms()
+    .out("array");
+  if (
+    !Array.isArray(result) ||
+    !result.every((word) => typeof word === "string")
+  ) {
+    throw new TypeError("Expected compromise to return an array of words");
+  }
+  return result;
 }
 
 export function findWordEmoji(src: string): LabelledEmoji[] {
