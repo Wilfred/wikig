@@ -81,6 +81,58 @@ describe("Editing", () => {
   });
 });
 
+describe("Cache invalidation", () => {
+  test("/edit POST renaming a page invalidates the old URL", async () => {
+    const page = await db.createPage("RenameCacheOld", "old content");
+    await request(app).get("/RenameCacheOld").expect(200);
+    await request(app).get("/RenameCacheNew").expect(404);
+
+    await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "RenameCacheNew", content: "new content" })
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(302);
+
+    await request(app).get("/RenameCacheOld").expect(404);
+    const res = await request(app).get("/RenameCacheNew").expect(200);
+    expect(res.text).toContain("new content");
+  });
+
+  test("/edit POST renaming a page updates links on other pages", async () => {
+    const page = await db.createPage("LinkTargetOld", "foo bar");
+    await db.createPage("LinkSource", "See LinkTargetNew.");
+
+    const before = await request(app).get("/LinkSource").expect(200);
+    expect(before.text).toContain("no-such-page");
+
+    await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "LinkTargetNew", content: "foo bar" })
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(302);
+
+    const after = await request(app).get("/LinkSource").expect(200);
+    expect(after.text).not.toContain("no-such-page");
+  });
+
+  test("/edit POST invalidates a page whose name needs URL encoding", async () => {
+    const page = await db.createPage("Encoded Page", "old content");
+    await request(app).get("/Encoded%20Page").expect(200);
+
+    await request(app)
+      .post("/edit/" + page.page_id)
+      .type("form")
+      .send({ name: "Encoded Page", content: "new content" })
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(302);
+
+    const res = await request(app).get("/Encoded%20Page").expect(200);
+    expect(res.text).toContain("new content");
+  });
+});
+
 describe("Database errors", () => {
   test("init rejects when tables already exist", async () => {
     await expect(db.init()).rejects.toThrow(/already exists/);

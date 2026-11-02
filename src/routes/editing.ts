@@ -84,8 +84,15 @@ router.get("/edit/:id", async (req, res, next) => {
 router.post("/edit/:id", urlencodedParser, async (req, res) => {
   try {
     const name = req.body.name;
+    const oldPage = await db.getPage(req.params.id);
     await db.updatePage(req.params.id, name, req.body.content);
-    await memoryCache.del("/" + name);
+    if (oldPage && oldPage.name === name) {
+      // The cache key is the raw request path, so it's URL-encoded.
+      await memoryCache.del(encodeURI("/" + name));
+    } else {
+      // Renamed: the old URL and other pages' link colours are stale.
+      await memoryCache.reset();
+    }
     res.redirect("/" + name);
   } catch (err) {
     console.error(err);
