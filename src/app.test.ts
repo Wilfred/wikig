@@ -112,6 +112,26 @@ describe("Database errors", () => {
     const unchanged = await db.getPage(page.page_id);
     expect(unchanged?.name).toBe("RenameSource");
   });
+
+  test("/all renders the error page and logs when the database fails", async () => {
+    const dbError = new Error("SQLITE_ERROR: simulated failure");
+    const allPages = jest.spyOn(db, "allPages").mockRejectedValue(dbError);
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    try {
+      const res = await request(app).get("/all").timeout(2000).expect(500);
+
+      expect(res.headers["content-type"]).toMatch(/text\/html/);
+      expect(res.text).toContain("Something went wrong");
+      expect(res.text).not.toBe("Internal Server Error");
+      expect(consoleError).toHaveBeenCalledWith(dbError);
+    } finally {
+      allPages.mockRestore();
+      consoleError.mockRestore();
+    }
+  });
 });
 
 describe("Viewing", () => {
