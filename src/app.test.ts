@@ -41,8 +41,36 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
 describe("Editing", () => {
   test("/new GET", async () => {
-    await request(app).get("/new").auth("admin", ADMIN_PASSWORD).expect(200);
+    const res = await request(app)
+      .get("/new")
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(200);
+    expect(res.text).toContain(
+      'name="name" placeholder="PageNameHere" value=""',
+    );
   });
+
+  test("/new GET prefills a supplied name", async () => {
+    const res = await request(app)
+      .get("/new?name=NewExamplePage")
+      .auth("admin", ADMIN_PASSWORD)
+      .expect(200);
+    expect(res.text).toContain('value="NewExamplePage"');
+  });
+
+  test.each(["/new?name=", "/new?name=NewExamplePage"])(
+    "/new GET accepts a single string name: %s",
+    async (url) => {
+      await request(app).get(url).auth("admin", ADMIN_PASSWORD).expect(200);
+    },
+  );
+
+  test.each(["/new?name=One&name=Two", "/new?name[first]=One"])(
+    "/new GET rejects non-string names: %s",
+    async (url) => {
+      await request(app).get(url).auth("admin", ADMIN_PASSWORD).expect(400);
+    },
+  );
   test("/new POST", async () => {
     await request(app)
       .post("/new")
@@ -58,7 +86,8 @@ describe("Editing", () => {
     await request(app)
       .get("/new?name=ExistingPage")
       .auth("admin", ADMIN_PASSWORD)
-      .expect(302);
+      .expect(302)
+      .expect("Location", "/ExistingPage");
   });
 
   test("/edit GET", async () => {
