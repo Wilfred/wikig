@@ -154,10 +154,12 @@ router.get("/:name", async (req, res) => {
     // pages in a different colour.
     const pageNames = names.map((p) => p.name);
 
-    // @ts-ignore
-    page.rendered = commonmark.render(page.content, (name: string) =>
-      pageNames.includes(name) ? null : "no-such-page",
-    );
+    const renderedPage: db.Page & { rendered: string } = {
+      ...page,
+      rendered: commonmark.render(page.content, (name: string) =>
+        pageNames.includes(name) ? null : "no-such-page",
+      ),
+    };
 
     const related = search.similarNames(name, pageNames).slice(0, 2).join(", ");
 
@@ -175,7 +177,7 @@ router.get("/:name", async (req, res) => {
 
     res.render("page", {
       title: addSpaces(page.name),
-      page,
+      page: renderedPage,
       isHomePage: page.name === "HomePage",
       emojiStr,
       emoji: emoji.render(emojiStr),

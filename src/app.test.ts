@@ -131,8 +131,9 @@ describe("Viewing", () => {
   });
 
   test("/AnExamplePage", async () => {
-    await db.createPage("AnExamplePage", "foo bar");
-    await request(app).get("/AnExamplePage").expect(200);
+    await db.createPage("AnExamplePage", "foo **bar**");
+    const res = await request(app).get("/AnExamplePage").expect(200);
+    expect(res.text).toContain("<p>foo <strong>bar</strong></p>");
   });
 
   test("/NoSuchPage", async () => {
