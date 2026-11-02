@@ -86,6 +86,9 @@ router.get("/all", async (req, res) => {
 router.get("/random", async (_, res) => {
   try {
     const pages = await db.allPageNames();
+    if (pages.length === 0) {
+      return res.redirect("/");
+    }
     const page = randomItem(pages);
     res.redirect("/" + page.name);
   } catch (err) {
