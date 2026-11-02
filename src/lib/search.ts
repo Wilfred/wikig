@@ -5,8 +5,8 @@ import { Page } from "../db";
 import * as db from "../db";
 
 export function similarNames(name: string, names: string[]): string[] {
-  let matches = stringSimilarity.findBestMatch(name, names).ratings;
-  matches = _.sortBy(matches, "rating").map((match) => match.target);
+  const ratings = stringSimilarity.findBestMatch(name, names).ratings;
+  const matches = _.sortBy(ratings, "rating").map((match) => match.target);
   matches.reverse();
 
   return matches.filter((m) => m !== name);
